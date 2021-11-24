@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
+
+
 :root{
-  --primary: #52734d;
+    --stratos: #001B48;
+    --regalBlue: #02457A;
+    --bondiBlue: #018ABE;
+    --morningGlory: #97CADB;
+    --botticelli: #D6E8EE;
 
 }
 * {
@@ -7,4 +14,6 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 62.5%;       /*  10px = 1rem */
+    font-family: 'Quicksand', sans-serif;
+
 }
