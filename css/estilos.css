@@ -7,7 +7,7 @@
     --bondiBlue: #018ABE;
     --morningGlory: #97CADB;
     --botticelli: #D6E8EE;
-    --section-height: calc( 100vh - 4.1rem );
+    --section-height: calc( 100vh - 8.2rem );
 }
 * {
     margin: 0;
@@ -83,10 +83,11 @@ i{
 } 
 
 /* Secciones */
+
 section{
+    height: var(--section-height);
     max-width: 100vw;
     max-height: 100vh;
-    height: var(--section-height);
     width: 100%;
     border: 1px solid red;
 }
@@ -101,6 +102,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
+    height: calc(100vh - 4.1rem);
 }
 .inicio .title h1{
     font-size: 3rem;
@@ -118,16 +120,77 @@ section{
 }
 
 
+/* Paginas codigos */
+.tabs{
+    max-height: 53.9rem;
+    max-width: calc(21.16rem*5);
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+.algoritmo-section h2{
+    font-size: 4.2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--stratos);
+}
+.botones{
+    display: flex;
+}
+.botones button{
+    max-width: 21.16rem;
+    width: 100%;
+    height: 6.1rem;
+    color: var(--stratos);
+    outline: none;
+    border: 1px solid var(--stratos);
+    background-color: white;
+    font-size: 2.4rem;
+    margin: 0;
+    padding: 0;
+}
+.botones button .activo{
+    border-bottom: none;
+    background: var(--morningGlory);
+}
 
-
-
+/* Footer */
+footer{
+    max-width: 100vw;
+    background-color: var(--stratos);
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .1rem 5rem;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+.escudos{
+    display: flex;
+    gap: 1rem;
+}
+footer .escudos img{
+    width: 4rem;
+    height: 3.1rem;
+}
+footer p{
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+}
 
 
 /* MEDIA QUERYS */
 
+
 @media (min-width: 480px){
     .inicio .title h1{
         font-size: 4rem;
+    }
+    footer{
+        flex-direction: row;
     }
 }
 @media (min-width: 768px){
