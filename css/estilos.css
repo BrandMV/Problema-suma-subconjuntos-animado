@@ -25,6 +25,7 @@ html{
     color: white;
 }
 .navbar{
+    z-index: 999;
     margin: 0;
     padding: 0;
     min-height: 4.1rem;
@@ -48,7 +49,19 @@ html{
 .active:hover{
     color: var(--stratos);
 }
-/* .nav-item:nth-child(1):hover, .nav-item:nth-child(4):hover{
+i{
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+.offcanvas-body, .offcanvas-header{
+    background: var(--stratos);
+    overflow: hidden;
+}
+
+
+/* 
+.nav-item:nth-child(1):hover, .nav-item:nth-child(4):hover{
     background: var(--bondiBlue);
     color: white;
 
@@ -69,11 +82,16 @@ html{
     text-align: center;
 } 
 
+/* Secciones */
 section{
     max-width: 100vw;
     max-height: 100vh;
     height: var(--section-height);
     width: 100%;
+    border: 1px solid red;
+}
+.fondo{
+    background-color: var(--botticelli)
 }
 
 /* Inicio */
@@ -120,5 +138,9 @@ section{
         font-size: 7rem;
     }
 }
-
+@media (min-width: 992px){
+    .btn-close{
+        display:none;
+    }
+}
 
