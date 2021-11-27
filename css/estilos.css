@@ -146,9 +146,15 @@ section{
     border-top: none;
     border-right: none;
 }
-pre{
+/* pre{
     text-align: left;
+} */
+span{
+    font-size: 1.5rem;
 }
+/* span{
+    font-size: 1.5rem;
+} */
 .algoritmo-section h2{
     font-size: 2.5rem;
     font-weight: bold;
@@ -181,7 +187,9 @@ pre{
     background-color: white;
 }
 
-
+button.tab-activa{
+    background-color: var(--morningGlory);
+}
 
 
 
