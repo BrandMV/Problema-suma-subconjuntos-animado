@@ -1,10 +1,10 @@
 class UI {
-    #panel_animado = document.querySelector('#panel-animado');
+    panel_animado = document.querySelector('#panel-animado');
 
     constructor() {
         // Inicializamos el canvas
-        this.#panel_animado.setAttribute("height", window.innerHeight);
-        this.#panel_animado.setAttribute("width", window.innerWidth);
+        this.panel_animado.setAttribute("height", window.innerHeight);
+        this.panel_animado.setAttribute("width", window.innerWidth);
     }
 
     mostrarNodo({ level, numero, valor = "", info, id}) {
@@ -29,10 +29,10 @@ class UI {
         const grueso = 3;
         const color = '#02457A';
 
-        if (this.#panel_animado.getContext == null) return;
+        if (this.panel_animado.getContext == null) return;
 
         // Estableciendo el contexto
-        var ctx = this.#panel_animado.getContext('2d');
+        var ctx = this.panel_animado.getContext('2d');
         ctx.strokeStyle = color;
         ctx.lineWidth = grueso;
 
@@ -110,7 +110,40 @@ class UI {
             elemento_circulo.classList.add("color-false-circulo");
             elemento_info.classList.add("color-false-info");
         }
-    }       
+    }   
+    
+    resize() {
+        const context = this.panel_animado.getContext('2d');
+    
+        context.clearRect(0, 0, this.panel_animado.width, this.panel_animado.height);
+    
+        // Recorremos todos los nodos
+        root.forEach(nodo => {
+            if(nodo.izquierdo != null){
+                const elemento_info = document.querySelector(`div[data-id="${nodo.id}"] .nodo-info`);
+                const nodo_padre_x = elemento_info.getBoundingClientRect().x + elemento_info.clientWidth / 2;
+                const nodo_padre_y = elemento_info.getBoundingClientRect().y + elemento_info.clientHeight;
+               
+                const elemento_circulo = document.querySelector(`div[data-id="${nodo.izquierdo.id}"] .nodo-circulo`);
+                const nodo_hijo_x = elemento_circulo.getBoundingClientRect().x + elemento_circulo.clientWidth / 2;
+                const nodo_hijo_y = elemento_circulo.getBoundingClientRect().y;
+                
+                ui.agregarFlecha({ x: nodo_padre_x, y: nodo_padre_y }, { x: nodo_hijo_x, y: nodo_hijo_y });
+
+            } else if(nodo.derecho != null){
+                const elemento_info = document.querySelector(`div[data-id="${nodo.id}"] .nodo-info`);
+                const nodo_padre_x = elemento_info.getBoundingClientRect().x + elemento_info.clientWidth / 2;
+                const nodo_padre_y = elemento_info.getBoundingClientRect().y + elemento_info.clientHeight;
+               
+                const elemento_circulo = document.querySelector(`div[data-id="${nodo.derecho.id}"] .nodo-circulo`);
+                const nodo_hijo_x = elemento_circulo.getBoundingClientRect().x + elemento_circulo.clientWidth / 2;
+                const nodo_hijo_y = elemento_circulo.getBoundingClientRect().y;
+                
+                this.agregarFlecha({ x: nodo_padre_x, y: nodo_padre_y }, { x: nodo_hijo_x, y: nodo_hijo_y });
+            }  
+            console.log(nodo);
+        });
+    }
 }
 
 class Arbol{
@@ -148,6 +181,15 @@ class Arbol{
         return this.padre;
     }
 
+    forEach(callback){
+        callback(this);
+
+        if(this.izquierdo != null)
+            this.izquierdo.forEach(callback);
+
+        if(this.derecho != null)
+            this.derecho.forEach(callback);
+    }
 }
 
 // Creamos el nodo raiz e inicializamos el canvas
@@ -183,19 +225,9 @@ function agregarNodo(nodo_padre, valor, id, info, numero, posicion){
 }
 
 
-function resize() {
-    let nodo = document.querySelector('#level-0 .nodo:first-child .nodo-info');
-    const nodo_x = nodo.getBoundingClientRect().x + nodo.clientWidth / 2;
-    const nodo_y = nodo.getBoundingClientRect().y + nodo.clientHeight;
 
-    nodo = document.querySelector('#level-1 .nodo:nth-child(2) .nodo-circulo');
-    const nodoSec_x = nodo.getBoundingClientRect().x + nodo.clientWidth / 2;
-    const nodoSec_y = nodo.getBoundingClientRect().y;
 
-    dibujarFlecha({ x: nodo_x, y: nodo_y }, { x: nodoSec_x, y: nodoSec_y }, panel_animado);
-}
-
-window.onresize = resize;
+window.onresize = ui.resize;
 
 /**
  * Función que obtiene los coeficientes para la recta entre dos puntos
