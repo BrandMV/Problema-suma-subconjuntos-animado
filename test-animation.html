@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Animación del algoritmo del problema de la suma de subconjuntos">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="./libs/pretify/prettify.css">
+    <title>Problema de la suma de subconjuntos</title>
+</head>
+
+<body onload="PR.prettyPrint()">
+    <canvas id="panel-animado"></canvas>
+
+    <div id="ini"></div>
+
+    <!-- seccion de Animación -->
+    <section class="algoritmo-section fondo" id="animacion-seccion">
+        <div class="panel-control bg-gradient h-20 w-100">
+
+        </div>
+        <div class="panel-visible h-80 w-75">
+            <div class="row level" id="level-0">
+                <div class="nodo" data-id="0"></div>
+            </div>
+            <div class="row level" id="level-1">
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+            </div>
+            <div class="row level" id="level-2">
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+            </div>
+            <div class="row level" id="level-3">
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+            </div>
+            <div class="row level" id="level-4">
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+                <div class="nodo" data-id=""></div>
+            </div>
+        </div>
+    </section>
+    <div class="caja" id="caja" style="position: absolute; background-color: black; height: 200px !important;">
+
+    </div>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/brute-force.js"></script>
+    <script src="./libs/pretify/prettify.js"></script>
+</body>
+
+</html>

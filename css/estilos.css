@@ -7,8 +7,40 @@
     --bondiBlue: #018ABE;
     --morningGlory: #97CADB;
     --botticelli: #D6E8EE;
+    --red:#C63030;
+    --redLight: #F15D5D;
+    --green: #3A8234;
+    --greenLight: #6CBD65;
     --section-height: calc( 100vh - 8.2rem );
 }
+.color-default-circulo{
+    background-color: var(--regalBlue) !important;
+}
+.color-default-info{
+    background-color: var(--bondiBlue) !important;
+}
+.color-false-circulo{
+    background-color: var(--red) !important;
+}
+.color-false-info{
+    background-color: var(--redLight) !important;
+}
+.color-true-circulo{
+    background-color: var(--green) !important;
+}
+.color-true-info{
+    background-color: var(--greenLight) !important;
+}
+.h-20 {
+    height: 20%!important;
+}
+.h-80 {
+    height: 80%!important;
+}
+.w-6-25 {
+    width: 6.25%!important;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -191,7 +223,71 @@ button.tab-activa{
     background-color: var(--morningGlory);
 }
 
+/* ------------------SECCIÓN ANIMACIÓN------------------*/
+#panel-animado{
+    position: absolute; 
+    width: 100%; 
+    height: 100%
+}
+.panel-visible .level{
+    display: flex;
+    flex-direction: row;
 
+    align-items: center;
+    justify-content: space-around;
+
+    height: 20%!important;
+
+    background-color:#D6E7EE;
+}
+.level .nodo{
+    width: 6.25%!important; /*Dividido por los 6 posiblres nodos*/
+    height: 100%!important;
+
+    background-color: #4285a1;
+    background-color: #D6E7EE;
+}
+.level .nodo{
+    padding: 0.1%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.level .nodo .nodo-circulo{
+    margin: 0 auto;
+    width: 80%!important;
+    height: 55%!important;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.level .nodo .nodo-circulo span{
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+.level .nodo .nodo-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 70%;
+    margin-top: -10%;
+    border-radius: 20%;
+}
+
+.level .nodo .nodo-info span{
+    font-size: small;
+    font-weight: bold;
+    color: white;
+}
 
 /* Footer */
 footer{

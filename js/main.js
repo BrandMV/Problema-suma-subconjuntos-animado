@@ -1,5 +1,3 @@
-
-
 const navItem1 = document.getElementById("inicio")
 const navItem2 = document.getElementById("algoritmo")
 const navItem3 = document.getElementById("explicacion")
@@ -32,18 +30,18 @@ navItem4.addEventListener('click', e => {
 
 //*Para pestañas de códigos
 const openCode = (leng) => {
-    let btn = leng+"-btn"
+    let btn = leng + "-btn"
     console.log(btn);
     let i
     let code = document.getElementsByClassName("codigo")
     let codebtn = document.getElementsByClassName("codigo-btn")
-    for(i=0;i<code.length;i++){
+    for (i = 0; i < code.length; i++) {
         code[i].style.display = "none"
-        
+
     }
-    for(i=0;i<codebtn.length;i++){
+    for (i = 0; i < codebtn.length; i++) {
         codebtn[i].setAttribute('style', "background: white;")
-        
+
     }
     document.getElementById(btn).setAttribute('style', "border-bottom: none;background: var(--morningGlory);")
 
@@ -52,18 +50,18 @@ const openCode = (leng) => {
 }
 
 const openCodeDP = (leng) => {
-    let btn = leng+"-btn"
+    let btn = leng + "-btn"
     console.log(btn);
     let i
     let code = document.getElementsByClassName("codigo-dp")
     let codebtn = document.getElementsByClassName("codigo-btn-dp")
-    for(i=0;i<code.length;i++){
+    for (i = 0; i < code.length; i++) {
         code[i].style.display = "none"
-        
+
     }
-    for(i=0;i<codebtn.length;i++){
+    for (i = 0; i < codebtn.length; i++) {
         codebtn[i].setAttribute('style', "background: white;")
-        
+
     }
     document.getElementById(btn).setAttribute('style', "border-bottom: none;background: var(--morningGlory);")
 
