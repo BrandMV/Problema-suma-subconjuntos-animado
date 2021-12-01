@@ -226,67 +226,75 @@ button.tab-activa{
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
 #panel-animado{
     position: absolute; 
-    width: 100%; 
-    height: 100%
+    width: 100vw; 
+    height: 100vh;
 }
 .panel-visible .level{
+    /*Propiedades flex*/
     display: flex;
     flex-direction: row;
-
     align-items: center;
     justify-content: space-around;
 
+    /*Tamaño (dividido entre 5 verticalmente)*/
     height: 20%!important;
 
     background-color:#D6E7EE;
 }
 .level .nodo{
-    width: 6.25%!important; /*Dividido por los 6 posiblres nodos*/
-    height: 100%!important;
-
-    background-color: #4285a1;
-    background-color: #D6E7EE;
-}
-.level .nodo{
-    padding: 0.1%;
-
+    /*Propiedades flex*/
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    /*Tamaño dividido entre 16 nodos posibles horizontalmente*/
+    width: 6.25%!important;
+    height: 100%!important;
+    padding: 0.1rem;
+
+    /* background-color: #4285a1; */
+    background-color: #D6E7EE;
+
+    font-size: 1.4rem;
 }
 
 .level .nodo .nodo-circulo{
-    margin: 0 auto;
-    width: 80%!important;
-    height: 55%!important;
-
-    border-radius: 50%;
-
+    /*Propiedades flex*/
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /*Tamaños*/
+    margin: 0 auto;
+    width: 6em !important;
+    height: 6em !important;
+    border-radius: 50%;
 }
+
 .level .nodo .nodo-circulo span{
-    font-size: large;
     font-weight: bold;
     color: white;
+    font-size: 3em;
 }
+
 .level .nodo .nodo-info{
+    /*Propiedades flex*/
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    width: 70%;
+    /*Tamaños*/
+    width: 6em;
     margin-top: -10%;
     border-radius: 20%;
 }
 
 .level .nodo .nodo-info span{
-    font-size: small;
     font-weight: bold;
     color: white;
+    font-size: 2em;
 }
 
 /* Footer */
@@ -318,8 +326,6 @@ footer p{
 
 
 /* MEDIA QUERYS */
-
-
 @media (min-width: 480px){
     .inicio .title h1{
         font-size: 4rem;
@@ -330,7 +336,19 @@ footer p{
     .algoritmo-section h2{
         font-size: 4.2rem;
     }
+    .level .nodo{
+        padding: 0.1rem;
+        font-size: 0.6rem;
+    }
 }
+
+@media (min-width: 600px) {
+    .level .nodo{
+        padding: 0.1rem;
+        font-size: 0.8rem;
+    }
+}
+
 @media (min-width: 768px){
     .title{
         max-width: 70rem;
@@ -341,10 +359,24 @@ footer p{
     .botones button{
         font-size: 2.4rem;
     }
+    .level .nodo{
+        padding: 0.1rem;
+        font-size: 0.9rem;
+    }
 }
 @media (min-width: 992px){
     .btn-close{
         display:none;
     }
+    .level .nodo{
+        padding: 0.1rem;
+        font-size: 1.1rem;
+    }
 }
 
+@media(min-width: 1600px){
+    .level .nodo{
+        padding: 0.1rem;
+        font-size: 1.5rem;
+    }
+}
