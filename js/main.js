@@ -7,25 +7,32 @@ navItem1.addEventListener('click', e => {
     navItem2.classList.remove('active')
     navItem3.classList.remove('active')
     navItem4.classList.remove('ia-active')
-
+    e.stopPropagation();
+    manejarSecciones(e.target.id);
 })
 navItem2.addEventListener('click', e => {
     navItem1.classList.remove('ia-active')
     navItem2.classList.add('active')
     navItem3.classList.remove('active')
     navItem4.classList.remove('ia-active')
+    e.stopPropagation();
+    manejarSecciones(e.target.id);
 })
 navItem3.addEventListener('click', e => {
     navItem1.classList.remove('ia-active')
     navItem2.classList.remove('active')
     navItem3.classList.add('active')
     navItem4.classList.remove('ia-active')
+    e.stopPropagation();
+    manejarSecciones(e.target.id);
 })
 navItem4.addEventListener('click', e => {
     navItem1.classList.remove('ia-active')
     navItem2.classList.remove('active')
     navItem3.classList.remove('active')
     navItem4.classList.add('ia-active')
+    e.stopPropagation();
+    manejarSecciones(e.target.id);
 })
 
 //*Para pestañas de códigos
@@ -69,4 +76,42 @@ const openCodeDP = (leng) => {
     document.getElementById(leng).style.display = "block"
 }
 
+/* Para la navegación con el menú*/
+function manejarSecciones(seccion_id){
+    const dict_secciones = {
+        "inicio": "inicio-seccion",
+        "algoritmo": "algoritmo-seccion",
+        "explicacion": "explicacion-seccion",
+        "animacion": "animacion-seccion"
+    };
 
+    // Ocultamos las demas secciones
+    for (const entry in dict_secciones){
+        document.getElementById(dict_secciones[entry]).classList.add('d-none');
+    }
+    // Mostramos la sección seleccionada
+    document.getElementById(dict_secciones[seccion_id]).classList.remove('d-none');
+
+    // Ocultamos el canvas
+    if(document.querySelector("#panel-animado")){
+        document.querySelector("#panel-animado").classList.add('d-none');
+    }
+
+    // En otras secciones ponemos el footer
+    document.querySelector("footer").classList.remove('d-none');
+    
+    // En inicio quitamos el footer
+    if(seccion_id === "inicio"){
+        document.querySelector("footer").classList.add('d-none');
+        return;
+    } 
+    
+    if(seccion_id === "animacion"){// Mostramos el canvas
+        document.querySelector("#panel-animado").classList.remove('d-none');    
+    }
+}
+
+// Configuramos la pantalla de inicio
+(function(){
+    manejarSecciones('inicio');
+})();

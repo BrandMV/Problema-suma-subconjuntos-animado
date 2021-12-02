@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +13,13 @@
     <link rel="stylesheet" href="./libs/pretify/prettify.css">
     <title>Problema de la suma de subconjuntos</title>
 </head>
+
 <body onload="PR.prettyPrint()">
+    <canvas id="panel-animado"></canvas>
+
     <div id="ini"></div>
     <header class="header sticky-top">
-         <!-- <nav class="navbar navbar-expand-lg" > 
+        <!-- <nav class="navbar navbar-expand-lg" > 
              <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
@@ -39,41 +43,44 @@
                 </div>
             </div> 
              </nav>  -->
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                  </button>
-                  <div class="offcanvas offcanvas-end" tabindex="-4" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                      <div class="offcanvas-body">
-                          <div class="offcanvas-header d-flex justify-content-end">
-                            <button type="button" class="btn-close text-reset fs-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                          </div>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-4" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-body">
+                        <div class="offcanvas-header d-flex justify-content-end">
+                            <button type="button" class="btn-close text-reset fs-1" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
                         <ul class="navbar-nav w-100 mx-5 d-flex justify-content-end">
                             <li class="nav-item">
-                                <a class="nav-link ia-active" aria-current="page" href="#ini" id="inicio">Inicio</a>
+                                <a class="nav-link ia-active" aria-current="page" id="inicio">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#algoritmo-seccion" id="algoritmo">Algoritmo</a>
+                                <a class="nav-link" id="algoritmo">Algoritmo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#explicacion-seccion" id="explicacion">Explicación</a>
+                                <a class="nav-link" id="explicacion">Explicación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#animacion-seccion" id="animacion">Animación</a>
+                                <a class="nav-link" id="animacion">Animación</a>
                             </li>
-        
+
                         </ul>
                     </div>
-                  </div>
                 </div>
-              </nav>
+            </div>
+        </nav>
     </header>
 
     <!-- seccion de inicio -->
-    <section class="inicio">
+    <section class="inicio" id="inicio-seccion">
         <div class="title">
-            <h1>Problema de la suma de subconjuntos</h1>        
+            <h1>Problema de la suma de subconjuntos</h1>
         </div>
     </section>
 
@@ -90,17 +97,52 @@
             </div>
             <div class="codigo fs-3" id="c++">
                 <pre class="prettyprint lang-cpp">
-                    
-        #include < iostream>
-        using namespace std;
-        
-        bool esSumaConjunto(int conjunto[], int n, int sum){
+
+            #include < iostream>
+            using namespace std;
+            
+            bool esSumaConjunto(int conjunto[], int n, int sum){
+            
+                //* Casos base
+                if( sum == 0 )
+                    return true;
+                if( sum < 0 || (n == 0 && sum != 0) )
+                    return false;
+            
+                //* Si el último elemento es mayor a la suma que estamos verificando se ignora
+                if( conjunto[n-1] > sum )
+                    return esSumaConjunto(conjunto, n-1, sum);
+            
+                //* La primera opciòn es no incluirlo, la segunda es incluirlo
+                return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1]);
+            }
+            
+            int main(){
+                int conjunto[] = { 2,6,4,8 };
+                int sum = 10;
+                int n = sizeof(conjunto) / sizeof(conjunto[0]);
+                if (esSumaConjunto(conjunto, n, sum) == true)
+                    cout <<"Se encontro un subconjunto con la suma dada";
+                else
+                    cout <<"No se encontro un subconjunto con la suma dada";
+                return 0;
+            }
+                    </pre>
+            </div>
+
+            <div class="codigo fs-3" id="c" style="display:none">
+                <pre class="prettyprint lang-c">
+
+        #include < stdlib.h>
+        #include < stdio.h>
+            
+        int esSumaConjunto(int conjunto[], int n, int sum){
         
             //* Casos base
             if( sum == 0 )
-                return true;
+                return 1;
             if( sum < 0 || (n == 0 && sum != 0) )
-                return false;
+                return 0;
         
             //* Si el último elemento es mayor a la suma que estamos verificando se ignora
             if( conjunto[n-1] > sum )
@@ -114,337 +156,115 @@
             int conjunto[] = { 2,6,4,8 };
             int sum = 10;
             int n = sizeof(conjunto) / sizeof(conjunto[0]);
-            if (esSumaConjunto(conjunto, n, sum) == true)
-                cout <<"Se encontro un subconjunto con la suma dada";
+            if (esSumaConjunto(conjunto, n, sum) == 1)
+                printf("Se encontro un subconjunto con la suma dada");
             else
-                cout <<"No se encontro un subconjunto con la suma dada";
+                printf("No se encontro un subconjunto con la suma dada");
             return 0;
         }
-                </pre>
-            </div>
-
-            <div class="codigo fs-3" id="c" style="display:none">
-                <pre class="prettyprint lang-c">
-
-    #include < stdlib.h>
-    #include < stdio.h>
-        
-    int esSumaConjunto(int conjunto[], int n, int sum){
-    
-        //* Casos base
-        if( sum == 0 )
-            return 1;
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return 0;
-    
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum);
-    
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1]);
-    }
-    
-    int main(){
-        int conjunto[] = { 2,6,4,8 };
-        int sum = 10;
-        int n = sizeof(conjunto) / sizeof(conjunto[0]);
-        if (esSumaConjunto(conjunto, n, sum) == 1)
-            printf("Se encontro un subconjunto con la suma dada");
-        else
-            printf("No se encontro un subconjunto con la suma dada");
-        return 0;
-    }
-                </pre>     
+                    </pre>
             </div>
             <div class="codigo fs-3" id="java" style="display:none">
                 <pre class="prettyprint lang-java">
-                    
-    class SSP {
 
-        static boolean esSumaConjunto(int conjunto[], int n, int sum)
-        {
-            //* Casos base
-            if( sum == 0 )
-                return true;
-            if( sum < 0 || (n == 0 && sum != 0) )
-                return false;
+        class SSP {
     
-            //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-            if (conjunto[n - 1] > sum)
-                return esSumaConjunto(conjunto, n - 1, sum);
-    
-            //* La primera opciòn es no incluirlo, la segunda es incluirlo
-            return esSumaConjunto(conjunto, n - 1, sum)
-                || esSumaConjunto(conjunto, n - 1, sum - conjunto[n - 1]);
+            static boolean esSumaConjunto(int conjunto[], int n, int sum)
+            {
+                //* Casos base
+                if( sum == 0 )
+                    return true;
+                if( sum < 0 || (n == 0 && sum != 0) )
+                    return false;
+        
+                //* Si el último elemento es mayor a la suma que estamos verificando se ignora
+                if (conjunto[n - 1] > sum)
+                    return esSumaConjunto(conjunto, n - 1, sum);
+        
+                //* La primera opciòn es no incluirlo, la segunda es incluirlo
+                return esSumaConjunto(conjunto, n - 1, sum)
+                    || esSumaConjunto(conjunto, n - 1, sum - conjunto[n - 1]);
+            }
+        
+            public static void main(String args[])
+            {
+                int conjunto[] = { 2,6,4,8 };
+                int sum = 10;
+                int n = conjunto.length;
+                if (esSumaConjunto(conjunto, n, sum) == true)
+                    System.out.println("Se encontro un subconjunto con la suma dada");
+                else
+                    System.out.println("Se encontro un subconjunto con la suma dado");
+            }
         }
-    
-        public static void main(String args[])
-        {
-            int conjunto[] = { 2,6,4,8 };
-            int sum = 10;
-            int n = conjunto.length;
-            if (esSumaConjunto(conjunto, n, sum) == true)
-                System.out.println("Se encontro un subconjunto con la suma dada");
-            else
-                System.out.println("Se encontro un subconjunto con la suma dado");
-        }
-    }
-                </pre>               
+                    </pre>
             </div>
             <div class="codigo fs-3" id="python" style="display:none">
                 <pre class="prettyprint">
-                    
-    def esSumaConjunto(conjunto, n, sum):
-        #*Casos base
-            if( sum == 0 ):
-                return True
-            if( sum < 0 or (n == 0 and sum != 0) ):
-                return False
-    
-        #* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if (conjunto[n - 1] > sum):
-            return esSumaConjunto(conjunto, n - 1, sum)
-    
-        #* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(
-            set, n-1, sum) or esSumaConjunto(
-            set, n-1, sum-conjunto[n-1])
-    
-    conjunto = [2,6,4,8]
-    sum = 10
-    n = len(conjunto)
-    if (esSumaConjunto(conjunto, n, sum) == True):
-        print("Se encontro un subconjunto con la suma dada")
-    else:
-        print("Se encontro un subconjunto con la suma dado")
-                </pre> 
+
+        def esSumaConjunto(conjunto, n, sum):
+            #*Casos base
+                if( sum == 0 ):
+                    return True
+                if( sum < 0 or (n == 0 and sum != 0) ):
+                    return False
+        
+            #* Si el último elemento es mayor a la suma que estamos verificando se ignora
+            if (conjunto[n - 1] > sum):
+                return esSumaConjunto(conjunto, n - 1, sum)
+        
+            #* La primera opciòn es no incluirlo, la segunda es incluirlo
+            return esSumaConjunto(
+                set, n-1, sum) or esSumaConjunto(
+                set, n-1, sum-conjunto[n-1])
+        
+        conjunto = [2,6,4,8]
+        sum = 10
+        n = len(conjunto)
+        if (esSumaConjunto(conjunto, n, sum) == True):
+            print("Se encontro un subconjunto con la suma dada")
+        else:
+            print("Se encontro un subconjunto con la suma dado")
+                    </pre>
             </div>
             <div class="codigo fs-3" id="js" style="display:none">
                 <pre class="prettyprint lang-scm">
 
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
-
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre>
+        /**
+            * @param {array} conjunto Conjunto que contiene los valores
+            * @param {int} n Longitud del conjunto
+            * @param {int} sum Suma a verificar
+            * @returns True si existe una suma, false si no
+        */
+            const esSumaConjunto = (conjunto, n, sum) =>{
+    
+            //* Casos base
+            if( sum == 0 )
+                return true
+            if( sum < 0 || (n == 0 && sum != 0) )
+                return false
+    
+    
+            //* Si el último elemento es mayor a la suma que estamos verificando se ignora
+            if( conjunto[n-1] > sum )
+                return esSumaConjunto(conjunto, n-1, sum)
+    
+                            
+            //* La primera opciòn es no incluirlo, la segunda es incluirlo
+            return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
+    
+        }
+    
+        let conjunto = [2,6,4,8]
+        let sum = 10
+        let n = conjunto.length
+    
+        esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
+                    </pre>
             </div>
         </div>
     </section>
-    <section class="algoritmo-section fondo d-flex flex-column align-items-center justify-content-center" id="algoritmo-seccion">
-        <h2>Código Programación dinámica</h2>
-        <div class="tabs">
-            <div class="botones">
-                <button id="c++-dp-btn" class="codigo-btn-dp tab-activa" onclick="openCodeDP('c++-dp')">C++</button>
-                <button id="c-dp-btn" class="codigo-btn-dp" onclick="openCodeDP('c-dp')">C</button>
-                <button id="java-dp-btn" class="codigo-btn-dp" onclick="openCodeDP('java-dp')">JAVA</button>
-                <button id="python-dp-btn" class="codigo-btn-dp" onclick="openCodeDP('python-dp')">PYTHON</button>
-                <button id="js-dp-btn" class="codigo-btn-dp" onclick="openCodeDP('js-dp')">JAVASCRIPT</button>
-            </div>
-            <div class="codigo-dp fs-3" id="c++-dp">
-                <pre class="prettyprint">
-                    
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
 
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre>
-            </div>
-
-            <div class="codigo-dp fs-3" id="c-dp" style="display:none">
-                <pre class="prettyprint">
-            esto es c     
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
-
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre>     
-            </div>
-            <div class="codigo-dp fs-3" id="java-dp" style="display:none">
-                <pre class="prettyprint">
-                    
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
-
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre>               
-            </div>
-            <div class="codigo-dp fs-3" id="python-dp" style="display:none">
-                <pre class="prettyprint">
-                    
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
-
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre> 
-            </div>
-            <div class="codigo-dp fs-3" id="js-dp" style="display:none">
-                <pre class="prettyprint">
-                    
-    /**
-        * @param {array} conjunto Conjunto que contiene los valores
-        * @param {int} n Longitud del conjunto
-        * @param {int} sum Suma a verificar
-        * @returns True si existe una suma, false si no
-    */
-        const esSumaConjunto = (conjunto, n, sum) =>{
-
-        //* Casos base
-        if( sum == 0 )
-            return true
-        if( sum < 0 || (n == 0 && sum != 0) )
-            return false
-
-
-        //* Si el último elemento es mayor a la suma que estamos verificando se ignora
-        if( conjunto[n-1] > sum )
-            return esSumaConjunto(conjunto, n-1, sum)
-
-                        
-        //* La primera opciòn es no incluirlo, la segunda es incluirlo
-        return esSumaConjunto(conjunto, n-1, sum) || esSumaConjunto(conjunto, n-1, sum - conjunto[n-1])
-
-    }
-
-    let conjunto = [2,6,4,8]
-    let sum = 10
-    let n = conjunto.length
-
-    esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                </pre>
-            </div>
-        </div>
-    </section>
 
     <!-- seccion de Explicacion -->
     <section class="algoritmo-section fondo" id="explicacion-seccion">
@@ -456,7 +276,7 @@
         <div class="panel-control bg-gradient h-20 w-100">
 
         </div>
-        <div class="panel-visible h-80 w-75" id="panel_visible">
+        <div class="panel-visible h-80 w-75">
             <div class="row level" id="level-0">
                 <div class="nodo" data-id=""></div>
             </div>
@@ -505,15 +325,17 @@
         <div class="escudos">
             <img src="./img/escom.png" alt="ESCOM">
             <P>ESCOM - IPN</P>
-            <img src="./img/ipn.png" alt="IPN">    
+            <img src="./img/ipn.png" alt="IPN">
         </div>
         <div class="equipo">
             <p>3CM13- The Pinhead</p>
         </div>
     </footer>
+    
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/main.js"></script>
-    <script src="./libs/pretify/prettify.js"></script>
     <script src="./js/fuerza-bruta/brute-force-algorithm.js" type="module"></script>
+    <script src="./libs/pretify/prettify.js"></script>
 </body>
+
 </html>

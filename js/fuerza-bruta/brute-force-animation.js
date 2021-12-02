@@ -6,15 +6,10 @@ export class UI {
 
     constructor() {
         // Inicializamos el canvas
-        this.panel_animado = document.createElement("canvas");
-        this.panel_animado.id = "panel-animado";
-        this.panel_animado.setAttribute("height", window.innerHeight);
-        this.panel_animado.setAttribute("width", window.innerWidth);
+        this.panel_animado = document.querySelector("#panel-animado");
+        this.panel_animado.width = this.panel_animado.clientWidth;
+        this.panel_animado.height = this.panel_animado.clientWidth;
 
-        // Agregamos el canvas al inicio del body
-        const animation_section = document.querySelector("#panel_visible");
-        animation_section.insertBefore(this.panel_animado, animation_section.firstChild);
-        visible(this.panel_animado);
 
         window.addEventListener("resize", () =>{
             this.resize();
@@ -103,7 +98,6 @@ export class UI {
     }
     
     resize() {
-        if(panel_visible) window.location = "#animacion-seccion";
         const context = this.panel_animado.getContext('2d');
     
         context.clearRect(0, 0, this.panel_animado.width, this.panel_animado.height);
@@ -189,6 +183,8 @@ export function agregarNodo(nodo_padre, valor, id, info, numero, posicion){
 
     const elemento_info = obtenerCoordsInfo(nodo_padre);
     const elemento_circulo = obtenerCoordsCirculo(nodo_hijo);
+
+    console.log(elemento_info, elemento_circulo);
 
     ui.agregarFlecha(elemento_info, elemento_circulo);
 
