@@ -239,7 +239,21 @@ button.tab-activa{
     position: absolute; 
     width: 100vw; 
     height: 100vh;
+    z-index: 0;
 }
+.panel-control{
+    position: relative;
+    background-color: var(--bondiBlue);
+    z-index: 3;
+}
+.panel-informativo{
+    background-color: var(--bondiBlue);
+    z-index: 2;
+}
+.panel-wrapper{
+   
+}
+
 .panel-visible .level{
     /*Propiedades flex*/
     display: flex;
@@ -249,7 +263,6 @@ button.tab-activa{
 
     /*Tamaño (dividido entre 5 verticalmente)*/
     height: 20%!important;
-
     background-color:#D6E7EE;
 }
 .level .nodo{
@@ -265,7 +278,7 @@ button.tab-activa{
     padding: 0.1rem;
 
     /* background-color: #4285a1; */
-    background-color: #D6E7EE;
+    /* background-color: #193541; */
 
     font-size: 1.4rem;
 }
@@ -352,7 +365,7 @@ footer p{
     }
     .level .nodo{
         padding: 0.1rem;
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
 }
 
