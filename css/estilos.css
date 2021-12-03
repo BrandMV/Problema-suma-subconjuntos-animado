@@ -246,14 +246,22 @@ button.tab-activa{
 }
 #algoritmo-seccion{
     overflow-y: scroll;
-    padding-top: 10rem;
+    /* padding-top: 10rem; */
 }
-#algoritmo-seccion .tabs{
+/* #algoritmo-seccion .tabs{
     transform: translateY(85%);
+} */
+.codigos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    width: 100%;
 }
-#algoritmo-seccion h2{
-    transform: translateY(47rem);
-}
+/* #algoritmo-seccion h2{
+    transform: translateY(600%);
+} */
 
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
 #panel-animado{
@@ -389,6 +397,18 @@ footer p{
 
 
 /* MEDIA QUERYS */
+@media (min-width: 300px){
+    .botones button{
+        font-size: 1.2rem;
+    }
+    .tabs{
+        width: 90%;
+    }
+    .codigos h2{
+        font-size: 1.8rem;
+    }
+    
+}
 @media (min-width: 480px){
     .inicio .title h1{
         font-size: 4rem;
@@ -403,6 +423,13 @@ footer p{
         padding: 0.1rem;
         font-size: 0.5rem;
     }
+    .codigos h2{
+        font-size: 2rem;
+        word-wrap: break-word;
+    }
+    .botones button{
+        font-size: 2rem;
+    }
 }
 
 @media (min-width: 600px) {
@@ -410,6 +437,7 @@ footer p{
         padding: 0.1rem;
         font-size: 0.8rem;
     }
+
 }
 
 @media (min-width: 768px){
@@ -426,6 +454,10 @@ footer p{
         padding: 0.1rem;
         font-size: 0.9rem;
     }
+    .codigos h2{
+        font-size: 2.5rem;
+    }
+  
 }
 @media (min-width: 992px){
     .btn-close{
