@@ -321,6 +321,21 @@ button.tab-activa{
     font-size: 2em;
 }
 
+.azul-fuerte {
+    background-color: rgba(2, 69, 122, 1);
+}
+
+.texto-div-animacion {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.b-redondeado {
+    border-radius: 13px;
+}
+
+
 /* Footer */
 footer{
     max-width: 100vw;

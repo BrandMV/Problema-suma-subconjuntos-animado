@@ -273,9 +273,54 @@
 
     <!-- seccion de Animación -->
     <section class="algoritmo-section fondo" id="animacion-seccion">
-        <div class="panel-control h-20 w-100">
-           <p class="fs-1">Panel de control</p>
-           <button class="fs-1">ola mundo</button>
+        <div class="panel-control h-20 w-100 p-4 texto-div-animacion">
+            <div class="d-flex bd-highlight azul-fuerte p-2 b-redondeado" data-toggle="modal" data-target="#modal">
+                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion">Flex item</div>
+                <div class="p-2 bd-highlight texto-div-animacion">Flex item</div>
+
+                <!--Modal-->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between pt-3">
+                <div class="d-flex justify-content-start">
+                    <div class="pe-4">
+                        <p class="fs-3 justify-content-center">Tipo de animación</p>
+                        <div class="dropdown d-flex justify-content-center">
+                            <button class="btn dropdown-toggle fs-4 azul-fuerte texto-div-animacion b-redondeado" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Seleccionar...
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item fs-4" href="#">Paso por paso</a>
+                                <a class="dropdown-item fs-4" href="#">Automático</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-4 ">
+                        <p class="fs-3 justify-content-center">Velocidad</p>
+                    </div>
+                </div>
+                <div class="pt-2 ">
+                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado">Simular</button>
+                </div>
+            </div>
         </div>
         <div class="panel-wrapper h-80 w-100 d-flex flex-row">
             <div class="panel-visible h-100 w-75">
@@ -345,6 +390,11 @@
     <script src="./js/main.js"></script>
     <script src="./js/fuerza-bruta/brute-force-algorithm.js" type="module"></script>
     <script src="./libs/pretify/prettify.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
