@@ -21,13 +21,14 @@ export class UI {
     constructor() {
         // Inicializamos el canvas y le adaptamos la resolución
         this.panel_animado = document.querySelector("#panel-animado");
-        this.panel_animado.width = this.panel_animado.clientWidth;
-        this.panel_animado.height = this.panel_animado.clientWidth;
+        this.panel_animado.width = window.innerWidth;
+        this.panel_animado.height = window.innerHeight;
 
         // Agregamos el listener para el canvas
         window.addEventListener("resize", () =>{
             this.repintar();
         });
+        
     }
     /**
      * Función que agrega un nodo dentro de su div correspondiente
@@ -147,8 +148,8 @@ export class UI {
         context.clearRect(0, 0, this.panel_animado.width, this.panel_animado.height);
 
         // Actualizamos la resolución del canvas
-        this.panel_animado.width = this.panel_animado.clientWidth;
-        this.panel_animado.height = this.panel_animado.clientWidth;
+        this.panel_animado.width = window.innerWidth;
+        this.panel_animado.height = window.innerHeight;
         
         // Recorremos todos los nodos del árbol y vamos relacionando a los padres con los
         // hijos
