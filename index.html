@@ -45,16 +45,13 @@
              </nav>  -->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
                 </button>
-                <div class="offcanvas offcanvas-end" tabindex="-4" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas offcanvas-end" tabindex="-4" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-body">
                         <div class="offcanvas-header d-flex justify-content-end">
-                            <button type="button" class="btn-close text-reset fs-1" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close text-reset fs-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <ul class="navbar-nav w-100 mx-5 d-flex justify-content-end">
                             <li class="nav-item">
@@ -273,52 +270,39 @@
 
     <!-- seccion de Animación -->
     <section class="algoritmo-section fondo" id="animacion-seccion">
-        <div class="panel-control h-20 w-100 p-4 texto-div-animacion">
-            <div class="d-flex bd-highlight azul-fuerte p-2 b-redondeado" data-toggle="modal" data-target="#modal">
-                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion">Flex item</div>
-                <div class="p-2 bd-highlight texto-div-animacion">Flex item</div>
+        <div class="panel-control h-20 w-100 p-3 texto-div-animacion">
+            <div class="d-flex bd-highlight azul-fuerte p-1 b-redondeado" data-toggle="modal" data-target="#modal">
+                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion fs-4">Flex item</div>
+                <div class="p-2 bd-highlight texto-div-animacion fs-4">Flex item</div>
 
-                <!--Modal-->
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-            <div class="d-flex justify-content-between pt-3">
+            <div class="d-flex justify-content-between pt-2">
                 <div class="d-flex justify-content-start">
-                    <div class="pe-4">
-                        <p class="fs-3 justify-content-center">Tipo de animación</p>
-                        <div class="dropdown d-flex justify-content-center">
-                            <button class="btn dropdown-toggle fs-4 azul-fuerte texto-div-animacion b-redondeado" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Seleccionar...
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item fs-4" href="#">Paso por paso</a>
-                                <a class="dropdown-item fs-4" href="#">Automático</a>
-                            </div>
+                    <div class="pe-4 me-4">
+                        <p class="fs-5 justify-content-center">Tipo de animación</p>
+                        <div class="dropdown  justify-content-center">
+                            <select class="btn dropdown-toggle fs-5 azul-fuerte texto-div-animacion b-redondeado">
+                              <option class="fs-5" selected>Seleccionar...</option>
+                              <option class="fs-5" value="1">Paso por paso</option>
+                              <option class="fs-5" value="2">Automático</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="ps-4 ">
-                        <p class="fs-3 justify-content-center">Velocidad</p>
+                    <div class="">
+                        <p class="fs-5 d-flex justify-content-center">Velocidad</p>
+                        <div class="d-flex bd-highlight texto-div-animacion">
+                            <p class="p-2 me-1 flex-fill bd-highlight azul-fuerte b-redondeado">
+                                <output id="output" value="1" class="fs-5">1</output>
+                            </p>
+                            <div class="p-2 flex-fill bd-highlight azul-fuerte b-redondeado">
+                                <input type="range" class="form-range" list="mydata" value="1" min="1" max="5" step="1" id="bRange">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="pt-2 ">
-                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado">Simular</button>
+                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4">Simular</button>
                 </div>
             </div>
         </div>
@@ -371,9 +355,100 @@
                 <button class="fs-1">ola mundo</button>
             </div>
         </div>
-       
+
 
     </section>
+
+    <!--- Modal --->
+    <div class="modal fade mx-5" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-del " role="document">
+            <div class="modal-content b-redondeado border border-primary">
+                <div class="d-flex justify-content-end ">
+                    <button type="button" class="close px-2 texto-div-animacion bg-danger b-redondo-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fs-2">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-header">
+                    <p class="modal-title texto-div-animacion azul-modal-fuerte fs-3 b-redondeado p-1 text-center">
+                        INGRESE LOS VALORES Y SELECCIONE EL ALGORITMO
+                    </p>
+                </div>
+                <div class="modal-body m-2">
+                    <form action="">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col ">
+                                    <p class="azul-modal-fuerte fw-bolder fs-4 text-center b-redondo-sup">VALORES DEL ARREGLO</p>
+                                    <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot h-80">
+                                        <div class="p-1 bd-highlight d-flex justify-content-end">
+                                            <div class=" px-2 azul-modal-fuerte b-redondeado fs-4 text-white fw-bold" id="numArr">n: 1</div>
+                                        </div>
+                                        <!--ELEMENTO ARREGLO-->
+                                        <div class=" d-flex flex-column bd-highlight m-1" id="cont-arreglo">
+                                            <div class="bd-highlight d-flex justify-content-center m-1">
+                                                <input type="number" class="mx-1 input-num text-center" value="1" min="1" name="array[]">
+                                                <div class="bg-danger b-redondeado px-2 fs-2 minus ">
+                                                    <p class="text-white fw-bolder minus">-</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--ELEMENTO ARREGLO-->
+
+                                        <div class="bd-highlight d-flex justify-content-center m-1 me-4 px-2">
+                                            <input type="button" class="b-redondeado text-white fw-bolder text-center px-4" id="agregarI" value="+">
+                                        </div>
+                                        <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                            <div class=" px-2 azul-modal-fuerte rounded-circle fs-4 text-white fw-bold">?</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex flex-column bd-highlight ">
+                                        <div class=" bd-highlight mb-2">
+                                            <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 b-redondo-sup">SUMA DESEADA</p>
+                                            <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot">
+                                                <div class=" bd-highlight d-flex justify-content-center mt-4 ">
+                                                    <div class="d-flex flex-column bd-highlight azul-modal-claro h-100">
+                                                        <input type="number" class="form-control-modal text-center " max="5" min="1">
+                                                    </div>
+                                                </div>
+                                                <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                                    <div class=" px-2 azul-modal-fuerte rounded-circle fs-4 text-white fw-bold">?</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" bd-highlight">
+                                            <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 b-redondo-sup">SUMA DESEADA</p>
+                                            <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot">
+                                                <div class=" bd-highlight d-flex justify-content-center m-5  ">
+                                                    <div class="dropdown  justify-content-center ">
+                                                        <select class="btn dropdown-toggle fs-5 azul-modal-fuerte texto-div-animacion b-redondeado">
+                                                            <option class="fs-5" selected>Seleccionar...</option>
+                                                            <option class="fs-5" value="1">Fuerza bruta</option>
+                                                            <option class="fs-5" value="2">DP Top-down</option>
+                                                            <option class="fs-5" value="3">DP Botton-up</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                                    <div class=" px-2 azul-modal-fuerte rounded-circle fs-4 text-white fw-bold">?</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="my-3 modal-footer mx-3">
+                    <button type="button" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4 ">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--- Modal --->
 
     <footer>
         <div class="escudos">
@@ -385,12 +460,16 @@
             <p>3CM13- The Pinhead</p>
         </div>
     </footer>
-    
+
+    <script src="./js/animation.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/fuerza-bruta/brute-force-algorithm.js" type="module"></script>
     <script src="./libs/pretify/prettify.js"></script>
- 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 
 </html>
