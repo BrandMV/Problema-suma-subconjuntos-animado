@@ -20,17 +20,20 @@ function main() {
     
     ui.mostrarNodo(root);
 
-    let nodo = agregarNodo(root, "10", "1", "(1, 1)", 2, "der");
-    nodo = agregarNodo(nodo, "5", "2", "(2, 2)", 4, "der");
+    let nodo = agregarNodo(root, 10, 1, "(1, 1)", "der");
+    nodo = agregarNodo(nodo, 5, 2, "(2, 2)", "der");
 
-    nodo = agregarNodo(nodo, "8", "3", "(2, 2)", 8, "der");
-    nodo = agregarNodo(nodo, "2", "4", "(2, 2)", 16, "der");
+    nodo = agregarNodo(nodo, 8, 3, "(2, 2)", "der");
+    nodo = agregarNodo(nodo, 2, 4, "(2, 2)", "der");
     ui.establecerResultado(nodo.id, false);
     nodo = nodo.getPadre();
 
-    nodo = agregarNodo(nodo, "2", "5", "(2, 2)", 15, "izq");
+    nodo = agregarNodo(nodo, 2, 5, "(2, 2)", "izq");
     ui.establecerResultado(nodo.id, true);
     ui.establecerResultado(nodo.getPadre().id, true);
+
+    nodo = nodo.getPadre().getPadre();
+    nodo = agregarNodo(nodo, 3, 6, "(2, 2)", "izq");
 }
 
 

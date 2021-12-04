@@ -199,7 +199,9 @@ section .codigo {
 
 /* Códigos del algoritmo */
 
-.algoritmo-section {}
+.algoritmo-section {
+    /* overflow-y: scroll; */
+}
 
 
 /* Paginas codigos */
@@ -223,6 +225,16 @@ section .codigo {
 }
 
 .codigo-dp {
+    height: 48rem;
+    overflow-y: scroll;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 10px 10px;
+    border: 1px solid var(--stratos);
+    border-top: none;
+    border-right: none;
+}
+
+.codigo-dp2 {
     height: 48rem;
     overflow-y: scroll;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -284,6 +296,30 @@ span {
 button.tab-activa {
     background-color: var(--morningGlory);
 }
+
+#algoritmo-seccion {
+    overflow-y: scroll;
+    /* padding-top: 10rem; */
+}
+
+
+/* #algoritmo-seccion .tabs{
+    transform: translateY(85%);
+} */
+
+.codigos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    width: 100%;
+}
+
+
+/* #algoritmo-seccion h2{
+    transform: translateY(600%);
+} */
 
 
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
@@ -516,6 +552,18 @@ footer p {
 
 /* MEDIA QUERYS */
 
+@media (min-width: 300px) {
+    .botones button {
+        font-size: 1.2rem;
+    }
+    .tabs {
+        width: 90%;
+    }
+    .codigos h2 {
+        font-size: 1.8rem;
+    }
+}
+
 @media (min-width: 480px) {
     .inicio .title h1 {
         font-size: 4rem;
@@ -529,6 +577,13 @@ footer p {
     .level .nodo {
         padding: 0.1rem;
         font-size: 0.5rem;
+    }
+    .codigos h2 {
+        font-size: 2rem;
+        word-wrap: break-word;
+    }
+    .botones button {
+        font-size: 2rem;
     }
 }
 
@@ -552,6 +607,9 @@ footer p {
     .level .nodo {
         padding: 0.1rem;
         font-size: 0.9rem;
+    }
+    .codigos h2 {
+        font-size: 2.5rem;
     }
 }
 

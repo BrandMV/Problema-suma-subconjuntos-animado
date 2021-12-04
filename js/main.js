@@ -1,3 +1,4 @@
+//*Obtenemos los elementos del navbar
 const navItem1 = document.getElementById("inicio")
 const navItem2 = document.getElementById("algoritmo")
 const navItem3 = document.getElementById("explicacion")
@@ -35,7 +36,11 @@ navItem4.addEventListener('click', e => {
     manejarSecciones(e.target.id);
 })
 
-//*Para pestañas de códigos
+/** 
+ * Función que se encargará de mostrar cada pestaña de código en fuerza bruta
+ * @param {string} leng lenguaje de programacion seleccionado
+ * @returns No retorna nada
+*/
 const openCode = (leng) => {
     let btn = leng + "-btn"
     console.log(btn);
@@ -56,12 +61,42 @@ const openCode = (leng) => {
     document.getElementById(leng).style.display = "block"
 }
 
+/** 
+ * Función que se encargará de mostrar cada pestaña de código en Dp bottom-up
+ * @param {string} leng lenguaje de programacion seleccionado
+ * @returns No retorna nada
+*/
 const openCodeDP = (leng) => {
     let btn = leng + "-btn"
     console.log(btn);
     let i
     let code = document.getElementsByClassName("codigo-dp")
     let codebtn = document.getElementsByClassName("codigo-btn-dp")
+    for (i = 0; i < code.length; i++) {
+        code[i].style.display = "none"
+
+    }
+    for (i = 0; i < codebtn.length; i++) {
+        codebtn[i].setAttribute('style', "background: white;")
+
+    }
+    document.getElementById(btn).setAttribute('style', "border-bottom: none;background: var(--morningGlory);")
+
+
+    document.getElementById(leng).style.display = "block"
+}
+
+/** 
+ * Función que se encargará de mostrar cada pestaña de código en Dp top-down
+ * @param {string} leng lenguaje de programacion seleccionado
+ * @returns No retorna nada
+*/
+const openCodeDPTD = (leng) => {
+    let btn = leng + "-btn"
+    console.log(btn);
+    let i
+    let code = document.getElementsByClassName("codigo-dp2")
+    let codebtn = document.getElementsByClassName("codigo-btn-dp2")
     for (i = 0; i < code.length; i++) {
         code[i].style.display = "none"
 
