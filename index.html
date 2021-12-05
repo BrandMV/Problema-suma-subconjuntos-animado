@@ -626,17 +626,18 @@
 
     <!-- seccion de Animación -->
     <section class="algoritmo-section fondo" id="animacion-seccion">
-        <div class="panel-control h-20 w-100 p-3 texto-div-animacion">
+        <div class="panel-control w-100 p-3 texto-div-animacion">
+
             <div class="d-flex bd-highlight azul-fuerte p-1 b-redondeado" data-toggle="modal" data-target="#modal">
-                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion fs-4">Flex item</div>
-                <div class="p-2 bd-highlight texto-div-animacion fs-4">Flex item</div>
-
-
+                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion fs-4" id="arreglo">Flex item</div>
+                <div class="p-2 bd-highlight texto-div-animacion fs-4" id="algoritmo-suma">Flex item</div>
             </div>
+
             <div class="d-flex justify-content-between pt-2">
                 <div class="d-flex justify-content-start">
-                    <div class="pe-4 me-4">
-                        <p class="fs-5 justify-content-center">Tipo de animación</p>
+
+                    <div class="pe-4 me-4 seleccion-ejecucion">
+                        <p class="justify-content-center">Tipo de animación</p>
                         <div class="dropdown  justify-content-center">
                             <select class="btn dropdown-toggle fs-5 azul-fuerte texto-div-animacion b-redondeado">
                               <option class="fs-5" selected>Seleccionar...</option>
@@ -645,24 +646,28 @@
                             </select>
                         </div>
                     </div>
-                    <div class="">
-                        <p class="fs-5 d-flex justify-content-center">Velocidad</p>
+
+                    <div class="seleccion-velocidad">
+                        <p class="d-flex justify-content-center">Velocidad</p>
                         <div class="d-flex bd-highlight texto-div-animacion">
-                            <p class="p-2 me-1 flex-fill bd-highlight azul-fuerte b-redondeado">
+                            <p class="p-2 me-1 bd-highlight azul-fuerte b-redondeado">
                                 <output id="output" value="1" class="fs-5">1</output>
                             </p>
-                            <div class="p-2 flex-fill bd-highlight azul-fuerte b-redondeado">
+                            <div class="p-2 bd-highlight azul-fuerte b-redondeado">
                                 <input type="range" class="form-range" list="mydata" value="1" min="1" max="5" step="1" id="bRange">
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="pt-2 ">
-                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4">Simular</button>
+                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4" id=btn-simular>Simular</button>
                 </div>
             </div>
         </div>
-        <div class="panel-wrapper h-80 w-100 d-flex flex-row">
+
+        
+        <div class="panel-wrapper w-100 d-flex flex-row">
             <div class="panel-visible h-100 w-75">
                 <div class="row level" id="level-0">
                     <div class="nodo" data-id=""></div>
@@ -711,8 +716,6 @@
                 <button class="fs-1">ola mundo</button>
             </div>
         </div>
-
-
     </section>
 
     <!--- Modal --->
@@ -804,8 +807,8 @@
             </div>
         </div>
     </div>
-    <!--- Modal --->
 
+    <!-- Footer -->
     <footer>
         <div class="escudos">
             <img src="./img/escom.png" alt="ESCOM">

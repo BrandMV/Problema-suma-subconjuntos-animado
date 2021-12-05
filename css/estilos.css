@@ -335,6 +335,7 @@ button.tab-activa {
     position: relative;
     background-color: var(--bondiBlue);
     z-index: 3;
+    height: 20%!important;
 }
 
 .panel-informativo {
@@ -342,7 +343,9 @@ button.tab-activa {
     z-index: 2;
 }
 
-.panel-wrapper {}
+.panel-wrapper {
+    height: 80%!important;
+}
 
 .panel-visible .level {
     /*Propiedades flex*/
@@ -404,6 +407,50 @@ button.tab-activa {
     font-weight: bold;
     color: white;
     font-size: 2em;
+}
+
+/* SECCIÓN PANEL DE CONTROL */
+.panel-control div[data-toggle="modal"]{
+    cursor: pointer;
+    margin-bottom: .6em;
+}
+.panel-control div[data-toggle="modal"]:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: var( --stratos);
+}
+
+.seleccion-ejecucion > p, .seleccion-velocidad > p{
+    font-size: 5em;
+    margin: 0 0 .2em .2em;
+}
+.seleccion-ejecucion div, .seleccion-ejecucion div select{
+    height: 2.3em;
+}
+.seleccion-ejecucion div select:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: var( --stratos);
+}
+.seleccion-velocidad div p{
+    width: 9em;
+    text-align: center;
+}
+.seleccion-velocidad div div{
+    width: 38em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;    
+}
+.seleccion-velocidad div div:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: var( --stratos);
+}
+.seleccion-velocidad #bRange{
+    width: 32em;
+}
+#btn-simular:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: var( --stratos) !important;
 }
 
 .azul-fuerte {
@@ -507,12 +554,6 @@ input[type=button] {
     -moz-appearance: none;
     appearance: none;
     border-radius: 13px;
-}
-
-@media (min-width: 576px) {
-    .modal-del {
-        max-width: 400px;
-    }
 }
 
 
@@ -627,5 +668,40 @@ footer p {
     .level .nodo {
         padding: 0.1rem;
         font-size: 1.5rem;
+    }
+}
+
+
+@media (min-height: 780px) {
+    .panel-control {
+        height: 17%!important;
+    }
+    .panel-wrapper {
+        height: 83%!important;
+    }
+}
+
+@media (min-height: 894px) {
+    .panel-control {
+        height: 15%!important;
+    }
+    .panel-wrapper {
+        height: 85%!important;
+    }
+}
+@media (min-height: 950px) {
+    .panel-control {
+        height: 14%!important;
+    }
+    .panel-wrapper {
+        height: 86%!important;
+    }
+}
+@media (min-height: 1050px) {
+    .panel-control {
+        height: 12%!important;
+    }
+    .panel-wrapper {
+        height: 88%!important;
     }
 }
