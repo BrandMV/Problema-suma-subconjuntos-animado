@@ -39,7 +39,6 @@
 .color-true-info-dark {
     background-color: var(--stratos);
 }
-
 .h-20 {
     height: 20%!important;
 }
@@ -55,9 +54,11 @@
 .h-90 {
     height: 90%!important;
 }
-
 .h-100 {
     height: 100%!important;
+}
+.mh-50{
+    max-height: 50%!important;
 }
 
 .w-6-25 {
@@ -464,7 +465,25 @@ button.tab-activa {
 .modal-content {
     margin-top: 10vh;
     height: 500px;
-    width: 450px;
+    max-height: 500px;
+    max-width: 450px;
+}
+.modal-body {
+    max-height: 62%;
+}
+.modal-body form,
+.modal-body form .row,
+.modal-body form .row .col{
+    height: 100%;
+    max-height: 100%;
+}
+
+.modal-body .caja-input{
+    border-radius: 10px;
+}
+.modal-body .caja-input #contenedor-elementos{
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .b-redondeado {
@@ -485,8 +504,10 @@ p {
     border: none;
     width: 30px;
 }
-.b-redondo-bot{
-    border-radius: 0 0 10px 10px;
+
+
+.b-redondo-sup{
+    border-radius: 10px 10px 0px 0px;
 }
 .modal-header{
     padding: 1rem 2rem 1rem 2rem;
@@ -556,7 +577,6 @@ input[type=button] {
     appearance: none;
     border-radius: 13px;
 }
-
 
 /* Footer */
 

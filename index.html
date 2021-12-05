@@ -651,7 +651,7 @@
                         <p class="d-flex justify-content-center">Velocidad</p>
                         <div class="d-flex bd-highlight texto-div-animacion">
                             <p class="p-2 me-1 bd-highlight azul-fuerte b-redondeado">
-                                <output id="output" value="1" class="fs-5">1</output>
+                                <output id="output" value="1" class="fs-5">1s</output>
                             </p>
                             <div class="p-2 bd-highlight azul-fuerte b-redondeado">
                                 <input type="range" class="form-range" list="mydata" value="1" min="1" max="5" step="1" id="bRange">
@@ -736,75 +736,92 @@
                 </div>
 
                 <div class="modal-body m-2">
-                    <form action="" class="h-100">
-                        <div class="container-fluid h-100">
-                            <div class="row h-100">
-                                <div class="col h-80">
+                    <form action="" class="">
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Caja de elementos que contiene una entrada -->
+                                <div class="caja-input d-flex flex-column bd-highlight azul-modal-claro h-100 mh-100">
+                                    <!-- Título de la caja de entrada -->
                                     <p class="azul-modal-fuerte fw-bolder fs-4 text-center b-redondo-sup header-valores">VALORES DEL ARREGLO</p>
-                                    <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot h-100 ">
-                                        <div class="p-1 bd-highlight d-flex justify-content-end">
-                                            <div class="px-3 azul-modal-fuerte b-redondeado fs-4 text-white fw-bold" id="numArr">n: 1</div>
-                                        </div>
+
+                                    <!-- Indicador de elementos -->
+                                    <div class="p-1 bd-highlight d-flex justify-content-end m-1">
+                                        <div class="px-3 azul-modal-fuerte b-redondeado fs-4 text-white fw-bold" id="numArr">n: 0</div>
+                                    </div>
+
+                                    <!--Caja de elementos -->
+                                    <div class="w-100 d-flex justify-content-center" id="contenedor-elementos">
                                         
-                                        <div class="elementos d-flex flex-column align-self-center  w-50">
-                                            <!--ELEMENTO ARREGLO-->
-                                            <div class="bd-highlight d-flex justify-content-start m-1 w-100 align-items-center" id="cont-arreglo">
+                                        <div class="elementos d-flex flex-column align-self-center w-50 h-100" id="contenedor-arreglo">
+                                            <!--ELEMENTOS ARREGLO-->
+                                            <!-- <div class="bd-highlight d-flex justify-content-start m-1 w-100 align-items-center" id="cont-arreglo">
                                                 <input type="number" class="input-num text-center w-75" value="1" min="1" name="array[]">
                                                 <div class="bg-danger mx-1 b-redondeado px-2 fs-2 minus">
                                                     <p class="text-white fw-bolder minus">-</p>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <!--ELEMENTO ARREGLO-->
-                                            <div class="bd-highlight d-flex justify-content-star m-1 w-100" id="cont-arreglo">
+                                            <!--ELEMENTO AGREGAR-->
+                                            <div class="bd-highlight d-flex justify-content-star  w-100 m-1" id="agregar-arreglo">
                                                 <input type="button" class="b-redondeado text-white fw-bolder text-center px-4 w-75" id="agregarI" value="+">
-                                            </div>
+                                            </div>    
+                                        </div>
+                                    </div>
 
-                                        </div>
-                                        
-                                        <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
-                                            <div class="informacion m-1">?</div>
-                                        </div>
+                                     <!-- Información -->
+                                    <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                        <div class="informacion m-1">?</div>
                                     </div>
                                 </div>
-                                <div class="col d-flex flex-column bd-highlight h-80">
-                                    <div class="bd-highlight mb-2 h-50">
-                                        <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 header-valores">SUMA DESEADA</p>
-                                        <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot">
-                                            <div class=" bd-highlight d-flex justify-content-center mt-4 ">
-                                                <div class="d-flex flex-column bd-highlight azul-modal-claro h-100 w-30">
-                                                    <input type="number" class="form-control-modal text-center w-100" max="5" min="1">
-                                                </div>
-                                            </div>
-                                            <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
-                                                <div class="informacion m-1">?</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" bd-highlight h-50">
-                                        <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 header-valores">SELECCIÓN DE ALGORITMO</p>
-                                        <div class="d-flex flex-column bd-highlight azul-modal-claro b-redondo-bot">
-                                            <div class=" bd-highlight d-flex justify-content-center m-5  ">
-                                                <div class="dropdown  justify-content-center ">
-                                                    <select class="btn dropdown-toggle fs-5 azul-modal-fuerte texto-div-animacion b-redondeado">
-                                                        <option class="fs-5" selected>Seleccionar...</option>
-                                                        <option class="fs-5" value="1">Fuerza bruta</option>
-                                                        <option class="fs-5" value="2">DP Top-down</option>
-                                                        <option class="fs-5" value="3">DP Botton-up</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
-                                                <div class="informacion m-1">?</div>
-                                            </div>
-                                        </div>
+                                
+                            </div>
+                            <div class="col d-flex flex-column justify-content-between">
+                                <!-- Caja de suma que contiene una entrada -->
+                                <div class="caja-input d-flex flex-column bd-highlight azul-modal-claro h-40">
+                                    <!-- Título de la caja de entrada -->
+                                    <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 header-valores">SUMA DESEADA</p>
+
+                                    <!--Caja de Suma -->
+                                    <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-suma">
+                                        <div class="d-flex flex-column bd-highlight azul-modal-claro h-100 w-30">
+                                            <input type="number" class="form-control-modal text-center w-100" max="5" min="1">
+                                        </div>                                      
                                     </div>
 
+                                    <!-- Información -->
+                                    <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                        <div class="informacion m-1">?</div>
+                                    </div>
+                                </div>
+
+                                <!-- Caja de selección de algoritmo que contiene una entrada -->
+                                <div class="caja-input d-flex flex-column bd-highlight azul-modal-claro h-50">
+                                    <!-- Título de la caja de entrada -->
+                                    <p class="azul-modal-fuerte fw-bolder fs-4 text-center px-1 header-valores">SELECCIONE EL ALGORITMO</p>
+
+                                    <!--Caja de algoritmo -->
+                                    <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-algoritmo">
+                                        <div class="dropdown  justify-content-center ">
+                                            <select class="btn dropdown-toggle fs-5 azul-modal-fuerte texto-div-animacion b-redondeado">
+                                                <option class="fs-5" selected>Seleccionar...</option>
+                                                <option class="fs-5" value="1">Fuerza bruta</option>
+                                                <option class="fs-5" value="2">DP Top-down</option>
+                                                <option class="fs-5" value="3">DP Botton-up</option>
+                                            </select>
+                                        </div>                                    
+                                    </div>
+
+                                    <!-- Información -->
+                                    <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                        <div class="informacion m-1">?</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+
                 <div class="my-3 modal-footer mx-3">
                     <button type="button" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4 ">Guardar</button>
                 </div>
