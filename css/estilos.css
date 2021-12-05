@@ -43,11 +43,15 @@
 .h-20 {
     height: 20%!important;
 }
-
+.h-40 {
+    height: 40%!important;
+}
+.h-60 {
+    height: 60%!important;
+}
 .h-80 {
     height: 80%!important;
 }
-
 .h-90 {
     height: 90%!important;
 }
@@ -59,7 +63,9 @@
 .w-6-25 {
     width: 6.25%!important;
 }
-
+.w-30 {
+    width: 30%!important;
+}
 * {
     margin: 0;
     padding: 0;
@@ -78,8 +84,19 @@ body {
     max-height: 100vh;
     max-width: 100vw;
 }
+.informacion{ /*Circulitos informativos*/
+    padding: .2rem;
+    background-color: var(--bondiBlue);
+    font-size: 1.5rem;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
 
-
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 1.7rem;
+}
 /* Navbar */
 
 .header {
@@ -245,18 +262,9 @@ section .codigo {
 }
 
 
-/* pre{
-    text-align: left;
-} */
-
 span {
     font-size: 1.5rem;
 }
-
-
-/* span{
-    font-size: 1.5rem;
-} */
 
 .algoritmo-section h2 {
     font-size: 2.5rem;
@@ -302,11 +310,6 @@ button.tab-activa {
     /* padding-top: 10rem; */
 }
 
-
-/* #algoritmo-seccion .tabs{
-    transform: translateY(85%);
-} */
-
 .codigos {
     display: flex;
     flex-direction: column;
@@ -315,12 +318,6 @@ button.tab-activa {
     margin: 3rem 0;
     width: 100%;
 }
-
-
-/* #algoritmo-seccion h2{
-    transform: translateY(600%);
-} */
-
 
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
 
@@ -463,32 +460,36 @@ button.tab-activa {
     font-weight: bold;
 }
 
+/* MODAL DE ANIMACIÓN*/
+.modal-content {
+    margin-top: 10vh;
+    height: 500px;
+    width: 450px;
+}
+
 .b-redondeado {
     border-radius: 13px;
+}
+.header-valores{
+    border-radius: 10px 10px 0px 0px;
+    font-size: 1.3rem !important;
+    padding: .2rem;
 }
 
 p {
     margin-bottom: 0;
 }
 
-.modal-estilo {
-    position: relative;
-    z-index: 6;
-}
-
 .b-redondo-close {
-    border-top-right-radius: 13px;
-    border-bottom-left-radius: 13px;
+    border-radius: 0 13px 0 13px;
+    border: none;
+    width: 30px;
 }
-
-.b-redondo-sup {
-    border-top-left-radius: 13px;
-    border-top-right-radius: 13px;
+.b-redondo-bot{
+    border-radius: 0 0 10px 10px;
 }
-
-.b-redondo-bot {
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
+.modal-header{
+    padding: 1rem 2rem 1rem 2rem;
 }
 
 .azul-modal-claro {
@@ -671,6 +672,10 @@ footer p {
     }
 }
 
+
+@media (min-height: 670px) {
+    
+}
 
 @media (min-height: 780px) {
     .panel-control {
