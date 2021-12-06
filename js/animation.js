@@ -170,7 +170,24 @@ btn_simular.addEventListener("click", function() {
 
 
 /*--------------------------------FUNCIONES AUXILIARES------------------------------*/
+/**
+ * Función para eliminar un valor del DOM respecto al índice que se le asignó
+ * @param {int} id Indice de ese velor dentro del arreglo del DOM
+ */
+window.eliminarValor = (id) => { // La hacemos global para el html
+    // Obtenemos el div que contiene el valor y el botón de eliminar
+    const elemento = document.querySelector(`[data-indx="${id}"]`);
+    contenedor.removeChild(elemento);
+    
+    // Decrementamos el contador y actualizamos el DOM
+    n_valores--;
+    tamArr.textContent = "n: " + n_valores;
 
+    // Reinicializamos el índice si se queda sin elementos
+    if (n_valores == 0) {
+        indx = 0;
+    }
+} 
 /**
  * Función que agrega un valor dado al modal del DOM 
  * @param {int} val Valor que se agregará al DOM
@@ -197,24 +214,7 @@ function agregarValorArreglo(val){
     contenedor.insertBefore(nuevo_valor, agregarI.parentElement);
 }
 
-/**
- * Función para eliminar un valor del DOM respecto al índice que se le asignó
- * @param {int} id Indice de ese velor dentro del arreglo del DOM
- */
-function eliminarValor(id) {
-    // Obtenemos el div que contiene el valor y el botón de eliminar
-    const elemento = document.querySelector(`[data-indx="${id}"]`);
-    contenedor.removeChild(elemento);
-    
-    // Decrementamos el contador y actualizamos el DOM
-    n_valores--;
-    tamArr.textContent = "n: " + n_valores;
-
-    // Reinicializamos el índice si se queda sin elementos
-    if (n_valores == 0) {
-        indx = 0;
-    }
-}    
+   
 
 /**
  * Función para actualizar el panel de control conforme a los datos del algoritmo que se
