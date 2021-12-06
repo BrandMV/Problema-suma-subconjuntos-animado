@@ -629,8 +629,8 @@
         <div class="panel-control w-100 p-3 texto-div-animacion">
 
             <div class="d-flex bd-highlight azul-fuerte p-1 b-redondeado" data-toggle="modal" data-target="#modal">
-                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion fs-4" id="arreglo">Flex item</div>
-                <div class="p-2 bd-highlight texto-div-animacion fs-4" id="algoritmo-suma">Flex item</div>
+                <div class="p-2 flex-grow-1 bd-highlight texto-div-animacion fs-4" id="arreglo">Arreglo[0] = []</div>
+                <div class="p-2 bd-highlight texto-div-animacion fs-4" id="algoritmo-suma">Suma: --</div>
             </div>
 
             <div class="d-flex justify-content-between pt-2">
@@ -639,7 +639,7 @@
                     <div class="pe-4 me-4 seleccion-ejecucion">
                         <p class="justify-content-center">Tipo de animación</p>
                         <div class="dropdown  justify-content-center">
-                            <select class="btn dropdown-toggle fs-5 azul-fuerte texto-div-animacion b-redondeado">
+                            <select class="btn dropdown-toggle fs-5 azul-fuerte texto-div-animacion b-redondeado" id="sel_ejecucion">
                               <option class="fs-5" selected>Seleccionar...</option>
                               <option class="fs-5" value="1">Paso por paso</option>
                               <option class="fs-5" value="2">Automático</option>
@@ -647,7 +647,7 @@
                         </div>
                     </div>
 
-                    <div class="seleccion-velocidad">
+                    <div class="seleccion-velocidad d-none">
                         <p class="d-flex justify-content-center">Velocidad</p>
                         <div class="d-flex bd-highlight texto-div-animacion">
                             <p class="p-2 me-1 bd-highlight azul-fuerte b-redondeado">
@@ -661,7 +661,7 @@
 
                 </div>
                 <div class="pt-2 ">
-                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4" id=btn-simular>Simular</button>
+                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4" id=btn-simular>Avanzar</button>
                 </div>
             </div>
         </div>
@@ -755,12 +755,6 @@
                                         
                                         <div class="elementos d-flex flex-column align-self-center w-50 h-100" id="contenedor-arreglo">
                                             <!--ELEMENTOS ARREGLO-->
-                                            <!-- <div class="bd-highlight d-flex justify-content-start m-1 w-100 align-items-center" id="cont-arreglo">
-                                                <input type="number" class="input-num text-center w-75" value="1" min="1" name="array[]">
-                                                <div class="bg-danger mx-1 b-redondeado px-2 fs-2 minus">
-                                                    <p class="text-white fw-bolder minus">-</p>
-                                                </div>
-                                            </div> -->
 
                                             <!--ELEMENTO AGREGAR-->
                                             <div class="bd-highlight d-flex justify-content-star  w-100 m-1" id="agregar-arreglo">
@@ -785,7 +779,7 @@
                                     <!--Caja de Suma -->
                                     <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-suma">
                                         <div class="d-flex flex-column bd-highlight azul-modal-claro h-100 w-30">
-                                            <input type="number" class="form-control-modal text-center w-100" max="5" min="1">
+                                            <input type="number" class="form-control-modal text-center w-100" min="1" value="0">
                                         </div>                                      
                                     </div>
 
@@ -804,10 +798,10 @@
                                     <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-algoritmo">
                                         <div class="dropdown  justify-content-center ">
                                             <select class="btn dropdown-toggle fs-5 azul-modal-fuerte texto-div-animacion b-redondeado">
-                                                <option class="fs-5" selected>Seleccionar...</option>
+                                                <option class="fs-5" selected value="0">Seleccionar...</option>
                                                 <option class="fs-5" value="1">Fuerza bruta</option>
                                                 <option class="fs-5" value="2">DP Top-down</option>
-                                                <option class="fs-5" value="3">DP Botton-up</option>
+                                                <option class="fs-5" value="3">DP Bottom-up</option>
                                             </select>
                                         </div>                                    
                                     </div>
@@ -823,7 +817,7 @@
                 </div>
 
                 <div class="my-3 modal-footer mx-3">
-                    <button type="button" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4 ">Guardar</button>
+                    <button type="button" data-dismiss="modal" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4" id="btn-guardar">Guardar</button>
                 </div>
 
             </div>
@@ -850,7 +844,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 
 </html>

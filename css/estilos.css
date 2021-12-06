@@ -523,6 +523,7 @@ p {
 
 .minus {
     height: 0.8em;
+    cursor: pointer;
 }
 
 .input-num {

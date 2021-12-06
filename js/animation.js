@@ -1,29 +1,160 @@
+/*--------------------------VARIABLES GLOBALES--------------------------- */
+
+// Constantes para la actualización del velocímetro del DOM
+const sel_ejecucion = document.querySelector('#sel_ejecucion');
+const velocidad = document.querySelector('.seleccion-velocidad');
 const txtNum = document.getElementById("output");
 const bRange = document.getElementById("bRange");
 
+// Constante para la actualización del modal al abrirlo
+const modal_panel = document.querySelector('.panel-control div[data-toggle="modal"]');
+
+// Contantes para el manejo de valores del arreglo del DOM
+const agregarI = document.getElementById("agregarI");
+const contenedor = document.querySelector('#contenedor-arreglo');
+const tamArr = document.getElementById("numArr");
+var n_valores = 0; // Número de valores del arreglo
+var indx = 0; // Indice de cada div de arreglo
+
+// Constante para la suma deseada
+const inpSuma = document.querySelector("#contenedor-suma input");
+
+// Constante para guardar los datos
+const sel_algoritmo = document.querySelector('#contenedor-algoritmo select');
+const btn_guardar = document.querySelector('#btn-guardar');
+
+// Objeto de valores y algoritmos
+const configs = {
+    algoritmo: "",
+    valores: [],
+    suma: 0
+}
+const algoritmos = {
+    1 : 'Fuerza bruta',
+    2 : 'DP Top-Down',
+    3 : 'DP Bottom-Up'
+}
+
+// Constante para actualizar el panel de control
+const arreglo_panel = document.querySelector('#arreglo');
+
+// Constante para el botón de simular
+const btn_simular = document.querySelector('#btn-simular');
+
+/*----------------MANEJO DEL PANLE DE CONTROL EN EL DOM------------------*/
+
+// Actualizar el velocimetro al escoger el modo de ejecución
+sel_ejecucion.addEventListener('change', function(){
+    if(sel_ejecucion.value == 2){
+        velocidad.classList.remove('d-none');
+        btn_simular.textContent = 'Simular';
+    } else {
+        velocidad.classList.add('d-none');
+        btn_simular.textContent = 'Avanzar';
+    }
+});
+
+// Actualizar el modal al abrir
+modal_panel.addEventListener('click', () => {
+    // Limpiamos el areglo del modal
+    let valor = contenedor.firstElementChild;
+    while(valor != null && valor.classList.contains("valor")) {
+        contenedor.removeChild(valor);
+        valor = contenedor.firstElementChild;
+    }
+
+    // Insertamos los valores que se tienen en el arreglo
+    n_valores = 0;
+    indx = 0;
+    configs.valores.forEach(val => {
+        agregarValorArreglo(val);
+    });
+
+    // Asignamos el valor de la suma
+    inpSuma.value = configs.suma;
+    
+    // Asignamoes el valor del algoritmo
+    sel_algoritmo.value = configs.algoritmo || 0;
+});
+
+// Actualizar el valor del velocímetro
 bRange.addEventListener("input", function() {
     txtNum.textContent = bRange.value + "s";
 });
 
-const arreglo = [];
-const agregarI = document.getElementById("agregar-arreglo");
-const contenedor = document.querySelector('#contenedor-arreglo');
-
-const inpTxt = document.querySelector(".input-num");
-const tamArr = document.getElementById("numArr");
-
+// Agregar valores al arreglo
 agregarI.addEventListener("click", function() {
+    agregarValorArreglo(1);
+});
 
-    tamArr.textContent = "n: " + arreglo.length;
-    var nuevo_valor = document.createElement('div');
-    nuevo_valor.className = "bd-highlight d-flex justify-content-start m-1 w-100 align-items-center";
+// Guardar todos los datos editados
+btn_guardar.addEventListener("click", function() {
+    configs.valores = [];
 
     
+    let valor = contenedor.firstElementChild;
 
-    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="1" min="1" name="array[]">
-    <div class="bg-danger b-redondeado px-2 fs-2 minus">
+    while(valor != null) {
+        if(valor.classList.contains("valor")) {
+            configs.valores.push(valor.firstElementChild.value);
+        }
+
+        valor = valor.nextElementSibling;
+    }
+
+    configs.suma = parseInt(inpSuma.value);
+    configs.algoritmo = sel_algoritmo.selectedIndex;
+
+    actualizarPanel();
+});
+
+
+function agregarValorArreglo(val){
+    // Creamos un nuevo div y le ponemos su index
+    var nuevo_valor = document.createElement('div');
+    nuevo_valor.className = "valor bd-highlight d-flex justify-content-start m-1 w-100 align-items-center";
+    nuevo_valor.dataset.indx = indx;
+
+    // Creamos los dos divs para el valor y el botón de eliminar junto con
+    // su llamada a la función eliminar valor
+    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="${val}" min="1" name="array[]">
+    <div class="bg-danger b-redondeado px-2 fs-2 minus" onclick='eliminarValor(${indx})'>
         <p class="text-white fw-bolder minus">-</p>
     </div>`;
 
-    contenedor.insertBefore(nuevo_valor, agregarI);
-});
+    // Inrementamos el índice y el contador
+    indx++;
+    n_valores++;
+
+    // Actualizamos el DOM
+    tamArr.textContent = "n: " + n_valores;
+    contenedor.insertBefore(nuevo_valor, agregarI.parentElement);
+}
+
+/**
+ * Función para eliminar un valor del DOM respecto al índice que se le asignó
+ * @param {int} id Indice de ese velor dentro del arreglo del DOM
+ */
+function eliminarValor(id) {
+    // Obtenemos el div que contiene el valor y el botón de eliminar
+    const elemento = document.querySelector(`[data-indx="${id}"]`);
+    contenedor.removeChild(elemento);
+    
+    // Decrementamos el contador y actualizamos el DOM
+    n_valores--;
+    tamArr.textContent = "n: " + n_valores;
+
+    // Reinicializamos el índice si se queda sin elementos
+    if (n_valores == 0) {
+        indx = 0;
+    }
+}    
+
+function actualizarPanel(){
+    let arreglo_text = `Arreglo[${configs.valores.length}] = [`;
+    arreglo_text += configs.valores.join(', '); // Unimos todo con las comas
+    arreglo_panel.textContent = arreglo_text + ']'; 
+
+    let algoritmo = algoritmos[configs.algoritmo];
+    arreglo_panel.nextElementSibling.textContent = `Algoritmo: ${algoritmo} | Suma: ${configs.suma}`;
+}
