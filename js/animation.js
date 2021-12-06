@@ -1,3 +1,6 @@
+/*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
+import {main as fuerzaBruta} from './fuerza-bruta/brute-force-algorithm.js';
+
 /*--------------------------VARIABLES GLOBALES--------------------------- */
 
 // Constantes para la actualización del velocímetro del DOM
@@ -27,7 +30,9 @@ const btn_guardar = document.querySelector('#btn-guardar');
 const configs = {
     algoritmo: "",
     valores: [],
-    suma: 0
+    suma: 0,
+    tipo_animacion: "PXP",
+    velocidad: 1
 }
 const algoritmos = {
     1 : 'Fuerza bruta',
@@ -41,20 +46,37 @@ const arreglo_panel = document.querySelector('#arreglo');
 // Constante para el botón de simular
 const btn_simular = document.querySelector('#btn-simular');
 
-/*----------------MANEJO DEL PANLE DE CONTROL EN EL DOM------------------*/
+/*----------------MANEJO DEL PANEL DE CONTROL EN EL DOM------------------*/
 
-// Actualizar el velocimetro al escoger el modo de ejecución
+/**
+ * Función para ctualizar el velocimetro al escoger el modo de ejecución
+ */
 sel_ejecucion.addEventListener('change', function(){
+    // Mostramos el velocímetro si es modo automático
     if(sel_ejecucion.value == 2){
         velocidad.classList.remove('d-none');
         btn_simular.textContent = 'Simular';
-    } else {
+        configs.tipo_animacion = "AUTO";
+    } else { // Oculamos el velocímetro si es modo paso por paso
         velocidad.classList.add('d-none');
         btn_simular.textContent = 'Avanzar';
+        configs.tipo_animacion = "PXP";
     }
 });
 
-// Actualizar el modal al abrir
+/**
+ * Función para Actualizar el valor del velocímetro al ser desplazado
+ */
+ bRange.addEventListener("input", function() {
+    txtNum.textContent = bRange.value + "s";
+    configs.velocidad = bRange.value;
+});
+
+
+/**
+ * Función para actualizar los valores del modal al ser abierto
+ * conforme a los parámetros del objeto configs
+ */
 modal_panel.addEventListener('click', () => {
     // Limpiamos el areglo del modal
     let valor = contenedor.firstElementChild;
@@ -63,7 +85,7 @@ modal_panel.addEventListener('click', () => {
         valor = contenedor.firstElementChild;
     }
 
-    // Insertamos los valores que se tienen en el arreglo
+    // Insertamos los valores que se tienen en el arreglo sobre el modal
     n_valores = 0;
     indx = 0;
     configs.valores.forEach(val => {
@@ -77,38 +99,82 @@ modal_panel.addEventListener('click', () => {
     sel_algoritmo.value = configs.algoritmo || 0;
 });
 
-// Actualizar el valor del velocímetro
-bRange.addEventListener("input", function() {
-    txtNum.textContent = bRange.value + "s";
-});
-
-// Agregar valores al arreglo
+/**
+ * Función para agregar valores al arreglo al click en el botón de agregar
+ */
 agregarI.addEventListener("click", function() {
     agregarValorArreglo(1);
 });
 
-// Guardar todos los datos editados
+/**
+ * Función para guardar todos los datos editados al click en el 
+ * botón guardar del modal
+ */
 btn_guardar.addEventListener("click", function() {
+    // Reinicializamos el arreglo
     configs.valores = [];
 
-    
+    // Guardamos cada uno de los valores del DOM
     let valor = contenedor.firstElementChild;
-
     while(valor != null) {
         if(valor.classList.contains("valor")) {
             configs.valores.push(valor.firstElementChild.value);
         }
-
         valor = valor.nextElementSibling;
     }
 
+    // Guardamos la suma deseada
     configs.suma = parseInt(inpSuma.value);
+    
+    // Guardamos el algoritmo
     configs.algoritmo = sel_algoritmo.selectedIndex;
 
+    // Actualizamos el panel de control para que se muestren los datos
     actualizarPanel();
 });
 
+/**
+ * Función que indexa todos el algoritmo con toddos sus paramétros y 
+ * comienza la ejecución de la simulación
+ */
+btn_simular.addEventListener("click", function() {
+    // Validamos que los datos estén correctos
+    if(!validarDatos()) {
+        return;
+    }
 
+
+    // Indexamos el algoritmo seleccionado
+    if(algoritmos[configs.algoritmo] == 'Fuerza bruta') {
+        // Activamos el div de los nodos y el canvas para las flechas
+        const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
+        paneles_fuerza_bruta.forEach(panel => {
+            panel.classList.remove('d-none');
+        });
+        
+        fuerzaBruta();
+
+    } else if(algoritmos[configs.algoritmo] == 'DP Top-Down') {
+        // Activamos el div de los nodos y el canvas para las flechas
+        const paneles_top_down = document.querySelectorAll('.animacion-Top-Down');
+        paneles_top_down.forEach(panel => {
+            panel.classList.remove('d-none');
+        });
+        
+        fuerzaBruta();
+
+    } else if(algoritmos[configs.algoritmo] == 'DP Bottom-Up') {
+
+    }    
+});
+
+
+/*--------------------------------FUNCIONES AUXILIARES------------------------------*/
+
+/**
+ * Función que agrega un valor dado al modal del DOM 
+ * @param {int} val Valor que se agregará al DOM
+ */
 function agregarValorArreglo(val){
     // Creamos un nuevo div y le ponemos su index
     var nuevo_valor = document.createElement('div');
@@ -150,11 +216,25 @@ function eliminarValor(id) {
     }
 }    
 
+/**
+ * Función para actualizar el panel de control conforme a los datos del algoritmo que se
+ * implementará
+ */
 function actualizarPanel(){
+    // Actualizamos el arreglo
     let arreglo_text = `Arreglo[${configs.valores.length}] = [`;
     arreglo_text += configs.valores.join(', '); // Unimos todo con las comas
     arreglo_panel.textContent = arreglo_text + ']'; 
 
+    // Actualizamos el algoritmo y suma
     let algoritmo = algoritmos[configs.algoritmo];
     arreglo_panel.nextElementSibling.textContent = `Algoritmo: ${algoritmo} | Suma: ${configs.suma}`;
+}
+
+/**
+ * Función para validar que los datos de la ejecución estén correctos y se pueda simular
+ */
+function validarDatos() {
+    
+    return true;
 }

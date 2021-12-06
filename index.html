@@ -15,7 +15,7 @@
 </head>
 
 <body onload="PR.prettyPrint()">
-    <canvas id="panel-animado"></canvas>
+    <canvas id="panel-animado" class="animacion-brute-force animacion-Top-Down d-none"></canvas>
 
     <div id="ini"></div>
     <header class="header sticky-top">
@@ -669,47 +669,53 @@
         
         <div class="panel-wrapper w-100 d-flex flex-row">
             <div class="panel-visible h-100 w-75">
-                <div class="row level" id="level-0">
-                    <div class="nodo" data-id=""></div>
+
+                <!-- Panel de animación "arbol" para las animaxiones de fuerza bruta y top-down-->
+                <div class="animacion-brute-force animacion-Top-Down h-100 w-100 d-none">
+                    <div class="row level" id="level-0">
+                        <div class="nodo" data-id=""></div>
+                    </div>
+                    <div class="row level" id="level-1">
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                    </div>
+                    <div class="row level" id="level-2">
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                    </div>
+                    <div class="row level" id="level-3">
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                    </div>
+                    <div class="row level" id="level-4">
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                        <div class="nodo" data-id=""></div>
+                    </div>
                 </div>
-                <div class="row level" id="level-1">
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                </div>
-                <div class="row level" id="level-2">
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                </div>
-                <div class="row level" id="level-3">
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                </div>
-                <div class="row level" id="level-4">
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                    <div class="nodo" data-id=""></div>
-                </div>
+
+
             </div>
             <div class="panel-informativo h-100 w-25 m-2">
                 <p class="fs-1">Panel informativo</p>
@@ -836,10 +842,9 @@
         </div>
     </footer>
 
-    <script src="./js/animation.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/fuerza-bruta/brute-force-algorithm.js" type="module"></script>
+    <script src="./js/main.js"> </script>
+    <script src="./js/animation.js" type="module"></script>
     <script src="./libs/pretify/prettify.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

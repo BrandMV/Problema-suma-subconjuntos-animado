@@ -5,18 +5,11 @@ import {
 } from './brute-force-animation.js';
 
 
-const navItem4 = document.getElementById("animacion")
-navItem4.addEventListener('click', e => {
-
-    if (!document.querySelector("#panel-animado").classList.contains("d-none")) {
-        main();
-    }
-})
 // Creamos el nodo raiz e inicializamos el canvas
 export const ui = new UI();
 export const root = new Arbol("", "0", "(4, 7)", 0, 1);
 
-function main() {
+export function main() {
     
     ui.mostrarNodo(root);
 
@@ -35,7 +28,3 @@ function main() {
     nodo = nodo.getPadre().getPadre();
     nodo = agregarNodo(nodo, 3, 6, "(2, 2)", "izq");
 }
-
-
-
-
