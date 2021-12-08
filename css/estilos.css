@@ -694,8 +694,29 @@ footer p {
 }
 
 
-@media (min-height: 670px) {
-    
+@media (max-height: 670px) {
+   
+    .panel-control div[data-toggle="modal"]{
+        cursor: pointer;
+        margin-bottom: 0;
+        height: 33%;
+
+        font-size: .6rem;
+        line-height: 1.2rem;
+    }
+    .seleccion-ejecucion > p, .seleccion-velocidad > p{
+        font-size: 1.5rem;
+        margin-bottom: .1em;
+    }
+    .modal-content {
+        margin-top: 10vh;
+        height: 470px;
+        max-height: 470px;
+        max-width: 450px;
+    }
+    .modal-body {
+        max-height: 62%;
+    }
 }
 
 @media (min-height: 780px) {
