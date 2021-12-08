@@ -104,7 +104,7 @@
                 }
                         </pre>
                 </div>
-    
+
                 <div class="codigo fs-3" id="c" style="display:none">
                     <pre class="prettyprint lang-c">
     
@@ -285,7 +285,7 @@
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
                     </pre>
                 </div>
-    
+
                 <div class="codigo-dp fs-3" id="c-dp" style="display:none">
                     <pre class="prettyprint">
                 esto es c     
@@ -319,7 +319,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre>     
+                    </pre>
                 </div>
                 <div class="codigo-dp fs-3" id="java-dp" style="display:none">
                     <pre class="prettyprint">
@@ -354,7 +354,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre>               
+                    </pre>
                 </div>
                 <div class="codigo-dp fs-3" id="python-dp" style="display:none">
                     <pre class="prettyprint">
@@ -389,7 +389,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre> 
+                    </pre>
                 </div>
                 <div class="codigo-dp fs-3" id="js-dp" style="display:none">
                     <pre class="prettyprint">
@@ -473,7 +473,7 @@
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
                     </pre>
                 </div>
-    
+
                 <div class="codigo-dp2 fs-3" id="c-dp2" style="display:none">
                     <pre class="prettyprint">
                 esto es c     
@@ -507,7 +507,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre>     
+                    </pre>
                 </div>
                 <div class="codigo-dp2 fs-3" id="java-dp2" style="display:none">
                     <pre class="prettyprint">
@@ -542,7 +542,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre>               
+                    </pre>
                 </div>
                 <div class="codigo-dp2 fs-3" id="python-dp2" style="display:none">
                     <pre class="prettyprint">
@@ -577,7 +577,7 @@
         let n = conjunto.length
     
         esSumaConjunto(conjunto, n, sum) ? console.log("True") : console.log("False");
-                    </pre> 
+                    </pre>
                 </div>
                 <div class="codigo-dp2 fs-3" id="js-dp2" style="display:none">
                     <pre class="prettyprint">
@@ -666,7 +666,7 @@
             </div>
         </div>
 
-        
+
         <div class="panel-wrapper w-100 d-flex flex-row">
             <div class="panel-visible h-100 w-75">
 
@@ -728,7 +728,7 @@
     <div class="modal fade mx-5" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-del " role="document">
             <div class="modal-content b-redondeado border border-primary">
-                
+
                 <div class="d-flex justify-content-end ">
                     <button type="button" class="close px-2 texto-div-animacion bg-danger b-redondo-close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="fs-2">&times;</span>
@@ -742,7 +742,7 @@
                 </div>
 
                 <div class="modal-body m-2">
-                    <form action="" class="">
+                    <form action="">
                         <div class="row">
                             <div class="col">
 
@@ -758,23 +758,24 @@
 
                                     <!--Caja de elementos -->
                                     <div class="w-100 d-flex justify-content-center" id="contenedor-elementos">
-                                        
+
                                         <div class="elementos d-flex flex-column align-self-center w-50 h-100" id="contenedor-arreglo">
                                             <!--ELEMENTOS ARREGLO-->
 
                                             <!--ELEMENTO AGREGAR-->
                                             <div class="bd-highlight d-flex justify-content-star  w-100 m-1" id="agregar-arreglo">
                                                 <input type="button" class="b-redondeado text-white fw-bolder text-center px-4 w-75" id="agregarI" value="+">
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
 
-                                     <!-- Información -->
+                                    <!-- Información -->
                                     <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
+                                        <span class="errorArr" id="errorArr" aria-live="polite"></span>
                                         <div class="informacion m-1">?</div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col d-flex flex-column justify-content-between">
                                 <!-- Caja de suma que contiene una entrada -->
@@ -786,7 +787,7 @@
                                     <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-suma">
                                         <div class="d-flex flex-column bd-highlight azul-modal-claro h-100 w-30">
                                             <input type="number" class="form-control-modal text-center w-100" min="1" value="0">
-                                        </div>                                      
+                                        </div>
                                     </div>
 
                                     <!-- Información -->
@@ -809,7 +810,7 @@
                                                 <option class="fs-5" value="2">DP Top-down</option>
                                                 <option class="fs-5" value="3">DP Bottom-up</option>
                                             </select>
-                                        </div>                                    
+                                        </div>
                                     </div>
 
                                     <!-- Información -->
@@ -823,7 +824,7 @@
                 </div>
 
                 <div class="my-3 modal-footer mx-3">
-                    <button type="button" data-dismiss="modal" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4" id="btn-guardar">Guardar</button>
+                    <input type="button" data-dismiss="modal" class="btn azul-modal-fuerte texto-div-animacion b-redondeado fs-4" id="btn-guardar" value="Guardar">
                 </div>
 
             </div>
@@ -842,10 +843,12 @@
         </div>
     </footer>
 
-    
+
     <script src="./js/animation.js" type="module"></script>
+    <script src="./js/validacion.js" type="module"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/main.js"> </script>
+    <script src="./js/main.js">
+    </script>
     <script src="./libs/pretify/prettify.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

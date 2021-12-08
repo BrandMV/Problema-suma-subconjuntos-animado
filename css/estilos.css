@@ -12,6 +12,10 @@
     --section-height: calc( 100vh - 8.2rem);
 }
 
+div[data-indx="0"]>input {
+    background-color: #3A8234;
+}
+
 .color-default-circulo {
     background-color: var(--regalBlue) !important;
 }
@@ -39,34 +43,43 @@
 .color-true-info-dark {
     background-color: var(--stratos);
 }
+
 .h-20 {
     height: 20%!important;
 }
+
 .h-40 {
     height: 40%!important;
 }
+
 .h-60 {
     height: 60%!important;
 }
+
 .h-80 {
     height: 80%!important;
 }
+
 .h-90 {
     height: 90%!important;
 }
+
 .h-100 {
     height: 100%!important;
 }
-.mh-50{
+
+.mh-50 {
     max-height: 50%!important;
 }
 
 .w-6-25 {
     width: 6.25%!important;
 }
+
 .w-30 {
     width: 30%!important;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -85,19 +98,22 @@ body {
     max-height: 100vh;
     max-width: 100vw;
 }
-.informacion{ /*Circulitos informativos*/
+
+.informacion {
+    /*Circulitos informativos*/
     padding: .2rem;
     background-color: var(--bondiBlue);
     font-size: 1.5rem;
     border-radius: 50%;
     color: white;
     font-weight: bold;
-
     width: 2rem;
     height: 2rem;
     text-align: center;
     line-height: 1.7rem;
 }
+
+
 /* Navbar */
 
 .header {
@@ -262,7 +278,6 @@ section .codigo {
     border-right: none;
 }
 
-
 span {
     font-size: 1.5rem;
 }
@@ -319,6 +334,7 @@ button.tab-activa {
     margin: 3rem 0;
     width: 100%;
 }
+
 
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
 
@@ -407,46 +423,58 @@ button.tab-activa {
     font-size: 2em;
 }
 
+
 /* SECCIÓN PANEL DE CONTROL */
-.panel-control div[data-toggle="modal"]{
+
+.panel-control div[data-toggle="modal"] {
     cursor: pointer;
     margin-bottom: .6em;
 }
-.panel-control div[data-toggle="modal"]:hover{
+
+.panel-control div[data-toggle="modal"]:hover {
     color: rgb(255, 255, 255) !important;
     background-color: var( --stratos);
 }
 
-.seleccion-ejecucion > p, .seleccion-velocidad > p{
+.seleccion-ejecucion>p,
+.seleccion-velocidad>p {
     font-size: 5em;
     margin: 0 0 .2em .2em;
 }
-.seleccion-ejecucion div, .seleccion-ejecucion div select{
+
+.seleccion-ejecucion div,
+.seleccion-ejecucion div select {
     height: 2.3em;
 }
-.seleccion-ejecucion div select:hover{
+
+.seleccion-ejecucion div select:hover {
     color: rgb(255, 255, 255) !important;
     background-color: var( --stratos);
 }
-.seleccion-velocidad div p{
+
+.seleccion-velocidad div p {
     width: 9em;
     text-align: center;
 }
-.seleccion-velocidad div div{
+
+.seleccion-velocidad div div {
     width: 38em;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
 }
-.seleccion-velocidad div div:hover{
+
+.seleccion-velocidad div div:hover {
     color: rgb(255, 255, 255) !important;
     background-color: var( --stratos);
 }
-.seleccion-velocidad #bRange{
+
+.seleccion-velocidad #bRange {
     width: 32em;
 }
-#btn-simular:hover{
+
+#btn-simular:hover {
     color: rgb(255, 255, 255) !important;
     background-color: var( --stratos) !important;
 }
@@ -461,27 +489,32 @@ button.tab-activa {
     font-weight: bold;
 }
 
+
 /* MODAL DE ANIMACIÓN*/
+
 .modal-content {
     margin-top: 10vh;
     height: 500px;
     max-height: 500px;
     max-width: 450px;
 }
+
 .modal-body {
     max-height: 62%;
 }
+
 .modal-body form,
 .modal-body form .row,
-.modal-body form .row .col{
+.modal-body form .row .col {
     height: 100%;
     max-height: 100%;
 }
 
-.modal-body .caja-input{
+.modal-body .caja-input {
     border-radius: 10px;
 }
-.modal-body .caja-input #contenedor-elementos{
+
+.modal-body .caja-input #contenedor-elementos {
     max-height: 100%;
     overflow-y: auto;
 }
@@ -489,7 +522,8 @@ button.tab-activa {
 .b-redondeado {
     border-radius: 13px;
 }
-.header-valores{
+
+.header-valores {
     border-radius: 10px 10px 0px 0px;
     font-size: 1.3rem !important;
     padding: .2rem;
@@ -505,11 +539,11 @@ p {
     width: 30px;
 }
 
-
-.b-redondo-sup{
+.b-redondo-sup {
     border-radius: 10px 10px 0px 0px;
 }
-.modal-header{
+
+.modal-header {
     padding: 1rem 2rem 1rem 2rem;
 }
 
@@ -578,6 +612,7 @@ input[type=button] {
     appearance: none;
     border-radius: 13px;
 }
+
 
 /* Footer */
 
@@ -693,18 +728,16 @@ footer p {
     }
 }
 
-
 @media (max-height: 670px) {
-   
-    .panel-control div[data-toggle="modal"]{
+    .panel-control div[data-toggle="modal"] {
         cursor: pointer;
         margin-bottom: 0;
         height: 33%;
-
         font-size: .6rem;
         line-height: 1.2rem;
     }
-    .seleccion-ejecucion > p, .seleccion-velocidad > p{
+    .seleccion-ejecucion>p,
+    .seleccion-velocidad>p {
         font-size: 1.5rem;
         margin-bottom: .1em;
     }
@@ -736,6 +769,7 @@ footer p {
         height: 85%!important;
     }
 }
+
 @media (min-height: 950px) {
     .panel-control {
         height: 14%!important;
@@ -744,6 +778,7 @@ footer p {
         height: 86%!important;
     }
 }
+
 @media (min-height: 1050px) {
     .panel-control {
         height: 12%!important;

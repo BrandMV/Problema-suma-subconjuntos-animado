@@ -1,5 +1,5 @@
 /*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
-import {main as fuerzaBruta} from './fuerza-bruta/brute-force-algorithm.js';
+import { main as fuerzaBruta } from './fuerza-bruta/brute-force-algorithm.js';
 
 /*--------------------------VARIABLES GLOBALES--------------------------- */
 
@@ -35,9 +35,9 @@ const configs = {
     velocidad: 1
 }
 const algoritmos = {
-    1 : 'Fuerza bruta',
-    2 : 'DP Top-Down',
-    3 : 'DP Bottom-Up'
+    1: 'Fuerza bruta',
+    2: 'DP Top-Down',
+    3: 'DP Bottom-Up'
 }
 
 // Constante para actualizar el panel de control
@@ -46,14 +46,16 @@ const arreglo_panel = document.querySelector('#arreglo');
 // Constante para el botón de simular
 const btn_simular = document.querySelector('#btn-simular');
 
+btn_guardar.disabled = true;
+
 /*----------------MANEJO DEL PANEL DE CONTROL EN EL DOM------------------*/
 
 /**
  * Función para ctualizar el velocimetro al escoger el modo de ejecución
  */
-sel_ejecucion.addEventListener('change', function(){
+sel_ejecucion.addEventListener('change', function() {
     // Mostramos el velocímetro si es modo automático
-    if(sel_ejecucion.value == 2){
+    if (sel_ejecucion.value == 2) {
         velocidad.classList.remove('d-none');
         btn_simular.textContent = 'Simular';
         configs.tipo_animacion = "AUTO";
@@ -67,7 +69,7 @@ sel_ejecucion.addEventListener('change', function(){
 /**
  * Función para Actualizar el valor del velocímetro al ser desplazado
  */
- bRange.addEventListener("input", function() {
+bRange.addEventListener("input", function() {
     txtNum.textContent = bRange.value + "s";
     configs.velocidad = bRange.value;
 });
@@ -80,7 +82,7 @@ sel_ejecucion.addEventListener('change', function(){
 modal_panel.addEventListener('click', () => {
     // Limpiamos el areglo del modal
     let valor = contenedor.firstElementChild;
-    while(valor != null && valor.classList.contains("valor")) {
+    while (valor != null && valor.classList.contains("valor")) {
         contenedor.removeChild(valor);
         valor = contenedor.firstElementChild;
     }
@@ -94,7 +96,7 @@ modal_panel.addEventListener('click', () => {
 
     // Asignamos el valor de la suma
     inpSuma.value = configs.suma;
-    
+
     // Asignamoes el valor del algoritmo
     sel_algoritmo.value = configs.algoritmo || 0;
 });
@@ -110,14 +112,15 @@ agregarI.addEventListener("click", function() {
  * Función para guardar todos los datos editados al click en el 
  * botón guardar del modal
  */
+const error = document.getElementById("errorArr");
 btn_guardar.addEventListener("click", function() {
     // Reinicializamos el arreglo
     configs.valores = [];
 
     // Guardamos cada uno de los valores del DOM
     let valor = contenedor.firstElementChild;
-    while(valor != null) {
-        if(valor.classList.contains("valor")) {
+    while (valor != null) {
+        if (valor.classList.contains("valor")) {
             configs.valores.push(valor.firstElementChild.value);
         }
         valor = valor.nextElementSibling;
@@ -125,12 +128,13 @@ btn_guardar.addEventListener("click", function() {
 
     // Guardamos la suma deseada
     configs.suma = parseInt(inpSuma.value);
-    
+
     // Guardamos el algoritmo
     configs.algoritmo = sel_algoritmo.selectedIndex;
 
     // Actualizamos el panel de control para que se muestren los datos
     actualizarPanel();
+
 });
 
 /**
@@ -139,33 +143,33 @@ btn_guardar.addEventListener("click", function() {
  */
 btn_simular.addEventListener("click", function() {
     // Validamos que los datos estén correctos
-    if(!validarDatos()) {
+    if (!validarDatos()) {
         return;
     }
 
 
     // Indexamos el algoritmo seleccionado
-    if(algoritmos[configs.algoritmo] == 'Fuerza bruta') {
+    if (algoritmos[configs.algoritmo] == 'Fuerza bruta') {
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
         paneles_fuerza_bruta.forEach(panel => {
             panel.classList.remove('d-none');
         });
-        
+
         fuerzaBruta();
 
-    } else if(algoritmos[configs.algoritmo] == 'DP Top-Down') {
+    } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_top_down = document.querySelectorAll('.animacion-Top-Down');
         paneles_top_down.forEach(panel => {
             panel.classList.remove('d-none');
         });
-        
+
         fuerzaBruta();
 
-    } else if(algoritmos[configs.algoritmo] == 'DP Bottom-Up') {
+    } else if (algoritmos[configs.algoritmo] == 'DP Bottom-Up') {
 
-    }    
+    }
 });
 
 
@@ -178,7 +182,7 @@ window.eliminarValor = (id) => { // La hacemos global para el html
     // Obtenemos el div que contiene el valor y el botón de eliminar
     const elemento = document.querySelector(`[data-indx="${id}"]`);
     contenedor.removeChild(elemento);
-    
+
     // Decrementamos el contador y actualizamos el DOM
     n_valores--;
     tamArr.textContent = "n: " + n_valores;
@@ -187,12 +191,13 @@ window.eliminarValor = (id) => { // La hacemos global para el html
     if (n_valores == 0) {
         indx = 0;
     }
-} 
+}
+
 /**
  * Función que agrega un valor dado al modal del DOM 
  * @param {int} val Valor que se agregará al DOM
  */
-function agregarValorArreglo(val){
+function agregarValorArreglo(val) {
     // Creamos un nuevo div y le ponemos su index
     var nuevo_valor = document.createElement('div');
     nuevo_valor.className = "valor bd-highlight d-flex justify-content-start m-1 w-100 align-items-center";
@@ -200,7 +205,7 @@ function agregarValorArreglo(val){
 
     // Creamos los dos divs para el valor y el botón de eliminar junto con
     // su llamada a la función eliminar valor
-    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="${val}" min="1" name="array[]">
+    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="${val}" min="1" name="array[]" oninput='verficarValor(${indx})'>
     <div class="bg-danger b-redondeado px-2 fs-2 minus" onclick='eliminarValor(${indx})'>
         <p class="text-white fw-bolder minus">-</p>
     </div>`;
@@ -214,17 +219,23 @@ function agregarValorArreglo(val){
     contenedor.insertBefore(nuevo_valor, agregarI.parentElement);
 }
 
-   
+window.verficarValor = (id) => { // La hacemos global para el html
+
+    const elemento = document.querySelector('div[data-indx="${id}"] input');
+    if (parseInt(elemento.textContent) > 0) {
+        btn_guardar.disabled = false;
+    }
+}
 
 /**
  * Función para actualizar el panel de control conforme a los datos del algoritmo que se
  * implementará
  */
-function actualizarPanel(){
+function actualizarPanel() {
     // Actualizamos el arreglo
     let arreglo_text = `Arreglo[${configs.valores.length}] = [`;
     arreglo_text += configs.valores.join(', '); // Unimos todo con las comas
-    arreglo_panel.textContent = arreglo_text + ']'; 
+    arreglo_panel.textContent = arreglo_text + ']';
 
     // Actualizamos el algoritmo y suma
     let algoritmo = algoritmos[configs.algoritmo];
@@ -235,6 +246,5 @@ function actualizarPanel(){
  * Función para validar que los datos de la ejecución estén correctos y se pueda simular
  */
 function validarDatos() {
-    
-    return true;
+    return;
 }
