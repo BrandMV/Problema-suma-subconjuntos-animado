@@ -12,10 +12,6 @@
     --section-height: calc( 100vh - 8.2rem);
 }
 
-div[data-indx="0"]>input {
-    background-color: #3A8234;
-}
-
 .color-default-circulo {
     background-color: var(--regalBlue) !important;
 }
@@ -645,6 +641,17 @@ footer p {
     font-weight: bold;
     text-align: center;
     align-self: center;
+}
+
+
+/* ERRORES */
+
+.error {
+    color: #900;
+}
+
+.error.active {
+    padding: 0.3em;
 }
 
 

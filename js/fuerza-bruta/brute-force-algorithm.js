@@ -9,8 +9,9 @@ import {
 export const ui = new UI();
 export const root = new Arbol("", "0", "(4, 7)", 0, 1);
 
+
 export function main() {
-    
+
     ui.mostrarNodo(root);
 
     let nodo = agregarNodo(root, 10, 1, "(1, 1)", "der");

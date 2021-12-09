@@ -1,5 +1,5 @@
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
-import {root, ui} from './brute-force-algorithm.js';
+import { root, ui } from './brute-force-algorithm.js';
 
 // Variable que apunta al nth div en cada nivel del árbol, se irán recorriendo
 // a la izquierda cada que se inserte un nodo en ese nivel
@@ -14,32 +14,32 @@ let apuntadores_nivel = {
 /*----------------------------------------Clases principales---------------------------------*/
 
 /**
- * Clase que representa la intefaz gráfica del algoritmo de fuerza bruta (el canvas)
+ * Clase que representa la interfaz gráfica del algoritmo de fuerza bruta (el canvas)
  */
 export class UI {
 
     constructor() {
-        // Inicializamos el canvas y le adaptamos la resolución
-        this.panel_animado = document.querySelector("#panel-animado");
-        this.panel_animado.width = window.innerWidth;
-        this.panel_animado.height = window.innerHeight;
+            // Inicializamos el canvas y le adaptamos la resolución
+            this.panel_animado = document.querySelector("#panel-animado");
+            this.panel_animado.width = window.innerWidth;
+            this.panel_animado.height = window.innerHeight;
 
-        // Agregamos el listener para el canvas
-        window.addEventListener("resize", () =>{
-            this.repintar();
-        });
-        
-    }
-    /**
-     * Función que agrega un nodo dentro de su div correspondiente
-     * @param {Arbol} Arbol.level Nivel en el que se encontrará el nodo
-     * @param {Arbol} Arbol.value Valor que mostrará el circulo del nodo
-     * @param {Arbol} Arbol.info Información que mostrará el cuadro 
-     * informativo del nodo
-     * @param {Arbol} Arbol.id Id del nodo
-     * 
-     */
-    mostrarNodo({ level, valor = "", info, id}) {
+            // Agregamos el listener para el canvas
+            window.addEventListener("resize", () => {
+                this.repintar();
+            });
+
+        }
+        /**
+         * Función que agrega un nodo dentro de su div correspondiente
+         * @param {Arbol} Arbol.level Nivel en el que se encontrará el nodo
+         * @param {Arbol} Arbol.value Valor que mostrará el circulo del nodo
+         * @param {Arbol} Arbol.info Información que mostrará el cuadro 
+         * informativo del nodo
+         * @param {Arbol} Arbol.id Id del nodo
+         * 
+         */
+    mostrarNodo({ level, valor = "", info, id }) {
         // Creamos el nodo en el nivel y div adecuado calculado por los apuntadores de nivel
         let nodo = document.querySelector(`#level-${level} .nodo:nth-child(${apuntadores_nivel[level]})`);
         apuntadores_nivel[level] -= 1; // Restamos el número de nodos cubiertos en el nivel
@@ -82,7 +82,7 @@ export class UI {
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
-        
+
         // Dibujando el cuerpo de la flecha
         ctx.beginPath();
         ctx.strokeStyle = inicio.color;
@@ -127,16 +127,16 @@ export class UI {
         const elemento_info = document.querySelector(`div[data-id="${id}"] .nodo-info`);
 
         // Cambiamos los colores
-        if(resultado === true){
+        if (resultado === true) {
             elemento_circulo.classList.add("color-true-circulo");
             elemento_info.classList.add("color-true-info");
-        } else{
+        } else {
             elemento_circulo.classList.add("color-false-circulo");
             elemento_info.classList.add("color-false-info");
         }
         this.repintar();
     }
-    
+
     /**
      * Función que repinta las flechas sobre el canvas de animación recorriendo
      * y relacionando todos los nodos presentes
@@ -150,20 +150,20 @@ export class UI {
         // Actualizamos la resolución del canvas
         this.panel_animado.width = window.innerWidth;
         this.panel_animado.height = window.innerHeight;
-        
+
         // Recorremos todos los nodos del árbol y vamos relacionando a los padres con los
         // hijos
         root.forEach(nodo => {
-            if(nodo.izquierdo != null){
+            if (nodo.izquierdo != null) {
                 const elemento_info = obtenerCoordsInfo(nodo);
                 const elemento_circulo = obtenerCoordsCirculo(nodo.izquierdo);
 
                 ui.agregarFlecha(elemento_info, elemento_circulo);
             }
-            if(nodo.derecho != null){
+            if (nodo.derecho != null) {
                 const elemento_info = obtenerCoordsInfo(nodo);
                 const elemento_circulo = obtenerCoordsCirculo(nodo.derecho);
-               
+
                 ui.agregarFlecha(elemento_info, elemento_circulo);
             }
         });
@@ -177,39 +177,39 @@ export class UI {
  * @param {String} info Información del nodo "(x, y)"
  * @param {int} level Nivdel del nodo dentro del árbol
  */
-export class Arbol{
+export class Arbol {
 
-    constructor(valor, id, info, level){
-        this.valor = valor;
-        this.id = id; 
-        this.info = info; 
-        this.level = level;
+    constructor(valor, id, info, level) {
+            this.valor = valor;
+            this.id = id;
+            this.info = info;
+            this.level = level;
 
-        // Apuntadores a los nodos para acceso rápido
-        this.derecho = null;
-        this.padre = null;
-    }
-    /**
-     * Función que agrega un nodo hijo al padre
-     * @param {int} valor valos que irá dentro del círculo
-     * @param {Int} id Identificador html del nodo de
-     * @param {String} info Información del nodo "(x, y)"
-     * @param {String} posicion Posición del nodo respecto a la raíz (der, izq)
-     * @returns {Arbol} El nodo hijo creado
-     */
-    agregarHijo(valor, id, info, posicion){
+            // Apuntadores a los nodos para acceso rápido
+            this.derecho = null;
+            this.padre = null;
+        }
+        /**
+         * Función que agrega un nodo hijo al padre
+         * @param {int} valor valos que irá dentro del círculo
+         * @param {Int} id Identificador html del nodo de
+         * @param {String} info Información del nodo "(x, y)"
+         * @param {String} posicion Posición del nodo respecto a la raíz (der, izq)
+         * @returns {Arbol} El nodo hijo creado
+         */
+    agregarHijo(valor, id, info, posicion) {
         // Creamos el nodo
-        const nodo = new Arbol(valor, id, info, this.level+1);
+        const nodo = new Arbol(valor, id, info, this.level + 1);
 
         // Asignamos el padre
         nodo.padre = this;
 
         // Asignamos el hijo
-        if(posicion === "izq")
+        if (posicion === "izq")
             this.izquierdo = nodo;
         else
             this.derecho = nodo;
-        
+
         return nodo;
     }
 
@@ -217,7 +217,7 @@ export class Arbol{
      * Obtenemos el padre del nodo
      * @returns {Arbol} Retorna el nodo padre
      */
-    getPadre(){
+    getPadre() {
         return this.padre;
     }
 
@@ -225,13 +225,13 @@ export class Arbol{
      * Función que recorre todos los nodos del árbol
      * @param {function} callback Función que ejecutará con cada elemento
      */
-    forEach(callback){
+    forEach(callback) {
         callback(this);
 
-        if(this.izquierdo != null)
+        if (this.izquierdo != null)
             this.izquierdo.forEach(callback);
 
-        if(this.derecho != null)
+        if (this.derecho != null)
             this.derecho.forEach(callback);
     }
 }
@@ -245,7 +245,7 @@ export class Arbol{
  * @param {String} posicion Posición del nodo respecto a la raíz (der, izq)
  * @returns {Arbol} El nodo hijo creado
  */
-export function agregarNodo(nodo_padre, valor, id, info, posicion){
+export function agregarNodo(nodo_padre, valor, id, info, posicion) {
     // Creamos un nodo y lo mostramos
     const nodo_hijo = nodo_padre.agregarHijo(valor, id, info, posicion);
     ui.mostrarNodo(nodo_hijo);
@@ -265,7 +265,7 @@ export function agregarNodo(nodo_padre, valor, id, info, posicion){
  * @returns {{x:float, y:float}} Las coordenadas sobre la pantalla del cuadro
  * informativo donde conectará la flecha
  */
-function obtenerCoordsInfo({id}){
+function obtenerCoordsInfo({ id }) {
     // Seleccionamos el cuadro infomrativo del nodo
     const elemento_info = document.querySelector(`div[data-id="${id}"] .nodo-info`);
 
@@ -273,9 +273,9 @@ function obtenerCoordsInfo({id}){
     const info_x = elemento_info.getBoundingClientRect().x + elemento_info.clientWidth / 2;
     const info_y = elemento_info.getBoundingClientRect().y + elemento_info.clientHeight;
     // Obtenemos el color del cuadro informativo
-    const color = window.getComputedStyle(elemento_info ,null).getPropertyValue('background-color');
+    const color = window.getComputedStyle(elemento_info, null).getPropertyValue('background-color');
 
-    return { x: info_x, y: info_y, color}; // Retornamos las coordenadas
+    return { x: info_x, y: info_y, color }; // Retornamos las coordenadas
 }
 
 /**
@@ -284,7 +284,7 @@ function obtenerCoordsInfo({id}){
  * @returns {{x:float, y:float}} Las coordenadas sobre la pantalla del circulo donde 
  * conectará la flecha
  */
-function obtenerCoordsCirculo({id}){
+function obtenerCoordsCirculo({ id }) {
     // Seleccionamos el círculo del nodo
     const elemento_circulo = document.querySelector(`div[data-id="${id}"] .nodo-circulo`);
 
@@ -294,7 +294,7 @@ function obtenerCoordsCirculo({id}){
     // Obtenemos el color del círculo
     const color = window.getComputedStyle(elemento_circulo, null).getPropertyValue('background-color');
 
-    return { x: circulo_x, y: circulo_y, color}; // Retornamos las coordenadas
+    return { x: circulo_x, y: circulo_y, color }; // Retornamos las coordenadas
 }
 
 /**
@@ -322,7 +322,7 @@ function angulo(p_1, p_2) {
  * @param {{x:float, y:float}} punto Final de la flecha
  * @returns {{x:float, y:float}} Vertice de la punta de la flecha
  */
-function obtenerVerticePunta(angulo, dimension, punto){
+function obtenerVerticePunta(angulo, dimension, punto) {
     dimension *= -1;
     // Calculamos las componentes de la recta en esa dimensión a partir del punto
     const x = punto.x + dimension * Math.cos(angulo * Math.PI / 180);
