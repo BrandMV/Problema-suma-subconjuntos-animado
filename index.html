@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/estilos.css">
     <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="./libs/pretify/prettify.css">
+
     <title>Problema de la suma de subconjuntos</title>
 </head>
 
@@ -640,7 +641,7 @@
                         <p class="justify-content-center">Tipo de animación</p>
                         <div class="dropdown  justify-content-center">
                             <select class="btn dropdown-toggle fs-5 azul-fuerte texto-div-animacion b-redondeado" id="sel_ejecucion">
-                              <option class="fs-5" selected>Seleccionar...</option>
+                              <option class="fs-5" selected disabled value="">Seleccionar...</option>
                               <option class="fs-5" value="1">Paso por paso</option>
                               <option class="fs-5" value="2">Automático</option>
                             </select>
@@ -661,7 +662,7 @@
 
                 </div>
                 <div class="pt-2 ">
-                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4" id=btn-simular>Avanzar</button>
+                    <button type="button" class="btn azul-fuerte texto-div-animacion b-redondeado fs-4 pe-4 ps-4" id="btn-simular">Avanzar</button>
                 </div>
             </div>
         </div>
@@ -771,7 +772,6 @@
 
                                     <!-- Información -->
                                     <div class="p-1 bd-highlight d-flex justify-content-end mt-auto ">
-                                        <span class="errorArr" id="errorArr" aria-live="polite"></span>
                                         <div class="informacion m-1">?</div>
                                     </div>
                                 </div>
@@ -786,7 +786,7 @@
                                     <!--Caja de Suma -->
                                     <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-suma">
                                         <div class="d-flex flex-column bd-highlight azul-modal-claro h-100 w-30">
-                                            <input type="number" class="form-control-modal text-center w-100" min="1" value="0">
+                                            <input type="number" class="form-control-modal text-center w-100" min="1" id="sum-v">
                                         </div>
                                     </div>
 
@@ -805,7 +805,7 @@
                                     <div class="bd-highlight d-flex justify-content-center mt-4" id="contenedor-algoritmo">
                                         <div class="dropdown  justify-content-center ">
                                             <select class="btn dropdown-toggle fs-5 azul-modal-fuerte texto-div-animacion b-redondeado">
-                                                <option class="fs-5" selected value="0">Seleccionar...</option>
+                                                <option class="fs-5" selected value="0" >Seleccionar...</option>
                                                 <option class="fs-5" value="1">Fuerza bruta</option>
                                                 <option class="fs-5" value="2">DP Top-down</option>
                                                 <option class="fs-5" value="3">DP Bottom-up</option>
@@ -821,6 +821,7 @@
                             </div>
                         </div>
                     </form>
+                    <span class="d-flex justify-content-end" id="errorDatos" aria-live="polite"></span>
                 </div>
 
                 <div class="my-3 modal-footer mx-3">
@@ -828,6 +829,14 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+
+    <!-- toast -->
+    <div class="toast align-items-center text-white bg-primary border-0 mt-5 me-5 position-absolute top-0 end-0" style="background-color:#A9C948 !important;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">-</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 
@@ -845,7 +854,6 @@
 
 
     <script src="./js/animation.js" type="module"></script>
-    <script src="./js/validacion.js" type="module"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/main.js">
     </script>

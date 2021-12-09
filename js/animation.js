@@ -26,6 +26,9 @@ const inpSuma = document.querySelector("#contenedor-suma input");
 const sel_algoritmo = document.querySelector('#contenedor-algoritmo select');
 const btn_guardar = document.querySelector('#btn-guardar');
 
+//Constante para la muestra de errores en el formulario
+const errorD = document.getElementById("errorDatos");
+
 // Objeto de valores y algoritmos
 const configs = {
     algoritmo: "",
@@ -80,6 +83,7 @@ bRange.addEventListener("input", function() {
  * conforme a los parámetros del objeto configs
  */
 modal_panel.addEventListener('click', () => {
+
     // Limpiamos el areglo del modal
     let valor = contenedor.firstElementChild;
     while (valor != null && valor.classList.contains("valor")) {
@@ -105,14 +109,14 @@ modal_panel.addEventListener('click', () => {
  * Función para agregar valores al arreglo al click en el botón de agregar
  */
 agregarI.addEventListener("click", function() {
-    agregarValorArreglo(1);
+    agregarValorArreglo();
 });
 
 /**
  * Función para guardar todos los datos editados al click en el 
  * botón guardar del modal
  */
-const error = document.getElementById("errorArr");
+
 btn_guardar.addEventListener("click", function() {
     // Reinicializamos el arreglo
     configs.valores = [];
@@ -125,7 +129,6 @@ btn_guardar.addEventListener("click", function() {
         }
         valor = valor.nextElementSibling;
     }
-
     // Guardamos la suma deseada
     configs.suma = parseInt(inpSuma.value);
 
@@ -136,7 +139,6 @@ btn_guardar.addEventListener("click", function() {
     actualizarPanel();
 
 });
-
 /**
  * Función que indexa todos el algoritmo con toddos sus paramétros y 
  * comienza la ejecución de la simulación
@@ -147,9 +149,9 @@ btn_simular.addEventListener("click", function() {
         return;
     }
 
-
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] == 'Fuerza bruta') {
+
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
         paneles_fuerza_bruta.forEach(panel => {
@@ -205,7 +207,7 @@ function agregarValorArreglo(val) {
 
     // Creamos los dos divs para el valor y el botón de eliminar junto con
     // su llamada a la función eliminar valor
-    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="${val}" min="1" name="array[]" oninput='verficarValor(${indx})'>
+    nuevo_valor.innerHTML = `<input type="number" class="input-num text-center w-75" value="${val}" min="1" name="array[]" oninput='verificarValor(${indx})'>
     <div class="bg-danger b-redondeado px-2 fs-2 minus" onclick='eliminarValor(${indx})'>
         <p class="text-white fw-bolder minus">-</p>
     </div>`;
@@ -217,13 +219,6 @@ function agregarValorArreglo(val) {
     // Actualizamos el DOM
     tamArr.textContent = "n: " + n_valores;
     contenedor.insertBefore(nuevo_valor, agregarI.parentElement);
-}
-
-window.verficarValor = (id) => { // La hacemos global para el html
-
-    const elemento = document.querySelector(`div[data-indx="${id}"] input`);
-    
-    console.log(elemento.value);
 }
 
 /**
@@ -241,9 +236,38 @@ function actualizarPanel() {
     arreglo_panel.nextElementSibling.textContent = `Algoritmo: ${algoritmo} | Suma: ${configs.suma}`;
 }
 
-/**
- * Función para validar que los datos de la ejecución estén correctos y se pueda simular
- */
-function validarDatos() {
-    return;
+/*--------------------------------VALIDACIÓN DE DATOS------------------------------*/
+window.verificarValor = (id) => { // La hacemos global para el html
+    const elemento = document.querySelector(`div[data-indx="${id}"] input`);
+    var test = showErrorV(elemento);
+
+    if (test) {
+        btn_guardar.disabled = true;
+        showErrorV(elemento);
+    } else {
+        btn_guardar.disabled = false;
+        errorD.innerHTML = '';
+        errorD.className = 'd-flex justify-content-end';
+    }
+}
+
+verifSuma.addEventListener('input', function(event) {
+    var test = showErrorV(verfSuma.value);
+    if (test) {
+        btn_guardar.disabled = true;
+        showErrorV(verfSuma.value);
+    } else {
+        btn_guardar.disabled = false;
+        errorD.innerHTML = '';
+        errorD.className = 'd-flex justify-content-end';
+    }
+});
+
+function showErrorV(elemento) {
+    if (elemento.value.length == 0 || elemento.value < 0 || elemento.value == null) {
+        errorD.textContent = 'Verificar datos ingresados';
+        errorD.className = 'd-flex justify-content-end error active ';
+        return true;
+    }
+    return false;
 }
