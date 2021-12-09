@@ -221,10 +221,9 @@ function agregarValorArreglo(val) {
 
 window.verficarValor = (id) => { // La hacemos global para el html
 
-    const elemento = document.querySelector('div[data-indx="${id}"] input');
-    if (parseInt(elemento.textContent) > 0) {
-        btn_guardar.disabled = false;
-    }
+    const elemento = document.querySelector(`div[data-indx="${id}"] input`);
+    
+    console.log(elemento.value);
 }
 
 /**
