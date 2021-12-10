@@ -64,7 +64,7 @@ export class UI {
      * @param {{x:float, y:float}} fin Punto donde terminará la flecha
      */
     agregarFlecha(inicio, fin) {
-        const grueso = 2; // Grueos de la flecha
+        const grueso = 2; // Grueso de la flecha
         const angulo_punta = 20; // Ángulo de la punta de la flecha
         const largo_punta = 10; // Largo de la punta de la flecha
 

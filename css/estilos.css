@@ -331,6 +331,112 @@ button.tab-activa {
     width: 100%;
 }
 
+/*Seccion Explicacion*/
+#explicacion-seccion {
+    overflow-y: scroll;
+}
+
+.container {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 3rem;
+
+}
+
+.titulo_definiciones {
+    position: relative;
+    width: 100%;
+    top: 10px;
+    padding: 2px;
+    padding-left: 10px;
+    background: #018AC0;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: calc(20px + .5vw);
+    text-align: left;
+    color: white;
+    margin-bottom:  2rem;
+    
+}
+
+.definicion_problema{
+    position: relative;
+      
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background: #97CADB;
+    margin-bottom:  2rem;
+   
+}
+
+.titulo_bloque{
+    
+    font-weight: bold;
+    font-size: calc(15px + .5vw);
+    text-align: left;
+    color: #02457A;
+    left: 45px;
+    top:10px;
+}
+
+.texto {
+    
+    width: 100%;
+    font-weight: bold;
+    font-size: calc(7px + .5vw);
+    text-align: justify;
+    color: #02457A;
+}
+
+.bloque-algo-de-solucion{
+    position: relative;
+    width: 100%;
+    left: 0px;
+    top:auto;
+    padding: 10px;
+    background: #97CADB;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+}
+
+
+.bloque_solucion{
+    position: relative;
+    width: 95%;
+    padding: 15px;
+    margin-top: 10px;  
+    margin-left: 20px;
+    background: #B8E0ED;
+    border-radius: 20px;
+}
+.btnes{
+    align-items: left;
+    margin: 3.3rem;
+}
+
+.button_animar{
+    position: relative;
+    left:3.3rem;
+    padding: 5px;
+    font-weight: bold;
+    font-size: calc(8px + .5vw);   
+    
+    text-align: center;
+    background: #02457A;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+
+#button_info{
+    position: relative;
+    top: 0.2vw;
+    left: 4rem;
+}
 
 /* ------------------SECCIÓN ANIMACIÓN------------------*/
 

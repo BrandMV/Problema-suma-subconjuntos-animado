@@ -145,9 +145,6 @@ btn_guardar.addEventListener("click", function() {
  */
 btn_simular.addEventListener("click", function() {
     // Validamos que los datos estén correctos
-    // if (!validarDatos()) {
-    //     return;
-    // }
 
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] == 'Fuerza bruta') {
@@ -158,7 +155,7 @@ btn_simular.addEventListener("click", function() {
             panel.classList.remove('d-none');
         });
 
-        fuerzaBruta();
+        fuerzaBruta(configs);
 
     } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
         // Activamos el div de los nodos y el canvas para las flechas
@@ -171,6 +168,8 @@ btn_simular.addEventListener("click", function() {
 
     } else if (algoritmos[configs.algoritmo] == 'DP Bottom-Up') {
 
+    } else {
+        alert("No se selecciono ningun algoritmo")
     }
 });
 
@@ -237,25 +236,12 @@ function actualizarPanel() {
 }
 
 /*--------------------------------VALIDACIÓN DE DATOS------------------------------*/
-window.verificarValor = (id) => { // La hacemos global para el html
-    const elemento = document.querySelector(`div[data-indx="${id}"] input`);
-    var test = showErrorV(elemento);
-
-    if (test) {
-        btn_guardar.disabled = true;
-        showErrorV(elemento);
-    } else {
-        btn_guardar.disabled = false;
-        errorD.innerHTML = '';
-        errorD.className = 'd-flex justify-content-end';
-    }
-}
-
+const verifSuma = document.getElementById("sum-v");
 verifSuma.addEventListener('input', function(event) {
-    var test = showErrorV(verfSuma.value);
+    var test = showErrorV();
     if (test) {
         btn_guardar.disabled = true;
-        showErrorV(verfSuma.value);
+        showErrorV();
     } else {
         btn_guardar.disabled = false;
         errorD.innerHTML = '';
@@ -263,8 +249,31 @@ verifSuma.addEventListener('input', function(event) {
     }
 });
 
-function showErrorV(elemento) {
-    if (elemento.value.length == 0 || elemento.value < 0 || elemento.value == null) {
+function showErrorV() {
+    if (verifSuma.value.length === 0 || verifSuma.value < 0 || verifSuma.value == null) {
+        errorD.textContent = 'Verificar datos ingresados';
+        errorD.className = 'd-flex justify-content-end error active ';
+        return true;
+    }
+    return false;
+}
+
+window.verificarValor = (id) => { // La hacemos global para el html
+    const elemento = document.querySelector(`div[data-indx="${id}"] input`);
+    var test = showError(elemento);
+
+    if (test) {
+        btn_guardar.disabled = true;
+        showError(elemento);
+    } else {
+        btn_guardar.disabled = false;
+        errorD.innerHTML = '';
+        errorD.className = 'd-flex justify-content-end';
+    }
+}
+
+function showError(elemento) {
+    if (elemento.length === 0 || elemento.value < 0 || elemento.value == null) {
         errorD.textContent = 'Verificar datos ingresados';
         errorD.className = 'd-flex justify-content-end error active ';
         return true;

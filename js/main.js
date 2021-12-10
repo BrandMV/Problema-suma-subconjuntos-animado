@@ -150,3 +150,49 @@ function manejarSecciones(seccion_id){
 (function(){
     manejarSecciones('inicio');
 })();
+
+//Funcion para el boton de ir a animacion en la seccion de animacion
+function ir_Animacion(){
+    navItem1.classList.remove('ia-active')
+    navItem2.classList.remove('active')
+    navItem3.classList.remove('active')
+    navItem4.classList.add('ia-active')
+      manejarSecciones('animacion');
+   
+}
+//Funciones para los "leer mas" y "leer menos" de la sección Explicación
+function verMas(id){
+    if(id=="mas"){
+    document.getElementById("desplegar").style.display="block";   
+    document.getElementById("mas").style.display="none"; 
+    }
+    else{
+    document.getElementById("desplegar").style.display="none";
+    document.getElementById("mas").style.display="inline";
+    }
+
+}
+
+function verMas1(id){
+    if(id=="mas"){
+    document.getElementById("desplegar1").style.display="block";   
+    document.getElementById("mas1").style.display="none"; 
+    }
+    else{
+    document.getElementById("desplegar1").style.display="none";
+    document.getElementById("mas1").style.display="inline";
+    }
+
+}
+
+function verMas2(id){
+    if(id=="mas"){
+    document.getElementById("desplegar2").style.display="block";   
+    document.getElementById("mas2").style.display="none"; 
+    }
+    else{
+    document.getElementById("desplegar2").style.display="none";
+    document.getElementById("mas2").style.display="inline";
+    }
+
+}
