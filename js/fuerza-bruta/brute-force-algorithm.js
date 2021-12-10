@@ -51,6 +51,8 @@ async function esSumaConjunto(set, n, sum, nodo) {
         const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
         resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
         ui.establecerResultado(nodo.id, resultado);
+        
+        ui.saltarEspHorizontal(nodo_der); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
 
         await sleep(retardo); // Retardamos antes de volver al padre
         return resultado;

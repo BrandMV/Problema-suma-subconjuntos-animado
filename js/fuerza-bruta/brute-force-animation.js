@@ -168,6 +168,15 @@ export class UI {
             }
         });
     }
+
+    /**
+     * Función que decrece el apuntador de nivel en los cuadros
+     * @param {Arbol} hermano Nodo hermano que contiene el nivel del apuntador 
+     * el cual se va saltar
+     */
+    saltarEspHorizontal(hermano){
+        apuntadores_nivel[hermano.level] -= 1;
+    }
 }
 
 /**
