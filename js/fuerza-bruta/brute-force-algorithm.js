@@ -7,18 +7,16 @@ import {
 
 // Creamos el nodo raiz e inicializamos el canvas
 export const ui = new UI();
-export var root = new Arbol();
-let aux;
+export var root;
+let retardo;
 let id = 1;
-let nodo;
 
 export function main(obj) {
 
     root = new Arbol("", 0, "(" + obj.valores.length + "," + obj.suma + ")", 0);
-    aux = obj.valores.length;
     ui.mostrarNodo(root);
-
-    esSumaConjunto(obj.valores, obj.valores.length, obj.suma, "der");
+    retardo = obj.velocidad * 1000;
+    esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
     /*
     let nodo = agregarNodo(root, 10, 1, "(1, 1)", "der");
     nodo = agregarNodo(nodo, 5, 2, "(2, 2)", "der");
@@ -36,37 +34,49 @@ export function main(obj) {
     nodo = agregarNodo(nodo, 3, 6, "(2, 2)", "izq");*/
 }
 
-function esSumaConjunto(set, n, sum, pos) {
+async function esSumaConjunto(set, n, sum, nodo) {
+    let resultado;
 
-    nodo = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", pos);
-
-    // Casos Base
-    if (sum == 0) {
+    await sleep(retardo);
+    if(sum == 0){
         ui.establecerResultado(nodo.id, true);
-        ui.establecerResultado(nodo.getPadre().id, true);
+        await sleep(retardo);
         return true;
     }
-    if (sum < 0 || (n == 0 && sum != 0)) {
+    if(sum < 0 || (n == 0 && sum != 0)){
         ui.establecerResultado(nodo.id, false);
+        await sleep(retardo);
         return false;
     }
 
-    //Si el último elemento es mayor a la suma que estamos verificando se ignora
     if (set[n - 1] > sum) {
-        //nodo = nodo.getPadre();
-        return esSumaConjunto(set, n - 1, sum);
+        id++;
+        const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der");
+        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der);
+        ui.establecerResultado(nodo.id, resultado);
+        await sleep(retardo);
+        return resultado;
     }
 
-    //La primera opción es no incluirlo y la segunda es incluirlo
     id++;
-    //nodo = nodo.getPadre();
-    if (!esSumaConjunto(set, n - 1, sum, "der")) {
-
-        return esSumaConjunto(set, n - 1, sum - set[n - 1], "izq");
-    } else {
-
-        return esSumaConjunto(set, n - 1, sum, "der");
+    const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der");
+    resultado = await esSumaConjunto(set, n - 1, sum, nodo_der);
+    
+    if(resultado){
+        ui.establecerResultado(nodo.id, resultado);
+        await sleep(retardo);
+        return resultado;
+    } else{
+        id++;
+        const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n -1]) + ")", "izq");
+        resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq)
+        
+        ui.establecerResultado(nodo.id, resultado);
+        await sleep(retardo);
+        return resultado;
     }
+}
 
-    //return esSumaConjunto(set, n - 1, sum) || esSumaConjunto(set, n - 1, sum - set[n - 1]);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
