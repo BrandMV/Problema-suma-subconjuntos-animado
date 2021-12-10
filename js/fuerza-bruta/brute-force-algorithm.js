@@ -7,7 +7,7 @@ import {
 
 // Creamos el nodo raiz e inicializamos el canvas
 export const ui = new UI();
-export const root = new Arbol("", "0", "(4, 7)", 0, 1);
+export const root = new Arbol("", 0, "(4, 7)", 0);
 
 
 export function main() {

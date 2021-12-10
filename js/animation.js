@@ -145,7 +145,10 @@ btn_guardar.addEventListener("click", function() {
  */
 btn_simular.addEventListener("click", function() {
     // Validamos que los datos estén correctos
-   
+    // if (!validarDatos()) {
+    //     return;
+    // }
+
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] == 'Fuerza bruta') {
 
