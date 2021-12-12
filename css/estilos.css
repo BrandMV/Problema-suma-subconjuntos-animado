@@ -343,7 +343,7 @@ button.tab-activa {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 3rem;
+    margin: 3rem auto;
 
 }
 
@@ -365,13 +365,12 @@ button.tab-activa {
 
 .definicion_problema{
     position: relative;
-      
     width: 100%;
     padding: 10px;
     border-radius: 20px;
     background: #97CADB;
     margin-bottom:  2rem;
-   
+
 }
 
 .titulo_bloque{
@@ -418,14 +417,13 @@ button.tab-activa {
     align-items: left;
     margin: 3.3rem;
 }
-
+.btn-animar{
+    width: 100%;
+}
 .button_animar{
-    position: relative;
-    left:3.3rem;
-    padding: 5px;
+    padding: .8rem;
     font-weight: bold;
     font-size: calc(8px + .5vw);   
-    
     text-align: center;
     background: #02457A;
     border-radius: 10px;
