@@ -11,7 +11,7 @@
     --greenLight: #6CBD65;
     --section-height: calc( 100vh - 8.2rem);
 
-    --table-cell-size: 35px;
+    --table-cell-size: 40px;
 }
 
 .color-default-circulo {
@@ -526,6 +526,12 @@ button.tab-activa {
     font-size: 2em;
 }
 
+.level .nodo.resultado-final{
+    animation: resultado-animacion 2s;
+    font-weight: bolder;
+    transform: scale(1.2);
+}
+
 /*---------------Animación de la tabla---------------*/
 .animacion-bottom-up .tabla-wrapper{
     max-height: 100%;
@@ -551,6 +557,27 @@ button.tab-activa {
     color: white;
 }
 
+.animacion-bottom-up .resultado-final{
+    border-radius: 10px;
+    animation: resultado-animacion 2s;
+    font-weight: bolder;
+    transform: scale(1.2);
+}
+
+@keyframes resultado-animacion{
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    75% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
 
 /* SECCIÓN PANEL DE CONTROL */
 

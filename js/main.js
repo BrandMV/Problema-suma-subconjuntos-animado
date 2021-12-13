@@ -141,6 +141,13 @@ function manejarSecciones(seccion_id){
         return;
     } 
     
+    // Mostramos el canvas si está declarado el nodo raíz
+    if(seccion_id === "animacion"){
+        const nodo_raiz = document.querySelector("#level-0 .nodo");
+        if(nodo_raiz.firstElementChild)
+            document.querySelector("#panel-animado").classList.remove('d-none'); 
+        
+    }
 }
 
 // Configuramos la pantalla de inicio

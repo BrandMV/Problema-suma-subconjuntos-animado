@@ -1,18 +1,7 @@
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
-import { root, ui } from './brute-force-algorithm.js';
-
-// Variable que apunta al nth div en cada nivel del árbol, se irán recorriendo
-// a la izquierda cada que se inserte un nodo en ese nivel
-let apuntadores_nivel = {
-    "0": 1,
-    "1": 2,
-    "2": 4,
-    "3": 8,
-    "4": 16,
-}
+import { root, ui,  apuntadores_nivel} from './brute-force-algorithm.js';
 
 /*----------------------------------------Clases principales---------------------------------*/
-
 /**
  * Clase que representa la interfaz gráfica del algoritmo de fuerza bruta (el canvas)
  */
@@ -28,7 +17,6 @@ export class UI {
             window.addEventListener("resize", () => {
                 this.repintar();
             });
-
         }
         /**
          * Función que agrega un nodo dentro de su div correspondiente
@@ -177,6 +165,16 @@ export class UI {
     saltarEspHorizontal(hermano){
         apuntadores_nivel[hermano.level] -= 1;
     }
+
+    /**
+     * Función que le agrega una pequeña animación al nodo de resultado final
+     * @param {int} id Id del nodo que se va animar como resultado final
+     */
+    establecerResultadoFinal(id){
+        // Seleccionamos el nodo raíz
+        const elemento = document.querySelector(`div[data-id="${id}"]`);
+        elemento.classList.add("resultado-final");
+    }
 }
 
 /**
@@ -242,6 +240,15 @@ export class Arbol {
 
         if (this.derecho != null)
             this.derecho.forEach(callback);
+    }
+
+    /**
+     * Función que manda a llamar al método que le agrega una animación al nodo resultante
+     * final
+     */
+    establecerResultadoFinal(){
+        console.log(this.id);
+        ui.establecerResultadoFinal(this.id);
     }
 }
 

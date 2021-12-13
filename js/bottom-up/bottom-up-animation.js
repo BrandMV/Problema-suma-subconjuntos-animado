@@ -125,6 +125,11 @@ export class UI {
         const area = document.querySelector(`[data-ij="${i}, ${j}"]`);
         return area.textContent;
     }
+
+    establecerResultadoFinal(i, j){
+        const area = document.querySelector(`[data-ij="${i}, ${j}"]`);
+        area.classList.add('resultado-final');
+    }
 }
 
 /**
@@ -157,7 +162,7 @@ export class Tabla {
      * @param {int} n Valor de suma en la que se va a buscar el arreglo
      */
     generarCelda(indice, n){
-        const i = indice + 1;
+        const i = indice;
         const j = n;
 
         // Agregamos la celda a la tabla
@@ -176,7 +181,7 @@ export class Tabla {
      * comparar con que no se tome
      */
     comparar(indice, n, valor_tomado){
-        const i = indice + 1;
+        const i = indice;
         const j = n;
 
         // Seleccionamos el resultado de no tomarlo
@@ -194,7 +199,7 @@ export class Tabla {
      * comparar con que no se tome
      */
     limpiarComparacion(indice, n, valor_tomado){
-        const i = indice + 1;
+        const i = indice;
         const j = n;
 
         // Deseleccionamos el resultado de no tomarlo
@@ -218,7 +223,7 @@ export class Tabla {
      * @param {boolean} resultado Resultado que representa si fue verdadero o falso
      */
     establecerResultado(indice, n, resultado){
-        const i = indice + 1;
+        const i = indice;
         const j = n;
 
         if(resultado) { // Si la cumplió
@@ -235,20 +240,14 @@ export class Tabla {
      * @param {int} n Valor de suma en la que se va a buscar el arreglo
      */
     limpiarIndices(indice, n){
-        const i = indice + 1;
+        const i = indice;
         const j = n;
 
         ui.colorearCelda(-1, j, this.clrs['indice']);
         ui.colorearCelda(i, -1, this.clrs['indice']);
     }
-
+     
+    establecerResultadoFinal(){
+        ui.establecerResultadoFinal(this.rows-2, this.cols-2);
+    }
 }
-
-// const tablita = new Tabla([10, 5, 8, 2], 7);
-// const ui = new UI(tablita);
-
-// tablita.generarCelda(-1, 0);
-// tablita.comparar(-1, 0, 0);
-// tablita.limpiarComparacion(-1, 0, 0);
-// tablita.establecerResultado(-1, 0, false);
-// tablita.limpiarIndices(-1, 0); 

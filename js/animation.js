@@ -145,8 +145,9 @@ btn_guardar.addEventListener("click", function() {
  * comienza la ejecución de la simulación
  */
 btn_simular.addEventListener("click", function() {
-    // Validamos que los datos estén correctos
-    console.table(algoritmos[configs.algoritmo]);
+    // Removemos los restos de los algoritmos anteriores para limpiar el DOM
+    removerRestos();
+
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] === 'Fuerza bruta') {
 
@@ -234,6 +235,43 @@ function actualizarPanel() {
     // Actualizamos el algoritmo y suma
     let algoritmo = algoritmos[configs.algoritmo];
     arreglo_panel.nextElementSibling.textContent = `Algoritmo: ${algoritmo} | Suma: ${configs.suma}`;
+}
+
+function removerRestos(){
+
+    /*------------------LIMPIAMOS LO CORRESPONDIENTE A FUERZA BRUTA--------------------*/
+    const niveles = document.querySelectorAll('.animacion-brute-force .level');
+    niveles.forEach((nivel, indice) => {
+        while(nivel.firstChild){
+            nivel.removeChild(nivel.firstChild);
+        }
+        for(let i = 0; i < Math.pow(2, indice); i++){
+            const nodo = document.createElement('div');
+            nodo.classList.add('nodo');
+            nodo.dataset.id = "0";
+            nivel.appendChild(nodo);
+        }
+    });
+    const panel_animado = document.querySelector("#panel-animado");
+    const context = panel_animado.getContext('2d');
+    context.clearRect(0, 0, panel_animado.width, panel_animado.height);
+    
+    const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
+    paneles_fuerza_bruta.forEach(panel => {
+        panel.classList.add('d-none');
+    });
+
+    /*------------------LIMPIAMOS LO CORRESPONDIENTE A BOTTOM-UP--------------------*/
+    const tabla = document.querySelector('.animacion-bottom-up .tabla-wrapper');
+    while(tabla.firstChild){
+        tabla.removeChild(tabla.firstChild);
+    }
+
+    const paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
+    paneles_bottom_up.forEach(panel => {
+        panel.classList.add('d-none');
+    });
+
 }
 
 /*--------------------------------VALIDACIÓN DE DATOS------------------------------*/

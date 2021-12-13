@@ -5,12 +5,15 @@ import {
 
 
 // Creamos el grid de la tabla
-export const tabla = new Tabla();
-export const ui = new UI();
+export let tabla;
+export let ui;
 
 let retardo;
 
 export function main(obj) {
+    tabla = new Tabla()
+    ui = new UI();
+
     // Establecemos las tablas en los objetos
     tabla.establecerTabla(obj.valores, obj.suma);
     ui.establecerTabla(tabla);
@@ -19,12 +22,6 @@ export function main(obj) {
     retardo = obj.velocidad * 1000;
     esSumaConjunto(obj.valores, obj.valores.length, obj.suma)
 
-    // Mandamos a llamar al algoritmo
-    // tabla.generarCelda(-1, 0);
-    // tabla.comparar(-1, 0, 0);
-    // tabla.limpiarComparacion(-1, 0, 0);
-    // tabla.establecerResultado(-1, 0, false);
-    // tabla.limpiarIndices(-1, 0);   
 }
 
 // Función síncrona
@@ -41,20 +38,20 @@ async function esSumaConjunto(set, n, sum) {
 
     //* Si la suma a buscar es 0, se regresa true
     for (let i = 0; i <= n; i++) {
-        await sleep(retardo/2);
+        await sleep(retardo/n);
         subconjunto[i][0] = true;
-        tabla.generarCelda(i-1, 0);
-        tabla.establecerResultado(i-1, 0, true);
-        tabla.limpiarIndices(i-1, 0);  
+        tabla.generarCelda(i, 0);
+        tabla.establecerResultado(i, 0, true);
+        tabla.limpiarIndices(i, 0);  
     }
 
     //*Si la suma no es 0, pero el conjunto es vacío, se regresa false
     for (let j = 1; j <= sum; j++) {
-        await sleep(retardo/2);
+        await sleep(retardo/sum);
         subconjunto[0][j] = false;
-        tabla.generarCelda(-1, j);
-        tabla.establecerResultado(-1, j, false);
-        tabla.limpiarIndices(-1, j); 
+        tabla.generarCelda(0, j);
+        tabla.establecerResultado(0, j, false);
+        tabla.limpiarIndices(0, j); 
     }
 
     //*Se llena la tabla recorriendo la suma y los elementos del conjunto
@@ -65,28 +62,28 @@ async function esSumaConjunto(set, n, sum) {
             if (set[i - 1] > j) {
                 await sleep(retardo/2);
                 subconjunto[i][j] = subconjunto[i - 1][j];
-                tabla.generarCelda(i-1, j);
-                tabla.establecerResultado(i-1, j, subconjunto[i - 1][j]);
-                tabla.limpiarIndices(i-1, j);
+                tabla.generarCelda(i, j);
+                tabla.establecerResultado(i, j, subconjunto[i - 1][j]);
+                tabla.limpiarIndices(i, j);
             }
 
             //* Si el valor actual se la suma es mayor que el iesimo elemento
             //* hacemos or entre los casos previos y el caso de j-valor de la suma actual
             if(j >= set[i - 1]){
                 await sleep(retardo/2);
-                tabla.generarCelda(i-1, j);
-                tabla.comparar(i-1, j, set[i - 1]);
+                tabla.generarCelda(i, j);
+                tabla.comparar(i, j, set[i - 1]);
                 await sleep(retardo);
-                tabla.limpiarComparacion(i-1, j, set[i - 1]);
+                tabla.limpiarComparacion(i, j, set[i - 1]);
 
                 subconjunto[i][j] = subconjunto[i-1][j] || subconjunto[i - 1][j - set[i - 1]];
-                tabla.establecerResultado(i-1, j, subconjunto[i][j]);
-                tabla.limpiarIndices(i-1, j);
+                tabla.establecerResultado(i, j, subconjunto[i][j]);
+                tabla.limpiarIndices(i, j);
             }
         }
     }
-    return subconjunto[n][sum];
-
+    tabla.establecerResultadoFinal();
+    return subconjunto[n][sum]
 }
 
 function sleep(ms) {

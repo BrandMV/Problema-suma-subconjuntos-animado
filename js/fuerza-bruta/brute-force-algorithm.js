@@ -9,9 +9,19 @@ import {
 export const ui = new UI();
 export var root;
 let retardo;
-let id = 1;
+let id;
+export let apuntadores_nivel;
 
-export function main(obj) {
+export async function main(obj) {
+    // Inizalizamos el apuntador de nivel y los id's
+    apuntadores_nivel = {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8,
+        "4": 16,
+    }
+    id = 1;
 
     // Creamos el nodo raiz y lo mostramos
     root = new Arbol("", 0, "(" + obj.valores.length + "," + obj.suma + ")", 0);
@@ -21,7 +31,10 @@ export function main(obj) {
     retardo = obj.velocidad * 1000;
 
     // Mandamos a llamar al algoritmo
-    esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
+    await esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
+
+    // Mostramos el resultado final
+    root.establecerResultadoFinal();
 }
 
 // Función síncrona
