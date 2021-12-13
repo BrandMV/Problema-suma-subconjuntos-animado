@@ -110,6 +110,9 @@ body {
     text-align: center;
     line-height: 1.7rem;
 }
+.popover-body{
+    font-size: 1.5rem;
+}
 
 
 /* Navbar */
