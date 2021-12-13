@@ -141,9 +141,6 @@ function manejarSecciones(seccion_id){
         return;
     } 
     
-    if(seccion_id === "animacion"){// Mostramos el canvas
-        document.querySelector("#panel-animado").classList.remove('d-none');    
-    }
 }
 
 // Configuramos la pantalla de inicio

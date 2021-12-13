@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/estilos.css">
     <link rel="stylesheet" href="./libs/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="./libs/pretify/prettify.css">
-
+    <link rel="shortcut icon" href="img/escom.png" type="image/x-icon">
     <title>Problema de la suma de subconjuntos</title>
 </head>
 
@@ -825,7 +825,7 @@
         <div class="panel-wrapper w-100 d-flex flex-row">
             <div class="panel-visible h-100 w-75">
 
-                <!-- Panel de animación "arbol" para las animaxiones de fuerza bruta y top-down-->
+                <!-- Panel de animación "arbol" para las animaciones de fuerza bruta y top-down-->
                 <div class="animacion-brute-force animacion-Top-Down h-100 w-100 d-none">
                     <div class="row level" id="level-0">
                         <div class="nodo" data-id=""></div>
@@ -870,6 +870,12 @@
                     </div>
                 </div>
 
+                <!-- Panel de animación "tabla" para las animaciones de fuerza bruta y top-down-->
+                <div class="animacion-bottom-up h-100 w-100 d-flex justify-content-center align-items-center d-none">
+                    <div class="tabla-wrapper w-auto h-auto">
+                        
+                    </div>
+                </div>
 
             </div>
             <div class="panel-informativo h-100 w-25 m-2">
@@ -1008,6 +1014,7 @@
 
 
     <script src="./js/animation.js" type="module"></script>
+    <script src="./js/bottom-up/bottom-up-animation.js" type="module"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/main.js">
     </script>

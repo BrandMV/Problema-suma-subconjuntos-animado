@@ -10,6 +10,8 @@
     --green: #3A8234;
     --greenLight: #6CBD65;
     --section-height: calc( 100vh - 8.2rem);
+
+    --table-cell-size: 35px;
 }
 
 .color-default-circulo {
@@ -461,7 +463,8 @@ button.tab-activa {
     height: 80%!important;
 }
 
-.panel-visible .level {
+/*---------------Animación del árbol---------------*/
+.panel-visible .animacion-brute-force .level {
     /*Propiedades flex*/
     display: flex;
     flex-direction: row;
@@ -521,6 +524,31 @@ button.tab-activa {
     font-weight: bold;
     color: white;
     font-size: 2em;
+}
+
+/*---------------Animación de la tabla---------------*/
+.animacion-bottom-up .tabla-wrapper{
+    max-height: 100%;
+    max-width: 100%;
+
+    display: grid;
+    background-color: var(--morningGlory);
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+.animacion-bottom-up .tabla-wrapper .table-cell{
+    height: var(--table-cell-size) !important;
+    width: var(--table-cell-size) !important;
+
+    border: 1px solid #D6E7EE;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--table-cell-size) / 2);
+    font-weight: bold;
+    color: white;
 }
 
 

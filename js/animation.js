@@ -1,5 +1,6 @@
 /*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
 import { main as fuerzaBruta } from './fuerza-bruta/brute-force-algorithm.js';
+import { main as bottom_up } from './bottom-up/bottom-up-algorithm.js';
 
 /*--------------------------VARIABLES GLOBALES--------------------------- */
 
@@ -109,7 +110,7 @@ modal_panel.addEventListener('click', () => {
  * Función para agregar valores al arreglo al click en el botón de agregar
  */
 agregarI.addEventListener("click", function() {
-    agregarValorArreglo();
+    agregarValorArreglo(1);
 });
 
 /**
@@ -145,9 +146,9 @@ btn_guardar.addEventListener("click", function() {
  */
 btn_simular.addEventListener("click", function() {
     // Validamos que los datos estén correctos
-
+    console.table(algoritmos[configs.algoritmo]);
     // Indexamos el algoritmo seleccionado
-    if (algoritmos[configs.algoritmo] == 'Fuerza bruta') {
+    if (algoritmos[configs.algoritmo] === 'Fuerza bruta') {
 
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
@@ -157,16 +158,16 @@ btn_simular.addEventListener("click", function() {
 
         fuerzaBruta(configs);
 
-    } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
+    } else if (algoritmos[configs.algoritmo] === 'DP Bottom-Up') {
         // Activamos el div de los nodos y el canvas para las flechas
-        const paneles_top_down = document.querySelectorAll('.animacion-Top-Down');
-        paneles_top_down.forEach(panel => {
+        const paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
+        paneles_bottom_up.forEach(panel => {
             panel.classList.remove('d-none');
         });
 
-        fuerzaBruta();
+        bottom_up(configs);
 
-    } else if (algoritmos[configs.algoritmo] == 'DP Bottom-Up') {
+    } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
 
     } else {
         alert("No se selecciono ningun algoritmo")
