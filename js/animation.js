@@ -1,5 +1,5 @@
 /*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
-import { main as fuerzaBruta } from './fuerza-bruta/brute-force-algorithm.js';
+import { main as fuerzaBruta, ui } from './fuerza-bruta/brute-force-algorithm.js';
 import { main as bottom_up } from './bottom-up/bottom-up-algorithm.js';
 
 /*--------------------------VARIABLES GLOBALES--------------------------- */
@@ -144,13 +144,14 @@ btn_guardar.addEventListener("click", function() {
  * Función que indexa todos el algoritmo con toddos sus paramétros y 
  * comienza la ejecución de la simulación
  */
-btn_simular.addEventListener("click", function() {
+btn_simular.addEventListener("click", function(e) {
     // Removemos los restos de los algoritmos anteriores para limpiar el DOM
     removerRestos();
 
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] === 'Fuerza bruta') {
-
+        // Deshabilitamos el botón de simular
+        
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
         paneles_fuerza_bruta.forEach(panel => {
@@ -160,6 +161,8 @@ btn_simular.addEventListener("click", function() {
         fuerzaBruta(configs);
 
     } else if (algoritmos[configs.algoritmo] === 'DP Bottom-Up') {
+        // Deshabilitamos el botón de simular
+
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
         paneles_bottom_up.forEach(panel => {

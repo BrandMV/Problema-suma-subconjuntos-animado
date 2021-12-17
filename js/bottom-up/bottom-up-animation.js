@@ -172,6 +172,21 @@ export class Tabla {
         ui.colorearCelda(-1, j, this.clrs['seleccion']);
         ui.colorearCelda(i, -1, this.clrs['seleccion']);
     }
+    copiarNumero(indice, n){
+        const i = indice;
+        const j = n;
+
+        ui.colorearCelda(i-1, j, this.clrs['comparacion']);
+    }
+    limpiarCopiado(indice, n){
+        const i = indice;
+        const j = n;
+
+        if(ui.obtenerResultadoArea(i-1, j) === 'T')
+            ui.colorearCelda(i-1, j, this.clrs['true']);
+        else
+            ui.colorearCelda(i-1, j, this.clrs['false']);
+    }
 
     /**
      * Función que resalta dos celdas representando la opción de si se toma o no se toma

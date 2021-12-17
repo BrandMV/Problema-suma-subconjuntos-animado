@@ -40,6 +40,7 @@ async function esSumaConjunto(set, n, sum) {
     for (let i = 0; i <= n; i++) {
         await sleep(retardo/n);
         subconjunto[i][0] = true;
+
         tabla.generarCelda(i, 0);
         tabla.establecerResultado(i, 0, true);
         tabla.limpiarIndices(i, 0);  
@@ -49,6 +50,7 @@ async function esSumaConjunto(set, n, sum) {
     for (let j = 1; j <= sum; j++) {
         await sleep(retardo/sum);
         subconjunto[0][j] = false;
+
         tabla.generarCelda(0, j);
         tabla.establecerResultado(0, j, false);
         tabla.limpiarIndices(0, j); 
@@ -57,31 +59,34 @@ async function esSumaConjunto(set, n, sum) {
     //*Se llena la tabla recorriendo la suma y los elementos del conjunto
     for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= sum; j++) {
+            
+            await sleep(retardo/2);
+            tabla.generarCelda(i, j);
             //* Si el elemento actual es mayor al valor actual de la suma, copiamos el valor del
             //* caso anterior
             if (set[i - 1] > j) {
+                tabla.copiarNumero(i, j);
                 await sleep(retardo/2);
+                tabla.limpiarCopiado(i, j);
+
                 subconjunto[i][j] = subconjunto[i - 1][j];
-                tabla.generarCelda(i, j);
-                tabla.establecerResultado(i, j, subconjunto[i - 1][j]);
-                tabla.limpiarIndices(i, j);
             }
 
             //* Si el valor actual se la suma es mayor que el iesimo elemento
             //* hacemos or entre los casos previos y el caso de j-valor de la suma actual
             if(j >= set[i - 1]){
-                await sleep(retardo/2);
-                tabla.generarCelda(i, j);
                 tabla.comparar(i, j, set[i - 1]);
                 await sleep(retardo);
                 tabla.limpiarComparacion(i, j, set[i - 1]);
 
                 subconjunto[i][j] = subconjunto[i-1][j] || subconjunto[i - 1][j - set[i - 1]];
-                tabla.establecerResultado(i, j, subconjunto[i][j]);
-                tabla.limpiarIndices(i, j);
             }
+            
+            tabla.establecerResultado(i, j, subconjunto[i][j]);
+            tabla.limpiarIndices(i, j);
         }
     }
+    
     tabla.establecerResultadoFinal();
     return subconjunto[n][sum]
 }

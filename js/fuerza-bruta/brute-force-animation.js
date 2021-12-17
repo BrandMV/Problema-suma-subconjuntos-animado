@@ -9,24 +9,26 @@ export class UI {
 
     constructor() {
             // Inicializamos el canvas y le adaptamos la resolución
-            this.panel_animado = document.querySelector("#panel-animado");
-            this.panel_animado.width = window.innerWidth;
-            this.panel_animado.height = window.innerHeight;
+        this.panel_animado = document.querySelector("#panel-animado");
+        this.panel_animado.width = window.innerWidth;
+        this.panel_animado.height = window.innerHeight;
 
-            // Agregamos el listener para el canvas
-            window.addEventListener("resize", () => {
-                this.repintar();
-            });
-        }
-        /**
-         * Función que agrega un nodo dentro de su div correspondiente
-         * @param {Arbol} Arbol.level Nivel en el que se encontrará el nodo
-         * @param {Arbol} Arbol.value Valor que mostrará el circulo del nodo
-         * @param {Arbol} Arbol.info Información que mostrará el cuadro 
-         * informativo del nodo
-         * @param {Arbol} Arbol.id Id del nodo
-         * 
-         */
+        // Agregamos el listener para el canvas
+        window.addEventListener("resize", () => {
+            this.repintar();
+        });
+
+
+    }
+    /**
+     * Función que agrega un nodo dentro de su div correspondiente
+     * @param {Arbol} Arbol.level Nivel en el que se encontrará el nodo
+     * @param {Arbol} Arbol.value Valor que mostrará el circulo del nodo
+     * @param {Arbol} Arbol.info Información que mostrará el cuadro 
+     * informativo del nodo
+     * @param {Arbol} Arbol.id Id del nodo
+     * 
+     */
     mostrarNodo({ level, valor = "", info, id }) {
         // Creamos el nodo en el nivel y div adecuado calculado por los apuntadores de nivel
         let nodo = document.querySelector(`#level-${level} .nodo:nth-child(${apuntadores_nivel[level]})`);
@@ -130,6 +132,7 @@ export class UI {
      * y relacionando todos los nodos presentes
      */
     repintar() {
+        if(this.panel_animado.classList.contains("d-none")) return;
 
         // Obtenemos el contexto y lo limpiamos
         const context = this.panel_animado.getContext('2d');
@@ -141,6 +144,7 @@ export class UI {
 
         // Recorremos todos los nodos del árbol y vamos relacionando a los padres con los
         // hijos
+
         root.forEach(nodo => {
             if (nodo.izquierdo != null) {
                 const elemento_info = obtenerCoordsInfo(nodo);

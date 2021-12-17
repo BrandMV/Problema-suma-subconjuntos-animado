@@ -878,8 +878,104 @@
                 </div>
 
             </div>
-            <div class="panel-informativo h-100 w-25 m-2">
-                <p class="fs-1">Panel informativo</p>
+            <div class="panel-informativo h-100 w-25">
+                <div class="pasos">
+                    <p class="titulo-informativo">Panel de pasos</p>
+                    <p class="paso">Esta cosa está haciendo algo desconocido c:</p>
+                    <br>
+                    <table class="table">
+                        <caption>Elementos calculados</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                </div>
+                <div class="pseudocodigo">
+                    <p class="titulo-informativo">Panel de pseudocódigo</p>
+
+                    <!-- Pseudoódigo de fuerza bruta -->
+                    <div class="animacion-brute-force pre-wrapper d-none">
+
+                        <pre class="w-100">def esSumaConjunto(a, n, sum):</pre>
+                        <pre class="w-100">  if( sum == 0 ):</pre>
+                        <pre class="w-100">    return True</pre>
+                        <pre class="w-100">  if( sum < 0 or (n == 0 and sum != 0) ):</pre>
+                        <pre class="w-100">    return False</pre>
+                        <pre class="w-100">  if (a[n - 1] > sum):</pre>
+                        <pre class="w-100">    return esSumaConjunto(a, n - 1, sum)</pre>
+                        <pre class="w-50">return (esSumaConjunto(a, n-1, sum)</pre>
+                        <pre class="w-50"> or esSumaConjunto(a, n-1, sum))</pre>
+
+                    </div>                    
+
+                     <!-- Pseudoódigo de top-down -->
+                     <div class="animacion-Top-Down pre-wrapper d-none">
+
+                        <pre class="w-100">def esSumaConjunto(a, n, sum):</pre>
+                        <pre class="w-100">  if( sum == 0 ):</pre>
+                        <pre class="w-100">    return True</pre>
+                        <pre class="w-100">  if(sum < 0 or (n == 0 and sum != 0) ):</pre>
+                        <pre class="w-100">    return False</pre>
+                        <pre class="w-100">  if (tab[n-1][sum] == None):</pre>
+                        <pre class="w-100">    tab[n-1][sum] = esSumaConjunto(a, n-1, sum)</pre>
+                        <pre class="w-100">  if (a[n-1] > sum):</pre>
+                        <pre class="w-100">    return tab[n-1][sum]</pre>
+                        <pre class="w-100">  if(tab[n-1][sum] == True)</pre>
+                        <pre class="w-100">    return True</pre>
+                        <pre class="w-100">  else:</pre>
+                        <pre class="w-100">    if (tab[n-1][sum-a[n-1]] == None):</pre>
+                        <pre class="w-100">      tab[n-1][sum-a[n-1]] = esSumaConjunto(a, n-1, sum-a[n-1])</pre>
+                        <pre class="w-100">    return tab[n-1][sum-a[n-1]]</pre>
+                    </div>
+
+                    <!-- Pseudoódigo de bottom-up-->
+                    <div class="animacion-bottom-up pre-wrapper">
+
+                        <pre class="w-100">def esSumaConjunto(a, n, sum):</pre>
+                        <pre class="w-100">  subconjunto =([[False for i in range(sum + 1)]</pre>
+                        <pre class="w-100">      for i in range(n + 1)])</pre>
+                        <pre class="w-100">  for i in range(n + 1):</pre>
+                        <pre class="w-100">    subconjunto[i][0] = True</pre>
+                        <pre class="w-100">  for i in range(1, sum + 1):</pre>
+                        <pre class="w-100">    subconjunto[0][i]= False</pre>
+                        <pre class="w-100">  for i in range(1, n + 1):</pre>
+                        <pre class="w-100">    for j in range(1, sum + 1):</pre>
+                        <pre class="w-100">      if j&#60;a[i-1]:</pre>
+                        <pre class="w-100">        subconjunto[i][j] = subconjunto[i-1][j]</pre>
+                        <pre class="w-100">      if j>= a[i-1]:</pre>
+                        <pre class="w-100">        subconjunto[i][j] = (subconjunto[i-1][j]</pre>
+                        <pre class="w-100">         or subconjunto[i - 1][j-conjunto[i-1]] </pre>
+                        <pre class="w-100">  return subconjunto[n][sum]</pre>
+
+                    </div>
+
+                </div>
+                    
             </div>
         </div>
     </section>

@@ -457,13 +457,66 @@ button.tab-activa {
     height: 20%!important;
 }
 
-.panel-informativo {
-    background-color: var(--bondiBlue);
-    z-index: 2;
-}
-
 .panel-wrapper {
     height: 80%!important;
+}
+
+.panel-informativo {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.panel-informativo > *{
+    background-color: var(--morningGlory);
+    
+    font-size: 2.3rem !important;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 2px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.panel-informativo .pasos {
+    border-radius: 0px 0px 15px 15px;
+    height: 30% !important;
+    overflow: auto;
+}
+.panel-informativo .pseudocodigo{
+    border-radius: 15px 15px 0px 0px;
+    height: 68% !important;
+}
+
+.panel-informativo .pre-wrapper{
+    overflow: auto;
+    padding: 5px;
+}
+.panel-informativo .titulo-informativo{
+    align-self: center;
+    text-align: center;
+
+    font-size: 1em !important;
+}
+.panel-informativo .pasos .paso{
+    align-self: center;
+    text-align: center;
+
+    font-size: .7em !important;
+}
+.panel-informativo .pasos table{
+    align-self: center;
+    text-align: center;
+
+    font-size: 2em !important;
+}
+.panel-informativo .pre-wrapper pre{
+    justify-self: flex-start;
+    align-self: flex-start;
+    font-size: .8em !important;
+    overflow: visible
 }
 
 /*---------------Animación del árbol---------------*/
@@ -852,12 +905,18 @@ footer p {
     .botones button {
         font-size: 2rem;
     }
+    :root {
+        --table-cell-size: 14px;
+    }
 }
 
 @media (min-width: 600px) {
     .level .nodo {
         padding: 0.1rem;
         font-size: 0.8rem;
+    }
+    :root {
+        --table-cell-size: 16.2px;
     }
 }
 
@@ -878,7 +937,12 @@ footer p {
     .codigos h2 {
         font-size: 2.5rem;
     }
+    
+    :root {
+        --table-cell-size: 21px;
+    }
 }
+
 
 @media (min-width: 992px) {
     .btn-close {
@@ -889,11 +953,23 @@ footer p {
         font-size: 1.1rem;
     }
 }
-
+@media (min-width: 1015px) {
+    :root {
+        --table-cell-size: 28px;
+    }
+}
+@media (min-width : 1275px){
+    :root {
+        --table-cell-size: 35px;
+    }
+}
 @media(min-width: 1600px) {
     .level .nodo {
         padding: 0.1rem;
         font-size: 1.5rem;
+    }
+    :root {
+        --table-cell-size: 40px;
     }
 }
 

@@ -35,6 +35,9 @@ export async function main(obj) {
 
     // Mostramos el resultado final
     root.establecerResultadoFinal();
+    root = null;
+
+    // Habilitamos el botón de simular
 }
 
 // Función síncrona
