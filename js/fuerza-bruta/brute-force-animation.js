@@ -163,7 +163,15 @@ export class UI {
      * el cual se va saltar
      */
     saltarEspHorizontal(hermano){
-        apuntadores_nivel[hermano.level] -= 1;
+        let aux_lvl = hermano.level;
+        let nodos_omitidos = 1;
+
+        while(aux_lvl <= 4){
+            apuntadores_nivel[aux_lvl] -= nodos_omitidos;
+            nodos_omitidos *= 2;
+
+            aux_lvl++;
+        }
     }
 
     /**

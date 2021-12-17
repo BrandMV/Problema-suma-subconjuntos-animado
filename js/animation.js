@@ -31,7 +31,7 @@ const btn_guardar = document.querySelector('#btn-guardar');
 const errorD = document.getElementById("errorDatos");
 
 // Objeto de valores y algoritmos
-const configs = {
+window.configs = {
     algoritmo: "",
     valores: [],
     suma: 0,
