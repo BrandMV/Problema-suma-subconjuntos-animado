@@ -19,7 +19,7 @@ export class UI {
         window.addEventListener("resize", () => {
             this.repintar();
         });
-
+        
 
     }
     /**
@@ -181,8 +181,9 @@ export class UI {
     }
 
     /**
-     * Función que le agrega una pequeña animación al nodo de resultado final
+     * Función que le agrega una pequeña animación al nodo de resultado final y al paso final
      * @param {int} id Id del nodo que se va animar como resultado final
+     * @param {String} clases Clases que se le van agregar al paso cuando finalice la ejecución
      */
     establecerResultadoFinal(id, clases){
         // Seleccionamos el nodo raíz
@@ -192,15 +193,27 @@ export class UI {
         // Agregamos las clases al texto
         this.paso.classList.add(clases);
     }
+
+    /**
+     * Función que modifica el texto a mostar en el paso dentro del panel de pasos
+     * @param {String} txt_paso Texto que se va a mostrar en el paso
+     */
     mostrarPaso(txt_paso){
         this.paso.textContent = txt_paso;
     }
 
+    /**
+     * Función que destaca una línea dada del pseudocódigo
+     * @param {int} linea Numero de línea del pseudocódigo a destacar
+     */
     destacarInstruccion(linea){
         const instruccion = this.pseudo_codigo.querySelector(`pre:nth-child(${linea})`);
         instruccion.classList.add("linea-destacada");
     }
 
+    /**
+     * Función que remueve la destacación de todas las líneas del pseudocódigo
+     */
     limpiarInstrucciones(){
         const instrucciones = this.pseudo_codigo.querySelectorAll("pre");
         instrucciones.forEach(instruccion => {
@@ -278,6 +291,7 @@ export class Arbol {
     /**
      * Función que manda a llamar al método que le agrega una animación al nodo resultante
      * final
+     * @param {String} clases Clases que se le van agregar al paso cuando finalice la ejecución
      */
     establecerResultadoFinal(clases){
         ui.establecerResultadoFinal(this.id, clases);

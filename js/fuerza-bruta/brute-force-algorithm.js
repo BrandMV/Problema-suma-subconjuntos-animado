@@ -1,18 +1,35 @@
+/*--------------------------------Importamos módulos escenciales-----------------------------*/
 import {
     UI,
     Arbol,
     agregarNodo
 } from './brute-force-animation.js';
 
+/*----------------------------------Variables/constantes principales---------------------------*/
+// Constante para el botón de avanzar
+const btn_avanzar = document.querySelector('#btn-avanzar');
+// Constante para el botón de simular
+const btn_simular = document.querySelector('#btn-simular');
+// Constante para el botom de detener
+const btn_detener = document.querySelector('#btn-detener');
 
 // Creamos el nodo raiz e inicializamos el canvas
 export const ui = new UI();
-export var root;
-let retardo;
-let id;
-export let apuntadores_nivel;
 
-export async function main(obj) {
+// Declaramos las variables a usar  
+export var root; // Variable que apunta a la raíz del árbol lógico
+let retardo; // Variable que determina el timpo de retarde entre cada paso
+let id; // Variable que almacena el id de cada llamada a función 
+export let apuntadores_nivel; // Variable que almacena los apuntadores de cada nivel
+let detener = false; // Variable para detectar cuando se detiene el algoritmo
+
+/**
+ * Función que ejecuta los algoritmos paso por paso o automático según sea el caso
+ * @param {Objeto{algoritmo, valores, suma, tipo_animacion, velocidad}} configs Objeto que contiene todas las configuraciones del algoritmo 
+ */
+export async function main(configs) {
+    /*--------------------------------Preparación de variables-----------------------------*/
+    detener = false;
     // Inizalizamos el apuntador de nivel y los id's
     apuntadores_nivel = {
         "0": 1,
@@ -22,33 +39,58 @@ export async function main(obj) {
         "4": 16,
     }
     id = 1;
-
+    
     // Creamos el nodo raiz y lo mostramos
-    root = new Arbol("", 0, "(" + obj.valores.length + "," + obj.suma + ")", 0);
+    root = new Arbol("", 0, "(" + configs.valores.length + "," + configs.suma + ")", 0);
     ui.mostrarNodo(root);
 
     // Obtenemos el tiempo de retardo
-    retardo = obj.velocidad * 1000;
+    retardo = configs.velocidad * 1000 / 4;
 
-    // Mandamos a llamar al algoritmo
-    const resultado = await esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
+    // Declaramos la variable de resultado
+    let resultado = false;
 
-    // Mostramos el resultado final
-    if(resultado){
+    /*--------------------------Ejecución del algoritmo según sea el tipo-----------------------*/
+    if (configs.tipo_animacion === "PXP") // Si es paso por paso 
+        resultado = await esSumaConjuntoPXP(configs.valores, configs.valores.length, configs.suma, root);
+    else // Si es automático
+        resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root);
+
+    /*------------------------------------Comprobando detención---------------------------------*/
+    if(detener){
+        ui.mostrarPaso("Terminado");
+        btn_detener.disabled = true;
+        btn_simular.disabled = false;
+        return;
+    }
+
+    /*----------------------------Mostrando el resultado del algoritmo----------------------------*/
+    if (resultado) {
         ui.mostrarPaso(`Se completó la suma señores B) mi trabajo aquí ha terminado.`);
         root.establecerResultadoFinal("bg-success");
     } else {
         ui.mostrarPaso(`No se completó la suma ): intenta de nuevo.`);
         root.establecerResultadoFinal("bg-danger");
     }
-    
-
-    // Habilitamos el botón de simular
+    btn_detener.disabled = true;
+    btn_simular.disabled = false;
 }
 
-// Función síncrona
+/**
+ * Función síncrona del algortimo solución al problema de la suma de un conjunto de números
+ * que funciona de manera automática por medio de un retardo, también encargada de mandar
+ * a mostrar la información del algoritmo en el DOM
+ * @param {Array[int]} set Arreglo de números con los que trabajará el algoritmo
+ * @param {int} n Número de elementos del arreglo que aún quedan por analizar
+ * @param {int} sum Suma que se debe cumplir en esa llamada del algoritmo 
+ * @param {Arbol} nodo Nodo del árbol lógico en el que está trabajando el algoritmo
+ * @returns {boolean} Resultado de esa llamada de encontrar o no la suma
+ */
 async function esSumaConjunto(set, n, sum, nodo) {
     let resultado;
+
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
@@ -56,8 +98,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de paso----*/
     ui.mostrarPaso(`Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
     /*--------Retardo--------*/
-    await sleep(retardo / 4);
-
+    await sleep(retardo);
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
 
@@ -67,7 +111,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de paso----*/
     ui.mostrarPaso(`Comprobando si se completó la suma...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 4); 
+    await sleep(retardo);
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     if (sum == 0) {
         /*----------Manejo de nodo----------*/
@@ -79,7 +126,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de paso----*/
         ui.mostrarPaso(`Se completó la suma. :)`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4); 
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         return true;
     }
@@ -92,7 +142,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de paso----*/
     ui.mostrarPaso(`Comprobando si aún quedan elementos por comparar...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 4); 
+    await sleep(retardo);
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     if (sum < 0 || (n == 0 && sum != 0)) {
         /*----Manejo de linea----*/
@@ -103,22 +156,31 @@ async function esSumaConjunto(set, n, sum, nodo) {
 
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, false);
-        
+
         /*--------Retardo--------*/
-        await sleep(retardo / 4);
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         return false;
     }
 
     // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(6);
     /*----Manejo de paso----*/
-    ui.mostrarPaso(`Comprobando si el elemento (${set[n-1]}) es mayor a la suma (${sum})...`);
+    ui.mostrarPaso(`Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 4);
+    await sleep(retardo);
+
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     if (set[n - 1] > sum) {
         /*----Manejo de linea----*/
@@ -127,13 +189,19 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de paso----*/
         ui.mostrarPaso(`Si es mayor, omitimos tomar el elemento actual.`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4); 
-
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
+        
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
         resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
         
+        /*----Comprobando detención----*/
+        if(detener) return;
+
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
         ui.saltarEspHorizontal(nodo_der); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
@@ -144,7 +212,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de paso----*/
         ui.mostrarPaso(`Devolvemos el resultado de no tomarlo (${resultado}).`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4); 
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         return resultado;
     }
@@ -157,18 +228,27 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de paso----*/
     ui.mostrarPaso(`Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 4);
+    await sleep(retardo);
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
     id++;
     const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
     resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(8);
     /*--------Retardo--------*/
-    await sleep(retardo / 4); 
+    await sleep(retardo);
+    
+    /*----Comprobando detención----*/
+    if(detener) return;
 
     if (resultado) {
         /*----------Manejo de nodo----------*/
@@ -176,25 +256,34 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de paso----*/
         ui.mostrarPaso(`Devolviendo el resultado de no tomarlo (${resultado}).`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4); 
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         return resultado;
     }
 
     // SI NO TOMAMOS EL ELEMENTO ACTUAL Y DA FALSO, MANDAMO+S A TOMAR EL ELEMENTO ACTUAL
-    else {         
+    else {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(9);
         /*----Manejo de paso----*/
         ui.mostrarPaso(`No tenemos la suma, consideramos tomar al elemento actual (${set[n - 1]}).`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4);
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
         resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
@@ -205,12 +294,270 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de paso----*/
         ui.mostrarPaso(`Devolviendo el resultado de tomarlo (${resultado})...`);
         /*--------Retardo--------*/
-        await sleep(retardo / 4); 
+        await sleep(retardo);
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
 
         return resultado;
     }
 }
 
+/**
+ * Función síncrona del algortimo solución al problema de la suma de un conjunto de números
+ * que funciona de manera automática por medio de la escucha de un click, también encargada
+ * de mandar a mostrar la información del algoritmo en el DOM
+ * @param {Array[int]} set Arreglo de números con los que trabajará el algoritmo
+ * @param {int} n Número de elementos del arreglo que aún quedan por analizar
+ * @param {int} sum Suma que se debe cumplir en esa llamada del algoritmo 
+ * @param {Arbol} nodo Nodo del árbol lógico en el que está trabajando el algoritmo
+ * @returns {boolean} Resultado de esa llamada de encontrar o no la suma
+ */
+async function esSumaConjuntoPXP(set, n, sum, nodo) {
+    let resultado;
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(1);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(2);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si se completó la suma...`);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    if (sum == 0) {
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, true);
+
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(3);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Se completó la suma. :)`);
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        return true;
+    }
+
+    // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(4);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si aún quedan elementos por comparar...`);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    if (sum < 0 || (n == 0 && sum != 0)) {
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(5);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Ya no quedan más elementos. :(`);
+
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, false);
+
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        return false;
+    }
+
+    // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(6);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    if (set[n - 1] > sum) {
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(7);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Si es mayor, omitimos tomar el elemento actual.`);
+        /*--------Espera--------*/
+        await esperarClick();
+        
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+        id++;
+        const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
+        resultado = await esSumaConjuntoPXP(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, resultado);
+        ui.saltarEspHorizontal(nodo_der); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
+
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(7);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolvemos el resultado de no tomarlo (${resultado}).`);
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        return resultado;
+    }
+
+    // CONSIDERANDO NO TOMAR EL ELEMENTO ACTUAL
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(8);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+    id++;
+    const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
+    resultado = await esSumaConjuntoPXP(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(8);
+    /*--------Espera--------*/
+    await esperarClick();
+
+    /*----Comprobando detención----*/
+    if(detener) return;
+
+    if (resultado) {
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, resultado);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolviendo el resultado de no tomarlo (${resultado}).`);
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        return resultado;
+    }
+
+    // SI NO TOMAMOS EL ELEMENTO ACTUAL Y DA FALSO, MANDAMO+S A TOMAR EL ELEMENTO ACTUAL
+    else {
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(9);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`No tenemos la suma, consideramos tomar al elemento actual (${set[n - 1]}).`);
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+        id++;
+        const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
+        resultado = await esSumaConjuntoPXP(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, resultado);
+
+        /*----Manejo de linea----*/
+        ui.limpiarInstrucciones();
+        ui.destacarInstruccion(9);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolviendo el resultado de tomarlo (${resultado})...`);
+        /*--------Espera--------*/
+        await esperarClick();
+
+        /*----Comprobando detención----*/
+        if(detener) return;
+
+        return resultado;
+    }
+}
+
+/**
+ * Función encargarda de restardar una función síncrona
+ * @param {long} ms Tiempo en milisegundos del retardo
+ * @returns {promise} Promesa para cuando finalice el retardo
+ */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Función encargada de retardar una función síncrona hasta que el click en un elemento
+ * lo determine.
+ * @returns {promise} Promesa para cuando se detecte el click en el elemento html
+ */
+function esperarClick() {
+    return new Promise(resolve => {
+        btn_avanzar.addEventListener("click", resolve);
+        btn_detener.addEventListener("click", resolve);
+    });
+}
+
+/**
+ * Listener para el botón de detener que modifica el paso y la variable detener
+*/
+btn_detener.addEventListener("click", function() {
+    ui.mostrarPaso(`Terminando...`);
+    detener = true;
+});

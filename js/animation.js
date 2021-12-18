@@ -47,8 +47,15 @@ const algoritmos = {
 // Constante para actualizar el panel de control
 const arreglo_panel = document.querySelector('#arreglo');
 
+// Constante para el botom de detener
+const btn_detener = document.querySelector('#btn-detener');
 // Constante para el botón de simular
 const btn_simular = document.querySelector('#btn-simular');
+// Constante para el botón de avanzar
+const btn_avanzar = document.querySelector('#btn-avanzar');
+
+// Variable para saber si es la primera vez que se ejecuta avanzar
+let primer_avance = true;
 
 btn_guardar.disabled = true;
 
@@ -61,12 +68,20 @@ sel_ejecucion.addEventListener('change', function() {
     // Mostramos el velocímetro si es modo automático
     if (sel_ejecucion.value == 2) {
         velocidad.classList.remove('d-none');
-        btn_simular.textContent = 'Simular';
         configs.tipo_animacion = "AUTO";
-    } else { // Oculamos el velocímetro si es modo paso por paso
+        btn_simular.classList.remove("d-none");
+        btn_avanzar.classList.add("d-none");
+        btn_avanzar.disabled = false;
+
+    } else if (sel_ejecucion.value == 1){ // Oculamos el velocímetro si es modo paso por paso
         velocidad.classList.add('d-none');
-        btn_simular.textContent = 'Avanzar';
         configs.tipo_animacion = "PXP";
+        btn_avanzar.classList.remove("d-none");
+        btn_simular.classList.add("d-none");
+        btn_avanzar.disabled = false;
+        primer_avance = true;
+    } else{
+        btn_avanzar.disabled = true;
     }
 });
 
@@ -140,11 +155,24 @@ btn_guardar.addEventListener("click", function() {
     actualizarPanel();
 
 });
+
+// Agregamos el indexamiento al modo automático
+btn_simular.addEventListener("click", indexarAlgoritmo);
+
+// Agregamos el indexamiento al modo paso por paso y configuramos si avanza o no el algoritmo
+btn_avanzar.addEventListener("click", () => {
+    if(primer_avance){ // Solo si es el primer avance permitimos indexar
+        primer_avance = false;
+        indexarAlgoritmo();
+    }
+});
+
+
 /**
  * Función que indexa todos el algoritmo con toddos sus paramétros y 
  * comienza la ejecución de la simulación
  */
-btn_simular.addEventListener("click", function(e) {
+async function indexarAlgoritmo(){
     // Removemos los restos de los algoritmos anteriores para limpiar el DOM
     removerRestos();
 
@@ -157,8 +185,12 @@ btn_simular.addEventListener("click", function(e) {
         paneles_fuerza_bruta.forEach(panel => {
             panel.classList.remove('d-none');
         });
+        
+        btn_detener.disabled = false;
+        btn_simular.disabled = true;
 
-        fuerzaBruta(configs);
+        await fuerzaBruta(configs);
+        primer_avance = true;
 
     } else if (algoritmos[configs.algoritmo] === 'DP Bottom-Up') {
         // Deshabilitamos el botón de simular
@@ -176,8 +208,7 @@ btn_simular.addEventListener("click", function(e) {
     } else {
         alert("No se selecciono ningun algoritmo")
     }
-});
-
+}
 
 /*--------------------------------FUNCIONES AUXILIARES------------------------------*/
 /**
@@ -290,6 +321,7 @@ function removerRestos(){
     const pasos = panel_informativo.querySelector('.pasos');
     const paso = pasos.querySelector('.paso');
     paso.className = "paso w-100 linea-destacada";
+    paso.textContent = "A la orden para el desorden B) configure la animación, por favor.";
 
 }
 
@@ -337,4 +369,12 @@ function showError(elemento) {
         return true;
     }
     return false;
+}
+/**
+ * Función encargarda de restardar una función síncrona
+ * @param {long} ms Tiempo en milisegundos del retardo
+ * @returns {promise} Promesa para cuando finalice el retardo
+ */
+ function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
