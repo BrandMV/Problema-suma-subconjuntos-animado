@@ -13,6 +13,7 @@ export class UI {
         this.panel_animado.width = window.innerWidth;
         this.panel_animado.height = window.innerHeight;
         this.pseudo_codigo = document.querySelector(".animacion-brute-force.pre-wrapper");
+        this.paso = document.querySelector(".pasos .paso");
 
         // Agregamos el listener para el canvas
         window.addEventListener("resize", () => {
@@ -183,10 +184,16 @@ export class UI {
      * Función que le agrega una pequeña animación al nodo de resultado final
      * @param {int} id Id del nodo que se va animar como resultado final
      */
-    establecerResultadoFinal(id){
+    establecerResultadoFinal(id, clases){
         // Seleccionamos el nodo raíz
         const elemento = document.querySelector(`div[data-id="${id}"]`);
         elemento.classList.add("resultado-final");
+
+        // Agregamos las clases al texto
+        this.paso.classList.add(clases);
+    }
+    mostrarPaso(txt_paso){
+        this.paso.textContent = txt_paso;
     }
 
     destacarInstruccion(linea){
@@ -200,6 +207,7 @@ export class UI {
             instruccion.classList.remove("linea-destacada");
         });
     }
+
 }
 
 /**
@@ -271,9 +279,8 @@ export class Arbol {
      * Función que manda a llamar al método que le agrega una animación al nodo resultante
      * final
      */
-    establecerResultadoFinal(){
-        console.log(this.id);
-        ui.establecerResultadoFinal(this.id);
+    establecerResultadoFinal(clases){
+        ui.establecerResultadoFinal(this.id, clases);
     }
 }
 

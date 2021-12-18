@@ -281,6 +281,16 @@ function removerRestos(){
         panel.classList.add('d-none');
     });
 
+
+    /*------------------LIMPIAMOS LO CORRESPONDIENTE A TOP-DOWN--------------------*/
+
+
+    /*------------------------LIMPIAMOS EL PANEL INFORMATIVO------------------------*/
+    const panel_informativo = document.querySelector('.panel-informativo');
+    const pasos = panel_informativo.querySelector('.pasos');
+    const paso = pasos.querySelector('.paso');
+    paso.className = "paso w-100 linea-destacada";
+
 }
 
 /*--------------------------------VALIDACIÓN DE DATOS------------------------------*/

@@ -31,10 +31,17 @@ export async function main(obj) {
     retardo = obj.velocidad * 1000;
 
     // Mandamos a llamar al algoritmo
-    await esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
+    const resultado = await esSumaConjunto(obj.valores, obj.valores.length, obj.suma, root);
 
     // Mostramos el resultado final
-    root.establecerResultadoFinal();
+    if(resultado){
+        ui.mostrarPaso(`Se completó la suma señores B) mi trabajo aquí ha terminado.`);
+        root.establecerResultadoFinal("bg-success");
+    } else {
+        ui.mostrarPaso(`No se completó la suma ): intenta de nuevo.`);
+        root.establecerResultadoFinal("bg-danger");
+    }
+    
 
     // Habilitamos el botón de simular
 }
@@ -46,8 +53,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(1);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
     /*--------Retardo--------*/
-    await sleep(retardo / 5);
+    await sleep(retardo / 4);
 
 
     // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
@@ -55,8 +64,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(2);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si se completó la suma...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 5); 
+    await sleep(retardo / 4); 
 
     if (sum == 0) {
         /*----------Manejo de nodo----------*/
@@ -65,8 +76,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(3);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Se completó la suma. :)`);
         /*--------Retardo--------*/
-        await sleep(retardo / 5); 
+        await sleep(retardo / 4); 
 
         return true;
     }
@@ -76,19 +89,23 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(4);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si aún quedan elementos por comparar...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 5); 
+    await sleep(retardo / 4); 
 
     if (sum < 0 || (n == 0 && sum != 0)) {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(5);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Ya no quedan más elementos. :(`);
 
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, false);
         
         /*--------Retardo--------*/
-        await sleep(retardo / 5);
+        await sleep(retardo / 4);
 
         return false;
     }
@@ -98,15 +115,19 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(6);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Comprobando si el elemento (${set[n-1]}) es mayor a la suma (${sum})...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 5);
+    await sleep(retardo / 4);
 
     if (set[n - 1] > sum) {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(7);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Si es mayor, omitimos tomar el elemento actual.`);
         /*--------Retardo--------*/
-        await sleep(retardo / 5); 
+        await sleep(retardo / 4); 
 
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
@@ -120,8 +141,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(7);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolvemos el resultado de no tomarlo (${resultado}).`);
         /*--------Retardo--------*/
-        await sleep(retardo / 5); 
+        await sleep(retardo / 4); 
 
         return resultado;
     }
@@ -131,8 +154,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(8);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(`Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
     /*--------Retardo--------*/
-    await sleep(retardo / 5);
+    await sleep(retardo / 4);
 
     /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
     id++;
@@ -143,22 +168,28 @@ async function esSumaConjunto(set, n, sum, nodo) {
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(8);
     /*--------Retardo--------*/
-    await sleep(retardo / 5); 
+    await sleep(retardo / 4); 
 
     if (resultado) {
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolviendo el resultado de no tomarlo (${resultado}).`);
+        /*--------Retardo--------*/
+        await sleep(retardo / 4); 
 
         return resultado;
     }
 
     // SI NO TOMAMOS EL ELEMENTO ACTUAL Y DA FALSO, MANDAMO+S A TOMAR EL ELEMENTO ACTUAL
-    else {
+    else {         
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(9);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`No tenemos la suma, consideramos tomar al elemento actual (${set[n - 1]}).`);
         /*--------Retardo--------*/
-        await sleep(retardo / 5);
+        await sleep(retardo / 4);
 
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
@@ -171,8 +202,10 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(9);
+        /*----Manejo de paso----*/
+        ui.mostrarPaso(`Devolviendo el resultado de tomarlo (${resultado})...`);
         /*--------Retardo--------*/
-        await sleep(retardo / 5); 
+        await sleep(retardo / 4); 
 
         return resultado;
     }
