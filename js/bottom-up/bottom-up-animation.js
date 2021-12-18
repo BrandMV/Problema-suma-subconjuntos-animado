@@ -146,7 +146,7 @@ export class UI {
      * @param {String} txt_paso Texto que se va a mostrar en el paso
      */
     mostrarPaso(txt_paso) {
-        this.paso.textContent = txt_paso;
+        this.paso.innerHTML = txt_paso;
     }
 
     /**
