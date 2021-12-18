@@ -3,7 +3,7 @@ import {
     UI,
     Arbol,
     agregarNodo
-} from './brute-force-animation.js';
+} from './top-down-animation.js';
 
 /*----------------------------------Variables/constantes principales---------------------------*/
 // Constante para el botón de avanzar
@@ -16,12 +16,16 @@ const btn_detener = document.querySelector('#btn-detener');
 // Inicializamos el canvas
 export let ui;
 
+export let mostrar = true;
+
 // Declaramos las variables a usar  
-export let root; // Variable que apunta a la raíz del árbol lógico
+export var root; // Variable que apunta a la raíz del árbol lógico
 let retardo; // Variable que determina el timpo de retarde entre cada paso
 let id; // Variable que almacena el id de cada llamada a función 
 export let apuntadores_nivel; // Variable que almacena los apuntadores de cada nivel
 let detener = false; // Variable para detectar cuando se detiene el algoritmo
+let tab;
+
 
 /**
  * Función que ejecuta los algoritmos paso por paso o automático según sea el caso
@@ -30,6 +34,8 @@ let detener = false; // Variable para detectar cuando se detiene el algoritmo
 export async function main(configs) {
     /*--------------------------------Preparación de variables-----------------------------*/
     detener = false; // Reiniciamos la detención
+    mostrar = true; // Reiniciamos la muestra para todos los nodos
+
     // Inizalizamos el apuntador de nivel y los id's
     apuntadores_nivel = {
         "0": 1,
@@ -39,15 +45,13 @@ export async function main(configs) {
         "4": 16,
     }
     id = 1;
-    
+
     // Creamos el nodo raiz y lo mostramos
     root = new Arbol("", 0, "(" + configs.valores.length + "," + configs.suma + ")", 0);
     // Creamos el nodo raiz e inicializamos el canvas
     ui = new UI();
 
     ui.mostrarNodo(root);
-
-   
 
     // Obtenemos el tiempo de retardo
     retardo = configs.velocidad * 1000 / 10;
@@ -59,17 +63,18 @@ export async function main(configs) {
     btn_detener.addEventListener("click", actionTerminar);
 
     /*--------------------------Ejecución del algoritmo según sea el tipo-----------------------*/
+    inicializarTabla(configs.valores.length, configs.suma);
+
     if (configs.tipo_animacion === "PXP") // Si es paso por paso 
         resultado = await esSumaConjuntoPXP(configs.valores, configs.valores.length, configs.suma, root);
     else // Si es automático
         resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root);
 
     /*------------------------------------Comprobando detención---------------------------------*/
-    if(detener){
+    if (detener) {
         ui.mostrarPaso("Terminado");
         btn_detener.disabled = true;
         btn_simular.disabled = false;
-        btn_detener.removeEventListener("click", actionTerminar);
         return;
     }
 
@@ -83,7 +88,6 @@ export async function main(configs) {
     }
     btn_detener.disabled = true;
     btn_simular.disabled = false;
-    btn_detener.removeEventListener("click", actionTerminar);
 }
 
 /**
@@ -97,220 +101,7 @@ export async function main(configs) {
  * @returns {boolean} Resultado de esa llamada de encontrar o no la suma
  */
 async function esSumaConjunto(set, n, sum, nodo) {
-    let resultado;
 
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(1);
-    /*----Manejo de paso----*/
-    ui.mostrarPaso(`Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(2);
-    /*----Manejo de paso----*/
-    ui.mostrarPaso(`Comprobando si se completó la suma...`);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    if (sum == 0) {
-        /*----------Manejo de nodo----------*/
-        ui.establecerResultado(nodo.id, true);
-
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(3);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Se completó la suma. :)`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        return true;
-    }
-
-    // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(4);
-    /*----Manejo de paso----*/
-    ui.mostrarPaso(`Comprobando si aún quedan elementos por comparar...`);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    if (sum < 0 || (n == 0 && sum != 0)) {
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(5);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Ya no quedan más elementos. :(`);
-
-        /*----------Manejo de nodo----------*/
-        ui.establecerResultado(nodo.id, false);
-
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        return false;
-    }
-
-    // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(6);
-    /*----Manejo de paso----*/
-    ui.mostrarPaso(`Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    if (set[n - 1] > sum) {
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(7);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Si es mayor, omitimos tomar el elemento actual.`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-        
-        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
-        id++;
-        const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
-        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        /*----------Manejo de nodo----------*/
-        ui.establecerResultado(nodo.id, resultado);
-        ui.saltarEspHorizontal(nodo_der); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
-
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(7);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Devolvemos el resultado de no tomarlo (${resultado}).`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        return resultado;
-    }
-
-    // CONSIDERANDO NO TOMAR EL ELEMENTO ACTUAL
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(8);
-    /*----Manejo de paso----*/
-    ui.mostrarPaso(`Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
-    id++;
-    const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
-    resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    /*----Manejo de linea----*/
-    ui.limpiarInstrucciones();
-    ui.destacarInstruccion(8);
-    /*--------Retardo--------*/
-    await sleep(retardo);
-    
-    /*----Comprobando detención----*/
-    if(detener) return;
-
-    if (resultado) {
-        /*----------Manejo de nodo----------*/
-        ui.establecerResultado(nodo.id, resultado);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Devolviendo el resultado de no tomarlo (${resultado}).`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        return resultado;
-    }
-
-    // SI NO TOMAMOS EL ELEMENTO ACTUAL Y DA FALSO, MANDAMO+S A TOMAR EL ELEMENTO ACTUAL
-    else {
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(9);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`No tenemos la suma, consideramos tomar al elemento actual (${set[n - 1]}).`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
-        id++;
-        const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
-        resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        /*----------Manejo de nodo----------*/
-        ui.establecerResultado(nodo.id, resultado);
-
-        /*----Manejo de linea----*/
-        ui.limpiarInstrucciones();
-        ui.destacarInstruccion(9);
-        /*----Manejo de paso----*/
-        ui.mostrarPaso(`Devolviendo el resultado de tomarlo (${resultado})...`);
-        /*--------Retardo--------*/
-        await sleep(retardo);
-        
-        /*----Comprobando detención----*/
-        if(detener) return;
-
-        return resultado;
-    }
 }
 
 /**
@@ -327,7 +118,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     let resultado;
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
@@ -338,7 +129,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
 
@@ -351,7 +142,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     if (sum == 0) {
         /*----------Manejo de nodo----------*/
@@ -366,7 +157,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         return true;
     }
@@ -374,7 +165,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
@@ -385,7 +176,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     if (sum < 0 || (n == 0 && sum != 0)) {
         /*----Manejo de linea----*/
@@ -401,7 +192,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         return false;
     }
@@ -409,7 +200,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
@@ -420,7 +211,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     if (set[n - 1] > sum) {
         /*----Manejo de linea----*/
@@ -430,9 +221,9 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         ui.mostrarPaso(`Si es mayor, omitimos tomar el elemento actual.`);
         /*--------Espera--------*/
         await esperarClick();
-        
+
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
@@ -440,7 +231,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         resultado = await esSumaConjuntoPXP(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
@@ -455,7 +246,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         return resultado;
     }
@@ -471,7 +262,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
     id++;
@@ -479,7 +270,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     resultado = await esSumaConjuntoPXP(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
 
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
@@ -488,7 +279,9 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     await esperarClick();
 
     /*----Comprobando detención----*/
-    if(detener) return;
+    if (detener) return;
+
+    mostrar = false;
 
     if (resultado) {
         /*----------Manejo de nodo----------*/
@@ -499,7 +292,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         return resultado;
     }
@@ -515,7 +308,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
@@ -523,7 +316,7 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         resultado = await esSumaConjuntoPXP(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
@@ -537,9 +330,20 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
         await esperarClick();
 
         /*----Comprobando detención----*/
-        if(detener) return;
+        if (detener) return;
 
         return resultado;
+    }
+}
+
+function inicializarTabla(n, sum) {
+    // CREANDO LA TABLA
+    tab = new Array(n + 1);
+    for (let i = 0; i <= n; i++) {
+        tab[i] = new Array(sum + 1);
+        for (let j = 0; j <= sum; j++) {
+            tab[i][j] = null;
+        }
     }
 }
 
@@ -549,7 +353,13 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
  * @returns {promise} Promesa para cuando finalice el retardo
  */
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => {
+        if (!mostrar)
+            resolve();
+        else
+            setTimeout(resolve, ms);
+
+    });
 }
 
 /**
@@ -559,8 +369,12 @@ function sleep(ms) {
  */
 function esperarClick() {
     return new Promise(resolve => {
-        btn_avanzar.addEventListener("click", resolve);
-        btn_detener.addEventListener("click", resolve);
+        if (!mostrar) {
+            resolve();
+        } else {
+            btn_avanzar.addEventListener("click", resolve);
+            btn_detener.addEventListener("click", resolve);
+        }
     });
 }
 

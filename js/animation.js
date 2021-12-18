@@ -1,6 +1,7 @@
 /*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
 import { main as fuerzaBruta, ui } from './fuerza-bruta/brute-force-algorithm.js';
-import { main as bottom_up } from './bottom-up/bottom-up-algorithm.js';
+import { main as topDown } from './top-down/top-down-algorithm.js';
+import { main as bottomUp } from './bottom-up/bottom-up-algorithm.js';
 
 /*--------------------------VARIABLES GLOBALES--------------------------- */
 
@@ -195,6 +196,24 @@ async function indexarAlgoritmo(){
         // Reiniciamos el listener del botón de avanzar
         primer_avance = true;
 
+    } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
+        // Deshabilitamos el botón de simular
+        
+        // Activamos el div de los nodos y el canvas para las flechas
+        const paneles_fuerza_bruta = document.querySelectorAll('.animacion-Top-Down');
+        paneles_fuerza_bruta.forEach(panel => {
+            panel.classList.remove('d-none');
+        });
+        
+        // Activamos el botón de detener y desactivamos el de simular
+        btn_detener.disabled = false;
+        btn_simular.disabled = true;
+
+        await topDown(configs);
+
+        // Reiniciamos el listener del botón de avanzar
+        primer_avance = true;
+
     } else if (algoritmos[configs.algoritmo] === 'DP Bottom-Up') {
         // Deshabilitamos el botón de simular
 
@@ -208,12 +227,10 @@ async function indexarAlgoritmo(){
         btn_detener.disabled = false;
         btn_simular.disabled = true;
 
-        await bottom_up(configs);
+        await bottomUp(configs);
 
         // Reiniciamos el listener del botón de avanzar
         primer_avance = true;
-
-    } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
 
     } else {
         alert("No se selecciono ningun algoritmo")

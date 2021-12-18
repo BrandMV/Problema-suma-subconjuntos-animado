@@ -1,5 +1,5 @@
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
-import { root, ui,  apuntadores_nivel} from './brute-force-algorithm.js';
+import { root, ui, mostrar, apuntadores_nivel} from './top-down-algorithm.js';
 
 /*----------------------------------------Clases principales---------------------------------*/
 /**
@@ -12,13 +12,15 @@ export class UI {
         this.panel_animado = document.querySelector("#panel-animado");
         this.panel_animado.width = window.innerWidth;
         this.panel_animado.height = window.innerHeight;
-        this.pseudo_codigo = document.querySelector(".animacion-brute-force.pre-wrapper");
+        this.pseudo_codigo = document.querySelector(".animacion-Top-Down.pre-wrapper");
         this.paso = document.querySelector(".pasos .paso");
 
         // Agregamos el listener para el canvas
         window.addEventListener("resize", () => {
             this.repintar();
         });
+        
+
     }
     /**
      * Función que agrega un nodo dentro de su div correspondiente
@@ -34,16 +36,26 @@ export class UI {
         let nodo = document.querySelector(`#level-${level} .nodo:nth-child(${apuntadores_nivel[level]})`);
         apuntadores_nivel[level] -= 1; // Restamos el número de nodos cubiertos en el nivel
         nodo.dataset.id = id; // Asignamos un valor a ese nodo
-
+        
+        if(!mostrar) nodo.classList.add("opacity-25");
+        
         // Agregamos el valor del nodo en el circulo
         let nodo_circulo = document.createElement("div");
-        nodo_circulo.classList.add("nodo-circulo", "color-default-circulo");
+        nodo_circulo.classList.add("nodo-circulo");
+
+        if(!mostrar) nodo_circulo.classList.add("bg-secondary");
+        else nodo_circulo.classList.add("color-default-circulo");
+
         nodo_circulo.innerHTML = `<span>${valor}</span>`;
         nodo.appendChild(nodo_circulo);
 
         // Agregamos la información del nodo en el cuadro informativo
         let nodo_info = document.createElement("div");
-        nodo_info.classList.add("nodo-info", "color-default-info");
+        nodo_info.classList.add("nodo-info");
+
+        if(!mostrar) nodo_info.classList.add("bg-secondary");
+        else nodo_info.classList.add("color-default-circulo");
+
         nodo_info.innerHTML = `<span>${info}</span>`;
         nodo.appendChild(nodo_info);
     }
@@ -63,7 +75,10 @@ export class UI {
 
         // Estableciendo el contexto
         var ctx = this.panel_animado.getContext('2d');
-
+        
+        // Configuramos opacidad
+        if(!mostrar) ctx.globalAlpha = 0.2;
+        
         // Dibujamos un circulo al inicio de la flecha
         ctx.beginPath();
         ctx.fillStyle = inicio.color;
@@ -102,6 +117,8 @@ export class UI {
             ctx.lineTo(vertice.x, vertice.y);
         });
         ctx.fill();
+
+        ctx.globalAlpha = 1.0;
         ctx.closePath();
     }
 
@@ -116,6 +133,11 @@ export class UI {
         const elemento_circulo = document.querySelector(`div[data-id="${id}"] .nodo-circulo`);
         const elemento_info = document.querySelector(`div[data-id="${id}"] .nodo-info`);
 
+        
+        if(!mostrar){
+            return;
+        }
+
         // Cambiamos los colores
         if (resultado === true) {
             elemento_circulo.classList.add("color-true-circulo");
@@ -124,6 +146,7 @@ export class UI {
             elemento_circulo.classList.add("color-false-circulo");
             elemento_info.classList.add("color-false-info");
         }
+
         this.repintar();
     }
 
@@ -197,6 +220,8 @@ export class UI {
      * @param {String} txt_paso Texto que se va a mostrar en el paso
      */
     mostrarPaso(txt_paso){
+        if(!mostrar) return;
+
         this.paso.textContent = txt_paso;
     }
 
@@ -205,6 +230,8 @@ export class UI {
      * @param {int} linea Numero de línea del pseudocódigo a destacar
      */
     destacarInstruccion(linea){
+        if(!mostrar) return;
+
         const instruccion = this.pseudo_codigo.querySelector(`pre:nth-child(${linea})`);
         instruccion.classList.add("linea-destacada");
     }
@@ -213,6 +240,8 @@ export class UI {
      * Función que remueve la destacación de todas las líneas del pseudocódigo
      */
     limpiarInstrucciones(){
+        if(!mostrar) return;
+
         const instrucciones = this.pseudo_codigo.querySelectorAll("pre");
         instrucciones.forEach(instruccion => {
             instruccion.classList.remove("linea-destacada");
