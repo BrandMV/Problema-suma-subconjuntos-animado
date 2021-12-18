@@ -186,7 +186,7 @@ export class UI {
      * @param {String} clases Clases que se le van agregar al paso cuando finalice la ejecución
      */
     establecerResultadoFinal(id, clases){
-        // Seleccionamos el nodo raíz
+        // Seleccionamos el nodo raíz y le asignamos el efecto
         const elemento = document.querySelector(`div[data-id="${id}"]`);
         elemento.classList.add("resultado-final");
 

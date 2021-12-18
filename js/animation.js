@@ -90,7 +90,7 @@ sel_ejecucion.addEventListener('change', function() {
  */
 bRange.addEventListener("input", function() {
     txtNum.textContent = bRange.value + "s";
-    configs.velocidad = bRange.value;
+    configs.velocidad = bRange.value*5 - 4;
 });
 
 
@@ -186,10 +186,13 @@ async function indexarAlgoritmo(){
             panel.classList.remove('d-none');
         });
         
+        // Activamos el botón de detener y desactivamos el de simular
         btn_detener.disabled = false;
         btn_simular.disabled = true;
 
         await fuerzaBruta(configs);
+
+        // Reiniciamos el listener del botón de avanzar
         primer_avance = true;
 
     } else if (algoritmos[configs.algoritmo] === 'DP Bottom-Up') {
@@ -201,7 +204,14 @@ async function indexarAlgoritmo(){
             panel.classList.remove('d-none');
         });
 
-        bottom_up(configs);
+        // Activamos el botón de detener y desactivamos el de simular
+        btn_detener.disabled = false;
+        btn_simular.disabled = true;
+
+        await bottom_up(configs);
+
+        // Reiniciamos el listener del botón de avanzar
+        primer_avance = true;
 
     } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
 

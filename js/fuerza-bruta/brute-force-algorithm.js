@@ -29,7 +29,7 @@ let detener = false; // Variable para detectar cuando se detiene el algoritmo
  */
 export async function main(configs) {
     /*--------------------------------Preparación de variables-----------------------------*/
-    detener = false;
+    detener = false; // Reiniciamos la detención
     // Inizalizamos el apuntador de nivel y los id's
     apuntadores_nivel = {
         "0": 1,
@@ -45,7 +45,7 @@ export async function main(configs) {
     ui.mostrarNodo(root);
 
     // Obtenemos el tiempo de retardo
-    retardo = configs.velocidad * 1000 / 4;
+    retardo = configs.velocidad * 1000 / 10;
 
     // Declaramos la variable de resultado
     let resultado = false;
