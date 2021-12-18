@@ -41,93 +41,139 @@ export async function main(obj) {
 
 // Función síncrona
 async function esSumaConjunto(set, n, sum, nodo) {
+    let resultado;
+
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(1);
+    /*--------Retardo--------*/
+    await sleep(retardo / 5);
 
-    let resultado;
-    await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
 
+    // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
 
-    // Si se completó la suma del algoritmo
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(2);
-    await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
+    /*--------Retardo--------*/
+    await sleep(retardo / 5); 
+
     if (sum == 0) {
+        /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, true);
+
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(3);
-        await sleep(retardo / 5); // Retardamos antes de volver al padre
-        ui.limpiarInstrucciones();
+        /*--------Retardo--------*/
+        await sleep(retardo / 5); 
+
         return true;
     }
 
-    // Si ya no hay más elementos en el conjunto
+    // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
+
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(4);
-    await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
+    /*--------Retardo--------*/
+    await sleep(retardo / 5); 
 
     if (sum < 0 || (n == 0 && sum != 0)) {
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(5);
-        ui.establecerResultado(nodo.id, false);
 
-        await sleep(retardo / 5); // Retardamos antes de volver al padre
-        ui.limpiarInstrucciones();
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, false);
+        
+        /*--------Retardo--------*/
+        await sleep(retardo / 5);
+
         return false;
     }
 
-    // Si el elemento actual es mayor a la suma
+    // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
+
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(6);
-    await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
+    /*--------Retardo--------*/
+    await sleep(retardo / 5);
 
     if (set[n - 1] > sum) {
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(7);
+        /*--------Retardo--------*/
+        await sleep(retardo / 5); 
 
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
         resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+        
+        /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
-
         ui.saltarEspHorizontal(nodo_der); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
 
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(7);
-        await sleep(retardo / 5); // Retardamos antes de volver al padre
+        /*--------Retardo--------*/
+        await sleep(retardo / 5); 
+
         return resultado;
     }
 
-    // Considerando no tomar el elemento actual
+    // CONSIDERANDO NO TOMAR EL ELEMENTO ACTUAL
+
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(8);
-    await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
+    /*--------Retardo--------*/
+    await sleep(retardo / 5);
+
+    /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
     id++;
     const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
     resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+
+    /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
     ui.destacarInstruccion(8);
+    /*--------Retardo--------*/
+    await sleep(retardo / 5); 
+
     if (resultado) {
+        /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
 
-        await sleep(retardo / 5); // Retardamos antes de volver al padre
         return resultado;
     }
 
-    // Si no tomamos el elemento actual y da falso, mandamo+s a tomar el elemento actual
+    // SI NO TOMAMOS EL ELEMENTO ACTUAL Y DA FALSO, MANDAMO+S A TOMAR EL ELEMENTO ACTUAL
     else {
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(9);
-        await sleep(retardo / 5); // Retardamos antes de ejecutar el algoritmo
+        /*--------Retardo--------*/
+        await sleep(retardo / 5);
 
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
         resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+
+        /*----------Manejo de nodo----------*/
         ui.establecerResultado(nodo.id, resultado);
 
+        /*----Manejo de linea----*/
         ui.limpiarInstrucciones();
         ui.destacarInstruccion(9);
-        await sleep(retardo / 5); // Retardamos antes de volver al padre
+        /*--------Retardo--------*/
+        await sleep(retardo / 5); 
+
         return resultado;
     }
 }
