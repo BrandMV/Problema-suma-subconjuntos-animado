@@ -38,6 +38,9 @@ export async function main(configs) {
     // Declaramos la variable de resultado
     let resultado = false;
 
+    // Agregamos el listener para detener la ejecución
+    btn_detener.addEventListener("click", actionTerminar);
+
     /*--------------------------Ejecución del algoritmo según sea el tipo-----------------------*/
     if (configs.tipo_animacion === "PXP") // Si es paso por paso 
         resultado = await esSumaConjuntoPXP(configs.valores, configs.valores.length, configs.suma);
@@ -49,6 +52,7 @@ export async function main(configs) {
         ui.mostrarPaso("Terminado");
         btn_detener.disabled = true;
         btn_simular.disabled = false;
+        btn_detener.removeEventListener("click", actionTerminar);
         return;
     }
 
@@ -62,6 +66,7 @@ export async function main(configs) {
     }
     btn_detener.disabled = true;
     btn_simular.disabled = false;
+    btn_detener.removeEventListener("click", actionTerminar);
 }
 
 /**
@@ -488,6 +493,7 @@ async function esSumaConjuntoPXP(set, n, sum) {
             /*--------Espera--------*/
             await esperarClick();
 
+            /*----------Manejo de tabla----------*/
             tabla.limpiarIndices(i, j);
 
             /*----Comprobando detención----*/
@@ -530,7 +536,7 @@ function esperarClick() {
 /**
  * Listener para el botón de detener que modifica el paso y la variable detener
 */
-btn_detener.addEventListener("click", function () {
+function actionTerminar() {
     ui.mostrarPaso(`Terminando...`);
     detener = true;
-});
+}
