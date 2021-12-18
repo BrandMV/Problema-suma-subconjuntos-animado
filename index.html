@@ -809,7 +809,7 @@
                                 <output id="output" value="1" class="fs-5">1s</output>
                             </p>
                             <div class="p-2 bd-highlight azul-fuerte b-redondeado">
-                                <input type="range" class="form-range" list="mydata" value="1" min="1" max="5" step="1" id="bRange">
+                                <input type="range" class="form-range" list="mydata" value="1" min="1" max="10" step="1" id="bRange">
                             </div>
                         </div>
                     </div>
@@ -872,9 +872,7 @@
 
                 <!-- Panel de animación "tabla" para las animaciones de fuerza bruta y top-down-->
                 <div class="animacion-bottom-up h-100 w-100 d-flex justify-content-center align-items-center d-none">
-                    <div class="tabla-wrapper w-auto h-auto">
-                        
-                    </div>
+                    <div class="tabla-wrapper w-auto h-auto"></div>
                 </div>
 
             </div>
@@ -928,8 +926,8 @@
                         <pre class="w-100">    return False</pre>
                         <pre class="w-100">  if (a[n - 1] > sum):</pre>
                         <pre class="w-100">    return esSumaConjunto(a, n - 1, sum)</pre>
-                        <pre class="w-50">return (esSumaConjunto(a, n-1, sum)</pre>
-                        <pre class="w-50"> or esSumaConjunto(a, n-1, sum))</pre>
+                        <pre class="w-100">return (esSumaConjunto(a, n-1, sum)</pre>
+                        <pre class="w-100"> or esSumaConjunto(a, n-1, sum))</pre>
 
                     </div>                    
 
@@ -954,7 +952,7 @@
                     </div>
 
                     <!-- Pseudoódigo de bottom-up-->
-                    <div class="animacion-bottom-up pre-wrapper">
+                    <div class="animacion-bottom-up pre-wrapper d-none">
 
                         <pre class="w-100">def esSumaConjunto(a, n, sum):</pre>
                         <pre class="w-100">  subconjunto =([[False for i in range(sum + 1)]</pre>

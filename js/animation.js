@@ -243,6 +243,7 @@ function actualizarPanel() {
 function removerRestos(){
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A FUERZA BRUTA--------------------*/
+    // Eliminamos todas las cajas referentes a los nodos del árbol
     const niveles = document.querySelectorAll('.animacion-brute-force .level');
     niveles.forEach((nivel, indice) => {
         while(nivel.firstChild){
@@ -255,21 +256,26 @@ function removerRestos(){
             nivel.appendChild(nodo);
         }
     });
+
+    // Limpiamos el canvas
     const panel_animado = document.querySelector("#panel-animado");
     const context = panel_animado.getContext('2d');
     context.clearRect(0, 0, panel_animado.width, panel_animado.height);
     
+    // Quitamos todos los paneles que hagan referencia a fuerza bruta
     const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
     paneles_fuerza_bruta.forEach(panel => {
         panel.classList.add('d-none');
     });
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A BOTTOM-UP--------------------*/
+    // Eliminamos todas las cajas referentes a la tabla
     const tabla = document.querySelector('.animacion-bottom-up .tabla-wrapper');
     while(tabla.firstChild){
         tabla.removeChild(tabla.firstChild);
     }
 
+    // Quitamos todos los paneles que hagan referencia a bottom-up
     const paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
     paneles_bottom_up.forEach(panel => {
         panel.classList.add('d-none');

@@ -41,6 +41,10 @@
 .color-true-info-dark {
     background-color: var(--stratos);
 }
+.linea-destacada{
+    background-color: var(--regalBlue) !important;
+    color: white;
+}
 
 .h-20 {
     height: 20%!important;
@@ -516,7 +520,8 @@ button.tab-activa {
     justify-self: flex-start;
     align-self: flex-start;
     font-size: .8em !important;
-    overflow: visible
+    overflow: visible;
+    padding-left: 5px;
 }
 
 /*---------------Animación del árbol---------------*/

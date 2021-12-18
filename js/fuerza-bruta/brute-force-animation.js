@@ -12,6 +12,7 @@ export class UI {
         this.panel_animado = document.querySelector("#panel-animado");
         this.panel_animado.width = window.innerWidth;
         this.panel_animado.height = window.innerHeight;
+        this.pseudo_codigo = document.querySelector(".animacion-brute-force.pre-wrapper");
 
         // Agregamos el listener para el canvas
         window.addEventListener("resize", () => {
@@ -186,6 +187,18 @@ export class UI {
         // Seleccionamos el nodo raíz
         const elemento = document.querySelector(`div[data-id="${id}"]`);
         elemento.classList.add("resultado-final");
+    }
+
+    destacarInstruccion(linea){
+        const instruccion = this.pseudo_codigo.querySelector(`pre:nth-child(${linea})`);
+        instruccion.classList.add("linea-destacada");
+    }
+
+    limpiarInstrucciones(){
+        const instrucciones = this.pseudo_codigo.querySelectorAll("pre");
+        instrucciones.forEach(instruccion => {
+            instruccion.classList.remove("linea-destacada");
+        });
     }
 }
 
