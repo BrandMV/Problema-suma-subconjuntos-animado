@@ -719,7 +719,7 @@ button.tab-activa {
     margin-top: 10vh;
     height: 500px;
     max-height: 500px;
-    max-width: 450px;
+    max-width: 290px;
 }
 
 .modal-body {
@@ -925,6 +925,10 @@ footer p {
     }
     :root {
         --table-cell-size: 20px;
+    }
+    .modal-content {
+
+        max-width: 450px;
     }
 }
 
