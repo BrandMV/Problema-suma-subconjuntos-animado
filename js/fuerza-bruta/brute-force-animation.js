@@ -75,7 +75,7 @@ export class UI {
 
         // Dibujando el cuerpo de la flecha
         ctx.beginPath();
-        ctx.strokeStyle = inicio.color;
+        ctx.strokeStyle = fin.color;
         ctx.lineWidth = grueso;
         ctx.moveTo(inicio.x, inicio.y);
         ctx.lineTo(fin.x, fin.y);

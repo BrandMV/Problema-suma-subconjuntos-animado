@@ -70,6 +70,10 @@ export async function main(configs) {
     else // Si es automático
         resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root);
 
+    tab[configs.valores.length][configs.suma] = resultado;
+
+    console.table(tab);
+
     /*------------------------------------Comprobando detención---------------------------------*/
     if (detener) {
         ui.mostrarPaso("Terminado");
@@ -101,7 +105,210 @@ export async function main(configs) {
  * @returns {boolean} Resultado de esa llamada de encontrar o no la suma
  */
 async function esSumaConjunto(set, n, sum, nodo) {
+    const mostrar_prev = mostrar;
 
+    let resultado;
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(1, `Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(2, `Comprobando si se completó la suma...`);
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    if (sum == 0) {
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, true);
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(3, `Se completó la suma. :)`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+        return true;
+    }
+
+    // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
+
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(4, `Comprobando si aún quedan elementos por comparar...`);
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    if (sum < 0 || (n == 0 && sum != 0)) {
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, false);
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(5, `Ya no quedan más elementos. :(`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        return false;
+    }
+
+    // SI LA RAMA DERECHA NO HA SIDO CALCULADA
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(6, `Comprobando si la rama derecha ya fue calculada...`);
+
+    if (tab[n - 1][sum] == null) {
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(7, `No ha sido calculada, la calculamos...`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+        id++;
+        const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
+        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(7, `Asignamos el valor devuelvo a la tabla.`);
+
+        tab[n - 1][sum] = resultado;
+    } 
+    else{
+        mostrar = false;
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+        id++;
+        const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
+        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+        if(mostrar_prev) mostrar = true;
+    }
+
+    // SI EL ELEMENTO ACTUAL ES MAYOR A LA SUMA
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(8, `Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`);
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    if (set[n - 1] > sum) {
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, tab[n - 1][sum]);
+        ui.saltarEspHorizontal(nodo.derecho); // Saltamos una posición horizontal (el cuadro izquierdo que no ocupamos)
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(9, `Si es mayor, devolvemos el resultado de no tomarlo (${resultado}).`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        return tab[n - 1][sum];
+    }
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+    /*----Manejo de linea----*/
+    await descatarInstruccionPaso(10, `Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
+
+    /*----Comprobando detención----*/
+    if (detener) return;
+
+
+    if (tab[n - 1][sum] == true) {
+
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, true);
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(11, `Devolviendo el resultado de no tomarlo (${true}).`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        return true;
+    }
+    else {
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(13, `Comprobando si la rama derecha ya fue calculada...`);
+
+        /*----Comprobando detención----*/
+        if (detener) return;
+
+        if (tab[n - 1][sum - set[n - 1]] == null) {
+
+            /*----Comprobando detención----*/
+            if (detener) return;
+
+            /*----Manejo de linea----*/
+            await descatarInstruccionPaso(14, `No ha sido calculada, la calculamos...`);
+
+            /*----Comprobando detención----*/
+            if (detener) return;
+
+            /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+            id++;
+            const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
+            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+
+            /*----Comprobando detención----*/
+            if (detener) return;
+
+            /*----Manejo de linea----*/
+            await descatarInstruccionPaso(14, `Asignamos el valor devuelvo a la tabla.`);
+
+            /*----Comprobando detención----*/
+            if (detener) return;
+
+            tab[n - 1][sum - set[n - 1]] = resultado;
+        } 
+        else{
+            mostrar = false;
+            /*----Comprobando detención----*/
+            if (detener) return;
+
+            /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
+            id++;
+            const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
+            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+
+            if(mostrar_prev) mostrar = true;
+        }
+        /*----------Manejo de nodo----------*/
+        ui.establecerResultado(nodo.id, tab[n - 1][sum - set[n - 1]]);
+
+        /*----Manejo de linea----*/
+        await descatarInstruccionPaso(15, `Devolviendo el resultado de tomarlo (${true}).`);
+
+        return tab[n - 1][sum - set[n - 1]];
+    }
 }
 
 /**
@@ -334,6 +541,15 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
 
         return resultado;
     }
+}
+
+async function descatarInstruccionPaso(linea, indicaciones) {
+    /*----Manejo de linea----*/
+    ui.limpiarInstrucciones();
+    ui.destacarInstruccion(linea);
+    /*----Manejo de paso----*/
+    ui.mostrarPaso(indicaciones);
+    await sleep(retardo);
 }
 
 function inicializarTabla(n, sum) {

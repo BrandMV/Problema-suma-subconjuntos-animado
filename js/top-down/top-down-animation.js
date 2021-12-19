@@ -62,8 +62,8 @@ export class UI {
 
     /**
      * Función que pinta la flecha que une dos nodos
-     * @param {{x:float, y:float}} inicio Punto donde iniciará la flecha
-     * @param {{x:float, y:float}} fin Punto donde terminará la flecha
+     * @param {{x:float, y:float, colorString, opacidad:boolean}} inicio Punto donde iniciará la flecha
+     * @param {{x:float, y:float, color:String, opacidad:boolean}} fin Punto donde terminará la flecha
      */
     agregarFlecha(inicio, fin) {
         const grueso = 2; // Grueso de la flecha
@@ -76,8 +76,8 @@ export class UI {
         // Estableciendo el contexto
         var ctx = this.panel_animado.getContext('2d');
         
-        // Configuramos opacidad
-        if(!mostrar) ctx.globalAlpha = 0.2;
+        // Configuramos opacidad dependiendo si se debe o no mostrar
+        if(!mostrar || inicio.opacidad || fin.opacidad) ctx.globalAlpha = 0.2;
         
         // Dibujamos un circulo al inicio de la flecha
         ctx.beginPath();
@@ -90,7 +90,7 @@ export class UI {
 
         // Dibujando el cuerpo de la flecha
         ctx.beginPath();
-        ctx.strokeStyle = inicio.color;
+        ctx.strokeStyle = fin.color;
         ctx.lineWidth = grueso;
         ctx.moveTo(inicio.x, inicio.y);
         ctx.lineTo(fin.x, fin.y);
@@ -351,7 +351,7 @@ export function agregarNodo(nodo_padre, valor, id, info, posicion) {
  * Función que obtiene las coordenadas del cuadro informativo de un nodo donde conectará
  * la flecha
  * @param {Arbol} Arbol.id Obteemos el id del nodo pasado por argumento 
- * @returns {{x:float, y:float}} Las coordenadas sobre la pantalla del cuadro
+ * @returns {{x:float, y:float, color:String, opacidad:boolean}} Las coordenadas sobre la pantalla del cuadro
  * informativo donde conectará la flecha
  */
 function obtenerCoordsInfo({ id }) {
@@ -363,14 +363,15 @@ function obtenerCoordsInfo({ id }) {
     const info_y = elemento_info.getBoundingClientRect().y + elemento_info.clientHeight;
     // Obtenemos el color del cuadro informativo
     const color = window.getComputedStyle(elemento_info, null).getPropertyValue('background-color');
+    const opacidad = elemento_info.parentElement.classList.contains("opacity-25");
 
-    return { x: info_x, y: info_y, color }; // Retornamos las coordenadas
+    return { x: info_x, y: info_y, color, opacidad}; // Retornamos las coordenadas
 }
 
 /**
  * Función que obtiene las coordenadas del círculo de un nodo donde conectará la flecha
  * @param {Arbol} Arbol.id Obteemos el id del nodo pasado por argumento
- * @returns {{x:float, y:float}} Las coordenadas sobre la pantalla del circulo donde 
+ * @returns {{x:float, y:float, color:String, opacidad:boolean}} Las coordenadas sobre la pantalla del circulo donde 
  * conectará la flecha
  */
 function obtenerCoordsCirculo({ id }) {
@@ -382,8 +383,9 @@ function obtenerCoordsCirculo({ id }) {
     const circulo_y = elemento_circulo.getBoundingClientRect().y;
     // Obtenemos el color del círculo
     const color = window.getComputedStyle(elemento_circulo, null).getPropertyValue('background-color');
+    const opacidad = elemento_circulo.parentElement.classList.contains("opacity-25");
 
-    return { x: circulo_x, y: circulo_y, color }; // Retornamos las coordenadas
+    return { x: circulo_x, y: circulo_y, color, opacidad }; // Retornamos las coordenadas
 }
 
 /**
