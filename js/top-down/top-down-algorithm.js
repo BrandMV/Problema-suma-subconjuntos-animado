@@ -168,7 +168,7 @@ async function esSumaConjunto(set, n, sum, nodo, modo) {
     if (detener) return;
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(6, `Comprobando si la rama derecha ya fue calculada...`, modo);
+    await descatarInstruccionPaso(6, `Comprobando si la rama derecha no ha sido calculada...`, modo);
 
     if (tab[n - 1][sum] == null) {
         /*----Comprobando detención----*/
@@ -262,7 +262,7 @@ async function esSumaConjunto(set, n, sum, nodo, modo) {
         if (detener) return;
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(13, `Comprobando si la rama derecha ya fue calculada...`, modo);
+        await descatarInstruccionPaso(13, `Comprobando si la rama izquierda no ha sido calculada...`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
