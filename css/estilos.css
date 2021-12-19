@@ -514,12 +514,26 @@ button.tab-activa {
     align-self: center;
     text-align: center;
     font-size: .7em !important;
+    margin-bottom: 7px;
 }
-.panel-informativo .pasos table{
-    align-self: center;
+.panel-informativo .pasos .tabla-datos{
+    align-self: flex-start;
     text-align: center;
 
-    font-size: 2em !important;
+    padding: 5px;
+    overflow-y: auto;
+}
+.panel-informativo .pasos .tabla-datos span{
+    font-size: 1.1em !important;
+}
+.panel-informativo .pasos .tabla-datos table{
+    align-self: flex-start;
+    text-align: left;
+
+    padding: 5px;
+    font-size: 3.5em !important;
+
+    overflow-y: auto;
 }
 .panel-informativo .pre-wrapper pre{
     justify-self: flex-start;

@@ -1,5 +1,5 @@
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
-import { root, ui, mostrar, apuntadores_nivel} from './top-down-algorithm.js';
+import { root, ui, mostrar, apuntadores_nivel } from './top-down-algorithm.js';
 
 /*----------------------------------------Clases principales---------------------------------*/
 /**
@@ -8,18 +8,20 @@ import { root, ui, mostrar, apuntadores_nivel} from './top-down-algorithm.js';
 export class UI {
 
     constructor() {
-            // Inicializamos el canvas y le adaptamos la resolución
+        // Inicializamos el canvas y le adaptamos la resolución además de otras variables del DOM
         this.panel_animado = document.querySelector("#panel-animado");
         this.panel_animado.width = window.innerWidth;
         this.panel_animado.height = window.innerHeight;
         this.pseudo_codigo = document.querySelector(".animacion-Top-Down.pre-wrapper");
         this.paso = document.querySelector(".pasos .paso");
+        this.tbody = document.querySelector(".animacion-Top-Down.tabla-datos table tbody");
+        this.tbody.innerHTML = "";
 
         // Agregamos el listener para el canvas
         window.addEventListener("resize", () => {
             this.repintar();
         });
-        
+
 
     }
     /**
@@ -36,14 +38,14 @@ export class UI {
         let nodo = document.querySelector(`#level-${level} .nodo:nth-child(${apuntadores_nivel[level]})`);
         apuntadores_nivel[level] -= 1; // Restamos el número de nodos cubiertos en el nivel
         nodo.dataset.id = id; // Asignamos un valor a ese nodo
-        
-        if(!mostrar) nodo.classList.add("opacity-25");
-        
+
+        if (!mostrar) nodo.classList.add("opacity-25");
+
         // Agregamos el valor del nodo en el circulo
         let nodo_circulo = document.createElement("div");
         nodo_circulo.classList.add("nodo-circulo");
 
-        if(!mostrar) nodo_circulo.classList.add("bg-secondary");
+        if (!mostrar) nodo_circulo.classList.add("bg-secondary");
         else nodo_circulo.classList.add("color-default-circulo");
 
         nodo_circulo.innerHTML = `<span>${valor}</span>`;
@@ -53,7 +55,7 @@ export class UI {
         let nodo_info = document.createElement("div");
         nodo_info.classList.add("nodo-info");
 
-        if(!mostrar) nodo_info.classList.add("bg-secondary");
+        if (!mostrar) nodo_info.classList.add("bg-secondary");
         else nodo_info.classList.add("color-default-circulo");
 
         nodo_info.innerHTML = `<span>${info}</span>`;
@@ -75,10 +77,10 @@ export class UI {
 
         // Estableciendo el contexto
         var ctx = this.panel_animado.getContext('2d');
-        
+
         // Configuramos opacidad dependiendo si se debe o no mostrar
-        if(!mostrar || inicio.opacidad || fin.opacidad) ctx.globalAlpha = 0.2;
-        
+        if (!mostrar || inicio.opacidad || fin.opacidad) ctx.globalAlpha = 0.2;
+
         // Dibujamos un circulo al inicio de la flecha
         ctx.beginPath();
         ctx.fillStyle = inicio.color;
@@ -133,8 +135,8 @@ export class UI {
         const elemento_circulo = document.querySelector(`div[data-id="${id}"] .nodo-circulo`);
         const elemento_info = document.querySelector(`div[data-id="${id}"] .nodo-info`);
 
-        
-        if(!mostrar){
+
+        if (!mostrar) {
             return;
         }
 
@@ -155,7 +157,7 @@ export class UI {
      * y relacionando todos los nodos presentes
      */
     repintar() {
-        if(this.pseudo_codigo.classList.contains("d-none")) return;
+        if (this.pseudo_codigo.classList.contains("d-none")) return;
 
         // Obtenemos el contexto y lo limpiamos
         const context = this.panel_animado.getContext('2d');
@@ -189,11 +191,11 @@ export class UI {
      * @param {Arbol} hermano Nodo hermano que contiene el nivel del apuntador 
      * el cual se va saltar
      */
-    saltarEspHorizontal(hermano){
+    saltarEspHorizontal(hermano) {
         let aux_lvl = hermano.level;
         let nodos_omitidos = 1;
 
-        while(aux_lvl <= 4){
+        while (aux_lvl <= 4) {
             apuntadores_nivel[aux_lvl] -= nodos_omitidos;
             nodos_omitidos *= 2;
 
@@ -206,7 +208,7 @@ export class UI {
      * @param {int} id Id del nodo que se va animar como resultado final
      * @param {String} clases Clases que se le van agregar al paso cuando finalice la ejecución
      */
-    establecerResultadoFinal(id, clases){
+    establecerResultadoFinal(id, clases) {
         // Seleccionamos el nodo raíz y le asignamos el efecto
         const elemento = document.querySelector(`div[data-id="${id}"]`);
         elemento.classList.add("resultado-final");
@@ -219,18 +221,33 @@ export class UI {
      * Función que modifica el texto a mostar en el paso dentro del panel de pasos
      * @param {String} txt_paso Texto que se va a mostrar en el paso
      */
-    mostrarPaso(txt_paso){
-        if(!mostrar) return;
+    mostrarPaso(txt_paso) {
+        if (!mostrar) return;
 
         this.paso.textContent = txt_paso;
+    }
+
+    mostrarCalculados(tab) {
+        this.tbody.innerHTML = "";
+
+        tab.forEach((fila, i) => {
+            fila.forEach((valor, j) => {
+                if (valor != null) {
+                    const nueva_fila = this.tbody.insertRow();
+                    nueva_fila.insertCell(0).textContent = i;
+                    nueva_fila.insertCell(1).textContent = j;
+                    nueva_fila.insertCell(2).textContent = valor;
+                }
+            });
+        });
     }
 
     /**
      * Función que destaca una línea dada del pseudocódigo
      * @param {int} linea Numero de línea del pseudocódigo a destacar
      */
-    destacarInstruccion(linea){
-        if(!mostrar) return;
+    destacarInstruccion(linea) {
+        if (!mostrar) return;
 
         const instruccion = this.pseudo_codigo.querySelector(`pre:nth-child(${linea})`);
         instruccion.classList.add("linea-destacada");
@@ -239,8 +256,8 @@ export class UI {
     /**
      * Función que remueve la destacación de todas las líneas del pseudocódigo
      */
-    limpiarInstrucciones(){
-        if(!mostrar) return;
+    limpiarInstrucciones() {
+        if (!mostrar) return;
 
         const instrucciones = this.pseudo_codigo.querySelectorAll("pre");
         instrucciones.forEach(instruccion => {
@@ -260,23 +277,23 @@ export class UI {
 export class Arbol {
 
     constructor(valor, id, info, level) {
-            this.valor = valor;
-            this.id = id;
-            this.info = info;
-            this.level = level;
+        this.valor = valor;
+        this.id = id;
+        this.info = info;
+        this.level = level;
 
-            // Apuntadores a los nodos para acceso rápido
-            this.derecho = null;
-            this.padre = null;
-        }
-        /**
-         * Función que agrega un nodo hijo al padre
-         * @param {int} valor valos que irá dentro del círculo
-         * @param {Int} id Identificador html del nodo de
-         * @param {String} info Información del nodo "(x, y)"
-         * @param {String} posicion Posición del nodo respecto a la raíz (der, izq)
-         * @returns {Arbol} El nodo hijo creado
-         */
+        // Apuntadores a los nodos para acceso rápido
+        this.derecho = null;
+        this.padre = null;
+    }
+    /**
+     * Función que agrega un nodo hijo al padre
+     * @param {int} valor valos que irá dentro del círculo
+     * @param {Int} id Identificador html del nodo de
+     * @param {String} info Información del nodo "(x, y)"
+     * @param {String} posicion Posición del nodo respecto a la raíz (der, izq)
+     * @returns {Arbol} El nodo hijo creado
+     */
     agregarHijo(valor, id, info, posicion) {
         // Creamos el nodo
         const nodo = new Arbol(valor, id, info, this.level + 1);
@@ -320,7 +337,7 @@ export class Arbol {
      * final
      * @param {String} clases Clases que se le van agregar al paso cuando finalice la ejecución
      */
-    establecerResultadoFinal(clases){
+    establecerResultadoFinal(clases) {
         ui.establecerResultadoFinal(this.id, clases);
     }
 }
@@ -365,7 +382,7 @@ function obtenerCoordsInfo({ id }) {
     const color = window.getComputedStyle(elemento_info, null).getPropertyValue('background-color');
     const opacidad = elemento_info.parentElement.classList.contains("opacity-25");
 
-    return { x: info_x, y: info_y, color, opacidad}; // Retornamos las coordenadas
+    return { x: info_x, y: info_y, color, opacidad }; // Retornamos las coordenadas
 }
 
 /**
