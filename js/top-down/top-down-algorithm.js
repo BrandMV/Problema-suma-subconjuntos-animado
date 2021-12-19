@@ -282,7 +282,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
             if (detener) return;
 
             /*----Manejo de linea----*/
-            await descatarInstruccionPaso(14, `Asignamos el valor devuelvo a la tabla.`);
+            await descatarInstruccionPaso([14, 15], `Asignamos el valor devuelvo a la tabla.`);
 
             /*----Comprobando detención----*/
             if (detener) return;
@@ -305,7 +305,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         ui.establecerResultado(nodo.id, tab[n - 1][sum - set[n - 1]]);
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(15, `Devolviendo el resultado de tomarlo (${true}).`);
+        await descatarInstruccionPaso(16, `Devolviendo el resultado de tomarlo (${true}).`);
 
         return tab[n - 1][sum - set[n - 1]];
     }
@@ -543,10 +543,19 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     }
 }
 
-async function descatarInstruccionPaso(linea, indicaciones) {
+async function descatarInstruccionPaso(lineas, indicaciones) {
+    if(Array.isArray(lineas))
+        lineas = [...lineas];
+    else 
+        lineas = [lineas];
+    
+
     /*----Manejo de linea----*/
     ui.limpiarInstrucciones();
-    ui.destacarInstruccion(linea);
+    lineas.forEach(function(linea){
+        ui.destacarInstruccion(linea);
+    });
+    
     /*----Manejo de paso----*/
     ui.mostrarPaso(indicaciones);
     await sleep(retardo);

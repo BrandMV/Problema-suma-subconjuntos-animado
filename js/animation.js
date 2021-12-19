@@ -302,7 +302,7 @@ function removerRestos(){
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A FUERZA BRUTA--------------------*/
     // Eliminamos todas las cajas referentes a los nodos del árbol
-    const niveles = document.querySelectorAll('.animacion-brute-force .level');
+    let niveles = document.querySelectorAll('.animacion-brute-force .level');
     niveles.forEach((nivel, indice) => {
         while(nivel.firstChild){
             nivel.removeChild(nivel.firstChild);
@@ -311,13 +311,13 @@ function removerRestos(){
             const nodo = document.createElement('div');
             nodo.classList.add('nodo');
             nodo.dataset.id = "0";
-            nivel.appendChild(nodo);
+            nivel.appendChiltop_down
         }
     });
 
     // Limpiamos el canvas
-    const panel_animado = document.querySelector("#panel-animado");
-    const context = panel_animado.getContext('2d');
+    let panel_animado = document.querySelector("#panel-animado");
+    let context = panel_animado.getContext('2d');
     context.clearRect(0, 0, panel_animado.width, panel_animado.height);
     
     // Quitamos todos los paneles que hagan referencia a fuerza bruta
@@ -334,13 +334,37 @@ function removerRestos(){
     }
 
     // Quitamos todos los paneles que hagan referencia a bottom-up
-    const paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
+    let paneles_bottom_up = document.querySelectorAll('.animacion-bottom-up');
     paneles_bottom_up.forEach(panel => {
         panel.classList.add('d-none');
     });
 
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A TOP-DOWN--------------------*/
+    // Eliminamos todas las cajas referentes a los nodos del árbol
+    niveles = document.querySelectorAll('.animacion-Top-Down .level');
+    niveles.forEach((nivel, indice) => {
+        while(nivel.firstChild){
+            nivel.removeChild(nivel.firstChild);
+        }
+        for(let i = 0; i < Math.pow(2, indice); i++){
+            const nodo = document.createElement('div');
+            nodo.classList.add('nodo');
+            nodo.dataset.id = "0";
+            nivel.appendChild(nodo);
+        }
+    });
+
+    // Limpiamos el canvas
+    panel_animado = document.querySelector("#panel-animado");
+    context = panel_animado.getContext('2d');
+    context.clearRect(0, 0, panel_animado.width, panel_animado.height);
+    
+    // Quitamos todos los paneles que hagan referencia a fuerza bruta
+    const paneles_top_down = document.querySelectorAll('.animacion-Top-Down');
+    paneles_top_down.forEach(panel => {
+        panel.classList.add('d-none');
+    });
 
 
     /*------------------------LIMPIAMOS EL PANEL INFORMATIVO------------------------*/
