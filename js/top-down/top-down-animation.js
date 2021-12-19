@@ -227,6 +227,10 @@ export class UI {
         this.paso.textContent = txt_paso;
     }
 
+    /**
+     * Función que agrega a la tabla del DOM los valores que se van obteniendo en el algoritmo
+     * @param {Arra[int][int]} tab Tabla de valores almacenados 
+     */
     mostrarCalculados(tab) {
         this.tbody.innerHTML = "";
 

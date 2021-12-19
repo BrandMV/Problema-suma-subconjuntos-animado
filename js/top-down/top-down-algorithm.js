@@ -65,10 +65,13 @@ export async function main(configs) {
     /*--------------------------Ejecución del algoritmo según sea el tipo-----------------------*/
     inicializarTabla(configs.valores.length, configs.suma);
 
-    if (configs.tipo_animacion === "PXP") // Si es paso por paso 
-        resultado = await esSumaConjuntoPXP(configs.valores, configs.valores.length, configs.suma, root);
-    else // Si es automático
-        resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root);
+    resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root, configs.tipo_animacion);
+
+
+    // if (configs.tipo_animacion === "PXP") // Si es paso por paso 
+    //     resultado = await esSumaConjuntoPXP(configs.valores, configs.valores.length, configs.suma, root);
+    // else // Si es automático
+    //     resultado = await esSumaConjunto(configs.valores, configs.valores.length, configs.suma, root);
 
     tab[configs.valores.length][configs.suma] = resultado;
     ui.mostrarCalculados(tab);
@@ -105,7 +108,7 @@ export async function main(configs) {
  * @param {Arbol} nodo Nodo del árbol lógico en el que está trabajando el algoritmo
  * @returns {boolean} Resultado de esa llamada de encontrar o no la suma
  */
-async function esSumaConjunto(set, n, sum, nodo) {
+async function esSumaConjunto(set, n, sum, nodo, modo) {
     const mostrar_prev = mostrar;
 
     let resultado;
@@ -114,14 +117,14 @@ async function esSumaConjunto(set, n, sum, nodo) {
     if (detener) return;
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(1, `Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`);
+    await descatarInstruccionPaso(1, `Nueva llamada con a: [${set}], n: ${n} y sum: ${sum}.`, modo);
 
     /*----Comprobando detención----*/
     if (detener) return;
 
     // SI SE COMPLETÓ LA SUMA DEL ALGORITMO
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(2, `Comprobando si se completó la suma...`);
+    await descatarInstruccionPaso(2, `Comprobando si se completó la suma...`, modo);
 
     /*----Comprobando detención----*/
     if (detener) return;
@@ -131,7 +134,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         ui.establecerResultado(nodo.id, true);
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(3, `Se completó la suma. :)`);
+        await descatarInstruccionPaso(3, `Se completó la suma. :)`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -141,7 +144,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
     // SI YA NO HAY MÁS ELEMENTOS EN EL CONJUNTO
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(4, `Comprobando si aún quedan elementos por comparar...`);
+    await descatarInstruccionPaso(4, `Comprobando si aún quedan elementos por comparar...`, modo);
 
     /*----Comprobando detención----*/
     if (detener) return;
@@ -151,7 +154,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         ui.establecerResultado(nodo.id, false);
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(5, `Ya no quedan más elementos. :(`);
+        await descatarInstruccionPaso(5, `Ya no quedan más elementos. :(`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -165,14 +168,14 @@ async function esSumaConjunto(set, n, sum, nodo) {
     if (detener) return;
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(6, `Comprobando si la rama derecha ya fue calculada...`);
+    await descatarInstruccionPaso(6, `Comprobando si la rama derecha ya fue calculada...`, modo);
 
     if (tab[n - 1][sum] == null) {
         /*----Comprobando detención----*/
         if (detener) return;
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(7, `No ha sido calculada, la calculamos...`);
+        await descatarInstruccionPaso(7, `No ha sido calculada, la calculamos...`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -180,13 +183,13 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
-        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der, modo); // Esperamos la llamada recursiva
 
         /*----Comprobando detención----*/
         if (detener) return;
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(7, `Asignamos el valor devuelvo a la tabla.`);
+        await descatarInstruccionPaso(7, `Asignamos el valor devuelvo a la tabla.`, modo);
 
         tab[n - 1][sum] = resultado;
         ui.mostrarCalculados(tab);
@@ -199,7 +202,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
         id++;
         const nodo_der = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + sum + ")", "der"); // Agregamos el nodo
-        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der); // Esperamos la llamada recursiva
+        resultado = await esSumaConjunto(set, n - 1, sum, nodo_der, modo); // Esperamos la llamada recursiva
         if(mostrar_prev) mostrar = true;
     }
 
@@ -209,7 +212,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
     if (detener) return;
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(8, `Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`);
+    await descatarInstruccionPaso(8, `Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${sum})...`, modo);
 
     /*----Comprobando detención----*/
     if (detener) return;
@@ -223,7 +226,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         if (detener) return;
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(9, `Sí es mayor, devolvemos el resultado de no tomarlo (${resultado}).`);
+        await descatarInstruccionPaso(9, `Sí es mayor, devolvemos el resultado de no tomarlo (${resultado}).`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -235,7 +238,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
     if (detener) return;
 
     /*----Manejo de linea----*/
-    await descatarInstruccionPaso(10, `Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`);
+    await descatarInstruccionPaso(10, `Identificando qué sucede si no tomamos el elemento actual (${set[n - 1]})...`, modo);
 
     /*----Comprobando detención----*/
     if (detener) return;
@@ -247,7 +250,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         ui.establecerResultado(nodo.id, true);
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(11, `Devolviendo el resultado de no tomarlo (${true}).`);
+        await descatarInstruccionPaso(11, `Devolviendo el resultado de no tomarlo (${true}).`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -259,7 +262,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         if (detener) return;
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(13, `Comprobando si la rama derecha ya fue calculada...`);
+        await descatarInstruccionPaso(13, `Comprobando si la rama derecha ya fue calculada...`, modo);
 
         /*----Comprobando detención----*/
         if (detener) return;
@@ -270,7 +273,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
             if (detener) return;
 
             /*----Manejo de linea----*/
-            await descatarInstruccionPaso(14, `No ha sido calculada, la calculamos...`);
+            await descatarInstruccionPaso(14, `No ha sido calculada, la calculamos...`, modo);
 
             /*----Comprobando detención----*/
             if (detener) return;
@@ -278,13 +281,13 @@ async function esSumaConjunto(set, n, sum, nodo) {
             /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
             id++;
             const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
-            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq, modo) // Esperamos la llamada recursiva
 
             /*----Comprobando detención----*/
             if (detener) return;
 
             /*----Manejo de linea----*/
-            await descatarInstruccionPaso([14, 15], `Asignamos el valor devuelvo a la tabla.`);
+            await descatarInstruccionPaso([14, 15], `Asignamos el valor devuelvo a la tabla.`, modo);
 
             /*----Comprobando detención----*/
             if (detener) return;
@@ -300,7 +303,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
             /*-----------------------Manejo de árbol lógico y llamada recursiva-----------------------*/
             id++;
             const nodo_izq = agregarNodo(nodo, set[n - 1], id, "(" + (n - 1) + "," + (sum - set[n - 1]) + ")", "izq"); // Agregamos el nodo
-            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq) // Esperamos la llamada recursiva
+            resultado = await esSumaConjunto(set, n - 1, sum - set[n - 1], nodo_izq, modo) // Esperamos la llamada recursiva
 
             if(mostrar_prev) mostrar = true;
         }
@@ -308,7 +311,7 @@ async function esSumaConjunto(set, n, sum, nodo) {
         ui.establecerResultado(nodo.id, tab[n - 1][sum - set[n - 1]]);
 
         /*----Manejo de linea----*/
-        await descatarInstruccionPaso(16, `Devolviendo el resultado de tomarlo (${true}).`);
+        await descatarInstruccionPaso(16, `Devolviendo el resultado de tomarlo (${true}).`, modo);
 
         return tab[n - 1][sum - set[n - 1]];
     }
@@ -533,7 +536,14 @@ async function esSumaConjuntoPXP(set, n, sum, nodo) {
     }
 }
 
-async function descatarInstruccionPaso(lineas, indicaciones, modo = "AUTO") {
+/**
+ * 
+ * @param {Array[int]} lineas Arrreglo de líneas las cuales se quieren descatar
+ * @param {String} indicaciones Texto que se mostrará en el paso
+ * @param {String} modo De ejecución AUTO/PXP
+ */
+async function descatarInstruccionPaso(lineas, indicaciones, modo) {
+    // En caso de que no se trate de un array, lo convertimos
     if(Array.isArray(lineas))
         lineas = [...lineas];
     else 
@@ -546,9 +556,10 @@ async function descatarInstruccionPaso(lineas, indicaciones, modo = "AUTO") {
         ui.destacarInstruccion(linea);
     });
     
-    console.log("esperando ", modo);
     /*----Manejo de paso----*/
     ui.mostrarPaso(indicaciones);
+
+    /*----Retardo según el modo de ejecución----*/
     if(modo === "AUTO") await sleep(retardo);
     else await esperarClick();
 }
@@ -571,11 +582,10 @@ function inicializarTabla(n, sum) {
  */
 function sleep(ms) {
     return new Promise(resolve => {
-        if (!mostrar)
+        if (!mostrar) // Si se está trabajando con nodos no calculados por el algoritmo
             resolve();
-        else
+        else // Si los nodos sí deben ser calculados por el algoritmo
             setTimeout(resolve, ms);
-
     });
 }
 
