@@ -298,6 +298,12 @@ function actualizarPanel() {
     arreglo_panel.nextElementSibling.textContent = `Algoritmo: ${algoritmo} | Suma: ${configs.suma}`;
 }
 
+
+/**
+ * Función encargada de remover los restos del DOM que se generan al ejecutar el
+ *  algoritmo en cualquiera de las 3 soluciones, esto para dar paso a la nueva
+ * ejecución independientemente del algoritmo que sea
+ */
 function removerRestos(){
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A FUERZA BRUTA--------------------*/
@@ -420,12 +426,4 @@ function showError(elemento) {
         return true;
     }
     return false;
-}
-/**
- * Función encargarda de restardar una función síncrona
- * @param {long} ms Tiempo en milisegundos del retardo
- * @returns {promise} Promesa para cuando finalice el retardo
- */
- function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
