@@ -74,14 +74,14 @@ sel_ejecucion.addEventListener('change', function() {
         btn_avanzar.classList.add("d-none");
         btn_avanzar.disabled = false;
 
-    } else if (sel_ejecucion.value == 1){ // Oculamos el velocímetro si es modo paso por paso
+    } else if (sel_ejecucion.value == 1) { // Oculamos el velocímetro si es modo paso por paso
         velocidad.classList.add('d-none');
         configs.tipo_animacion = "PXP";
         btn_avanzar.classList.remove("d-none");
         btn_simular.classList.add("d-none");
         btn_avanzar.disabled = false;
         primer_avance = true;
-    } else{
+    } else {
         btn_avanzar.disabled = true;
     }
 });
@@ -91,7 +91,7 @@ sel_ejecucion.addEventListener('change', function() {
  */
 bRange.addEventListener("input", function() {
     txtNum.textContent = bRange.value + "s";
-    configs.velocidad = bRange.value*5 - 4;
+    configs.velocidad = bRange.value * 5 - 4;
 });
 
 
@@ -162,7 +162,7 @@ btn_simular.addEventListener("click", indexarAlgoritmo);
 
 // Agregamos el indexamiento al modo paso por paso y configuramos si avanza o no el algoritmo
 btn_avanzar.addEventListener("click", () => {
-    if(primer_avance){ // Solo si es el primer avance permitimos indexar
+    if (primer_avance) { // Solo si es el primer avance permitimos indexar
         primer_avance = false;
         indexarAlgoritmo();
     }
@@ -173,20 +173,20 @@ btn_avanzar.addEventListener("click", () => {
  * Función que indexa todos el algoritmo con toddos sus paramétros y 
  * comienza la ejecución de la simulación
  */
-async function indexarAlgoritmo(){
+async function indexarAlgoritmo() {
     // Removemos los restos de los algoritmos anteriores para limpiar el DOM
     removerRestos();
 
     // Indexamos el algoritmo seleccionado
     if (algoritmos[configs.algoritmo] === 'Fuerza bruta') {
         // Deshabilitamos el botón de simular
-        
+
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
         paneles_fuerza_bruta.forEach(panel => {
             panel.classList.remove('d-none');
         });
-        
+
         // Activamos el botón de detener y desactivamos el de simular
         btn_detener.disabled = false;
         btn_simular.disabled = true;
@@ -198,13 +198,13 @@ async function indexarAlgoritmo(){
 
     } else if (algoritmos[configs.algoritmo] == 'DP Top-Down') {
         // Deshabilitamos el botón de simular
-        
+
         // Activamos el div de los nodos y el canvas para las flechas
         const paneles_fuerza_bruta = document.querySelectorAll('.animacion-Top-Down');
         paneles_fuerza_bruta.forEach(panel => {
             panel.classList.remove('d-none');
         });
-        
+
         // Activamos el botón de detener y desactivamos el de simular
         btn_detener.disabled = false;
         btn_simular.disabled = true;
@@ -304,16 +304,16 @@ function actualizarPanel() {
  *  algoritmo en cualquiera de las 3 soluciones, esto para dar paso a la nueva
  * ejecución independientemente del algoritmo que sea
  */
-function removerRestos(){
+function removerRestos() {
 
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A FUERZA BRUTA--------------------*/
     // Eliminamos todas las cajas referentes a los nodos del árbol
     let niveles = document.querySelectorAll('.animacion-brute-force .level');
     niveles.forEach((nivel, indice) => {
-        while(nivel.firstChild){
+        while (nivel.firstChild) {
             nivel.removeChild(nivel.firstChild);
         }
-        for(let i = 0; i < Math.pow(2, indice); i++){
+        for (let i = 0; i < Math.pow(2, indice); i++) {
             const nodo = document.createElement('div');
             nodo.classList.add('nodo');
             nodo.dataset.id = "0";
@@ -325,7 +325,7 @@ function removerRestos(){
     let panel_animado = document.querySelector("#panel-animado");
     let context = panel_animado.getContext('2d');
     context.clearRect(0, 0, panel_animado.width, panel_animado.height);
-    
+
     // Quitamos todos los paneles que hagan referencia a fuerza bruta
     const paneles_fuerza_bruta = document.querySelectorAll('.animacion-brute-force');
     paneles_fuerza_bruta.forEach(panel => {
@@ -335,7 +335,7 @@ function removerRestos(){
     /*------------------LIMPIAMOS LO CORRESPONDIENTE A BOTTOM-UP--------------------*/
     // Eliminamos todas las cajas referentes a la tabla
     const tabla = document.querySelector('.animacion-bottom-up .tabla-wrapper');
-    while(tabla.firstChild){
+    while (tabla.firstChild) {
         tabla.removeChild(tabla.firstChild);
     }
 
@@ -350,10 +350,10 @@ function removerRestos(){
     // Eliminamos todas las cajas referentes a los nodos del árbol
     niveles = document.querySelectorAll('.animacion-Top-Down .level');
     niveles.forEach((nivel, indice) => {
-        while(nivel.firstChild){
+        while (nivel.firstChild) {
             nivel.removeChild(nivel.firstChild);
         }
-        for(let i = 0; i < Math.pow(2, indice); i++){
+        for (let i = 0; i < Math.pow(2, indice); i++) {
             const nodo = document.createElement('div');
             nodo.classList.add('nodo');
             nodo.dataset.id = "0";
@@ -365,7 +365,7 @@ function removerRestos(){
     panel_animado = document.querySelector("#panel-animado");
     context = panel_animado.getContext('2d');
     context.clearRect(0, 0, panel_animado.width, panel_animado.height);
-    
+
     // Quitamos todos los paneles que hagan referencia a fuerza bruta
     const paneles_top_down = document.querySelectorAll('.animacion-Top-Down');
     paneles_top_down.forEach(panel => {
@@ -383,19 +383,26 @@ function removerRestos(){
 }
 
 /*--------------------------------VALIDACIÓN DE DATOS------------------------------*/
+
 const verifSuma = document.getElementById("sum-v");
+
+/*Este evento realiza la verificación de los datos ingresados en el valor suma*/
 verifSuma.addEventListener('input', function(event) {
     var test = showErrorV();
     if (test) {
-        btn_guardar.disabled = true;
+        btn_guardar.disabled = true; //si los datos son incorrectos el botón se deshábilita
         showErrorV();
     } else {
-        btn_guardar.disabled = false;
+        btn_guardar.disabled = false; //si los datos son correctos el botón se hábilita
         errorD.innerHTML = '';
         errorD.className = 'd-flex justify-content-end';
     }
 });
 
+/*
+    Funcion encargada de realizar las comparaciones necesarias para verificar que 
+    el dato sum ingresado sean correcto.
+*/
 function showErrorV() {
     if (verifSuma.value.length === 0 || verifSuma.value < 0 || verifSuma.value == null) {
         errorD.textContent = 'Verificar datos ingresados';
@@ -405,20 +412,25 @@ function showErrorV() {
     return false;
 }
 
+/*Este evento realiza la verificación de los datos ingresados en los valores del arreglo*/
 window.verificarValor = (id) => { // La hacemos global para el html
     const elemento = document.querySelector(`div[data-indx="${id}"] input`);
     var test = showError(elemento);
 
     if (test) {
-        btn_guardar.disabled = true;
+        btn_guardar.disabled = true; //si los datos son incorrectos el botón se deshábilita
         showError(elemento);
     } else {
-        btn_guardar.disabled = false;
+        btn_guardar.disabled = false; //si los datos son correctos el botón se hábilita
         errorD.innerHTML = '';
         errorD.className = 'd-flex justify-content-end';
     }
 }
 
+/*
+    Funcion encargada de realizar las comparaciones necesarias para verificar que 
+    los datos del arreglo ingresados sean correctos.
+*/
 function showError(elemento) {
     if (elemento.length === 0 || elemento.value < 0 || elemento.value == null) {
         errorD.textContent = 'Verificar datos ingresados';
