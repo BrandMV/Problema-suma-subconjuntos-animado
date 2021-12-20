@@ -697,78 +697,137 @@
     
             
             <div class="definicion_problema">  
-                <p class="titulo_bloque">DEFINICIÓN</p>
-                <p class="texto">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                        que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                        de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                        sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                        {−7, −3, −2, 5, 8}, tendríamos que devolver {−3, −2, 5}, ya que éstos suman 0. El problema de la suma de 
-                        subconjuntos es importante porque se trata de un problema NP-Completo. Es decir, es muy fácil verificar si 
-                        una solución es correcta (tan sólo hay que sumar los valores y ver si da 0), pero al día de hoy no se conoce 
-                        ningún algoritmo que lo resuelva de manera eficiente (en un tiempo que sea del orden de un polinomio).</p>
+                <p class="titulo_bloque">DEFINICIÓN</p></br>
+                <p class="texto">En esta ocasión vamos a hablar de un problema que es muy sencillo de entender, pero 
+                    que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema
+                     de la suma de los subconjuntos:  Dado un conjunto A = {a1, a2,..., an} de 'n' números no 
+                     negativos y otro número positivo 'S', se trata de encontrar un subconjunto de 'A' cuya suma 
+                     es 'S'. Se supone que el conjunto de entrada esa único, es decir no se presentan duplicados.</br></br> 
+                    De manera similar lo podemos expresar como: Dado un conjunto de enteros y un entero 'S', 
+                    ¿existe algún subconjunto cuya suma sea 'S'</br>
+                    El problema de la suma de subconjuntos es un problema importante en la teoría de la 
+                    complejidad y en la criptografía. Además, se trata de un problema NP-Completo, es decir, 
+                    es muy fácil verificar si una solución es correcta (tan sólo hay que sumar los valores y 
+                    ver si da 'S'), pero al día de hoy no se conoce ningún algoritmo que lo resuelva de manera 
+                    eficiente (en un tiempo que sea del orden de un polinomio).</br></br>
+                    Ejemplo:
+                <pre class="texto-3">
+        Input:
+            A = { 7, 3, 2, 5, 8 }
+            S = 14
+        Output:
+            True, Existe un subconjunto que completa la suma
+            El subconjunto { 7, 2, 5 } suma 14    
+                </pre>              
+                </p>
            </div> 
     
             <div class="bloque-algo-de-solucion">
                     <p class="titulo_bloque">ALGORITMOS DE SOLUCIÓN</p>
     
                 <div class="bloque_solucion">
-                    <p class="texto">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                        que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                        de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                        sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                        {−7, −3, −2, 5, 8}<a class="texto" href="#" onclick="verMas('mas');" id="mas">... [leer más]</a></p> 
-                    <p class="texto" id="desplegar" style="display:none;">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                            que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                            de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                            sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                            {−7, −3, −2, 5, 8}<a class="texto" href="#" onclick="verMas('menos');" id="menos">... [leer menos]</a></p>
+                    <p class="texto texto-2">> SOLUCIÓN POR FUERZA BRUTA (RECURSIÓN)</br></p>
+                    <p class="texto">
+                        El algoritmo de fuerza bruta verifica todos los posibles subconjuntos de 'A' y, para cada 
+                        uno de ellos, compararía la suma al total buscado. </br>
+                        
+                        Para implementar el algoritmo de fuerza bruta utilizando recursión, consideramos los 
+                        siguientes casos:  </br>                      
+                        
+                        &nbsp- Incluir el elemento actual en el subconjunto y continuamos la recursión para los elementos restantes con el total restante.</br>
+                        &nbsp- Excluir el elemento actual del subconjunto y continuamos la recursión para los artículos restantes. 
+                        
+                        
+                        <a class="texto" href="#" onclick="verMas('mas');" id="mas">... [leer más]</a></p> 
+                        <p class="texto" id="desplegar" style="display:none;">
+                        </br>De igual forma excluiremos cualquier elemento que sea mayor a la suma y continuaremos 
+                        con el siguiente elemento del arreglo.</br>
+                        Finalmente regresamos TRUE si obtenemos un subconjunto que sume 'S' al incluir o excluir
+                         el elemento actual, se regresa FALSE en cualquier otro caso.</br>
+                        
+                        El caso base de la recursión se da cuando no quedan elementos en 'A' o la suma se vuelve
+                        negativa. Devuelve TRUE cuando la suma se convierte en 0, es decir, se encuentra 
+                        el subconjunto.</br>
+                        
+                        La solución por fuerza bruta puede probar todos los subconjuntos del conjunto dado en 
+                        el peor de los casos. Por lo tanto, la complejidad temporal de esta solución es exponencial.
+                        </br></br>
+                        
+                        Complejidad Temporal: O(2^n)</br>
+                        Complejidad Espacial: O(1)</br>
+                        </br>
+                        <a class="texto" href="#" onclick="verMas('menos');" id="menos">... [leer menos]</a></p>
                     </div>
                 <div class="bloque_solucion">
-                    <p class="texto">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                        que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                        de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                        sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                        {−7, −3, −2, 5, 8}<a class="texto" href="#" onclick="verMas1('mas');" id="mas1">... [leer más]</a></p> 
-                    <p class="texto" id="desplegar1" style="display:none;">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                            que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                            de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                            sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                            {−7, −3, −2, 5, 8}<a class="texto" href="#" onclick="verMas1('menos');" id="menos1">... [leer menos]</a></p>
+                    <p class="texto texto-2">> SOLUCIÓN TOP-DOWN</br></p>
+                    <p class="texto">                        
+                        Este problema tiene una subestructura optima, eso significa que el problema 
+                        se puede dividir en "subproblemas" más pequeños y simples, que se pueden dividir
+                        en subproblemas aún más simples y pequeños hasta que la solución se vuelva trivial.</br>
+                        
+                        Podemos notar que la solución por fuerza bruta tiene problemas superpuesto 
+                        pues como se podrá observar en la animación, podemos ver que los mismos subproblemas
+                        se calculan repetidamente.
+                        <a class="texto" href="#" onclick="verMas1('mas');" id="mas1">... [leer más]</a></p> 
+                    <p class="texto" id="desplegar1" style="display:none;"></br>   
+                        Sabemos que los problemas con la subestructura óptima y los subproblemas superpuestos
+                        se pueden resolver mediante la programación dinámica, donde las soluciones de los 
+                        subproblemas se memoizan en lugar de calcularse una y otra vez.</br>
+
+                        Es esto lo que realizamos en la solución Top-Down, donde primero dividimos el problema
+                        en subproblemas y luego calculamos y almacenamos los valores.</br>
+
+                        En este método, seguimos utilizando recursión, pero hacemos uso de un array de 2 
+                        dimensiones, de tamaño n x sum, y que inicializaremos con -1 o cualquier valor negativo.
+                        Con este método, evitaremos hacer llamadas recursivas que se repitan pues en esta matriz,
+                        iremos guardando los valores de las llamadas previas.</br>
+
+                        Los casos base de esta solución se dan cuando la suma es igual a 0 o cuando no existen 
+                        más elementos en el arreglo, regresamos TRUE y FALSE, respetivamente.</br></br>
+
+                        La complejidad temporal de esta solución es O(n × sum) y se requiere de O(n × sum) espacio
+                        extra, donde n es el número de elementos y sum es la suma de todos los elementos de la entrada.</br></br>
+                        
+                        Complejidad Temporal: O(n × sum)</br>
+                        Complejidad Espacial: O(n × sum)</br>
+                                                
+                        </br>
+                        <a class="texto" href="#" onclick="verMas1('menos');" id="menos1">... [leer menos]</a></p>
                     </div>
                 <div class="bloque_solucion">
-                    <p class="texto">En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                        que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                        de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                        sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                        {−7, −3, −2, 5, 8}En esta ocasión vamos a hablar de un problema que es muy sencillito de entender, pero 
-                        que resulta muy complicado resolver. Lo normal en informática, vamos. Se trata del problema de la suma 
-                        de los subconjuntos: dado un conjunto de números enteros tenemos que encontrar un subconjunto cuya suma 
-                        sea 0, en el caso de que dicho subconjunto exista. Por ejemplo, si tenemos el conjunto formado por los números 
-                        {−7, −3, −2, 5, 8
-                            <a class="texto" href="#" onclick="verMas2('mas');" id="mas2">... [leer más]</a></p> 
-                    <p class="texto" id="desplegar2" style="display:none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur malesuada ante vel enim 
-                        sollicitudin, a feugiat metus egestas. Nullam eget feugiat ante. Mauris non nisl ligula. 
-                        Nullam efficitur, risus id lacinia dignissim, purus justo tempus arcu, nec aliquet enim 
-                        diam quis risus. Proin at consectetur ante. Donec non tincidunt ipsum. Maecenas vitae just
-                        o at nunc scelerisque condimentum eu eu nulla. Integer interdum ut lacus vel tempus. Suspendisse
-                        tempus ipsum ac lacus aliquet bibendum. Vivamus nibh ex, vestibulum at massa elementum, interdum
-                        pretium sapien. Nulla ultricies ligula ut odio suscipit, eget ultrices nibh rhoncus. Curabitur 
-                        id lacinia lectus.
-                        
-                        Vestibulum magna tortor, facilisis lobortis urna ut, fermentum consequat ligula. Quisque sit 
-                        amet vehicula felis, in posuere lorem. Donec a mi vel dui dapibus rutrum. Donec ornare nibh n
-                        on lacus consectetur, sit amet placerat dolor ultricies. Mauris nec tortor erat. Suspendisse mollis ac urna vel blandit. In ut felis lectus.
-                        
-                        Vivamus pellentesque nec mi id tempor. Cras ultricies metus quis metus feugiat, quis elementum
-                        leo sodales. Aenean consequat cursus risus et varius. Nunc sagittis facilisis ullamcorper. 
-                        Ut egestas ut nisl quis rhoncus. Donec vitae consequat mi. Interdum et malesuada fames ac ante 
-                        ipsum primis in faucibus. Proin dignissim semper sapien, id bibendum justo dignissim ut. Integer
-                        luctus hendrerit neque, vel faucibus quam aliquet eu. Quisque egestas aliquet arcu, sit amet g
-                        ravida velit sollicitudin et. Nullam nec lobortis lacus. Donec at commodo ligula, ut sagittis sapien.
-                        Nam sagittis est at ligula aliquet, vitae consectetur sapien semper.
-                            <a class="texto" href="#" onclick="verMas2('menos');" id="menos2">... [leer menos]</a></p>
+                    <p class="texto texto-2">> SOLUCIÓN BOTTOM-UP</br></p>
+                    <p class="texto">
+                        De igual forma podemos resolver este problema con el enfoque Bottom-Up, 
+                        donde primero resolvemos los subproblemas más pequeños, luego resolvemos 
+                        los subproblemas más grandes a partir de ellos.</br>
+
+                        Crearemos una matriz de tamaño (n+1) x (S +1), donde n es el numero de 
+                        elementos y S la suma deseada.</br>
+                        El estado DP [i][j] será TRUE si existe un subconjunto de elementos de 
+                        A[0…i] que sume un total 'j'. 
+                        <a class="texto" href="#" onclick="verMas2('mas');" id="mas2">... [leer más]</a></p> 
+                    <p class="texto" id="desplegar2" style="display:none;"></br>La idea es la siguiente:</br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;if (A[i-1] > j)</br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DP[i][j] = DP[i-1][j]</br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;else </br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DP[i][j] = DP[i-1][j] OR DP[i-1][j-A[i-1]]</br></br>
+
+                        Esto significa que, si el elemento actual es mayor o igual al valor de la suma actual, 
+                        copiaremos el valor de los casos anteriores.</br>
+                        Y si el valor de la suma actual es mayor que el elemento 'i-ésimo', veremos si 
+                        alguno de los estados anteriores ya ha experimentado la suma = 'j', o cualquier 
+                        estado anterior experimentó un valor 'j - A [i]' que resolverá nuestro propósito.</br></br>
+
+                        Esta solución tiene la misma complejidad que el enfoque Top-Down pero sin hacer 
+                        uso de la recursión.</br></br>
+
+                        Complejidad Temporal: O(n × sum)</br>
+                        Complejidad Espacial: O(n × sum)</br>
+
+                        </br>
+                        <a class="texto" href="#" onclick="verMas2('menos');" id="menos2">... [leer menos]</a></p>
                     </div>       
-                    </div> 
+                </div> 
             </div>
             <!--  -->
                 <div class="btn-animar container">
