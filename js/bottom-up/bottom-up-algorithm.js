@@ -207,7 +207,7 @@ async function esSumaConjunto(set, n, sum) {
             ui.limpiarInstrucciones();
             ui.destacarInstruccion(10);
             /*----Manejo de paso----*/
-            ui.mostrarPaso(`Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${j})...`);
+            ui.mostrarPaso(`Comprobando si el elemento (${set[i-1]}) es mayor a la suma (${j})...`);
             /*----------Manejo de tabla----------*/
             tabla.generarCelda(i, j);
             /*--------Retardo--------*/
@@ -242,7 +242,7 @@ async function esSumaConjunto(set, n, sum) {
             ui.limpiarInstrucciones();
             ui.destacarInstruccion(12);
             /*----Manejo de paso----*/
-            ui.mostrarPaso(`Comprobando que se pueda tomar el elemento (${set[n - 1]}) &le; (${j})...`);
+            ui.mostrarPaso(`Comprobando que se pueda tomar el elemento (${set[i - 1]}) &le; (${j})...`);
             /*--------Retardo--------*/
             await sleep(retardo);
 
@@ -417,7 +417,7 @@ async function esSumaConjuntoPXP(set, n, sum) {
             ui.limpiarInstrucciones();
             ui.destacarInstruccion(10);
             /*----Manejo de paso----*/
-            ui.mostrarPaso(`Comprobando si el elemento (${set[n - 1]}) es mayor a la suma (${j})...`);
+            ui.mostrarPaso(`Comprobando si el elemento (${set[i - 1]}) es mayor a la suma (${j})...`);
             /*----------Manejo de tabla----------*/
             tabla.generarCelda(i, j);
             /*--------Espera--------*/
@@ -452,7 +452,7 @@ async function esSumaConjuntoPXP(set, n, sum) {
             ui.limpiarInstrucciones();
             ui.destacarInstruccion(12);
             /*----Manejo de paso----*/
-            ui.mostrarPaso(`Comprobando que se pueda tomar el elemento (${set[n - 1]}) &le; (${j})...`);
+            ui.mostrarPaso(`Comprobando que se pueda tomar el elemento (${set[i - 1]}) &le; (${j})...`);
             /*--------Espera--------*/
             await esperarClick();
 
