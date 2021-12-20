@@ -155,7 +155,12 @@ function manejarSecciones(seccion_id){
     manejarSecciones('inicio');
 })();
 
-//Funcion para el boton de ir a animacion en la seccion de animacion
+/** 
+ * Función que para viajar a la seccion de animacion desde
+ * la sección de explicación
+ * @param ninguno
+ * @returns No retorna nada
+*/
 function ir_Animacion(){
     navItem1.classList.remove('ia-active')
     navItem2.classList.remove('active')
@@ -164,7 +169,12 @@ function ir_Animacion(){
       manejarSecciones('animacion');
    
 }
-//Funciones para los "leer mas" y "leer menos" de la sección Explicación
+/** 
+ * Función que se encargará de mostrar el texto completo de 
+ * la explicacion del algoritmo por fuerza bruta
+ * @param {string} id opcion seleccionada (mas/menos)
+ * @returns No retorna nada
+*/
 function verMas(id){
     if(id=="mas"){
     document.getElementById("desplegar").style.display="block";   
@@ -176,7 +186,12 @@ function verMas(id){
     }
 
 }
-
+/** 
+ * Función que se encargará de mostrar el texto completo de 
+ * la explicacion del algoritmo Top Down
+ * @param {string} id opcion seleccionada (mas/menos)
+ * @returns No retorna nada
+*/
 function verMas1(id){
     if(id=="mas"){
     document.getElementById("desplegar1").style.display="block";   
@@ -188,7 +203,12 @@ function verMas1(id){
     }
 
 }
-
+/** 
+ * Función que se encargará de mostrar el texto completo de 
+ * la explicacion del algoritmo Bottom Up
+ * @param {string} id opcion seleccionada (mas/menos)
+ * @returns No retorna nada
+*/
 function verMas2(id){
     if(id=="mas"){
     document.getElementById("desplegar2").style.display="block";   
