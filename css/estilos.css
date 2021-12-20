@@ -402,6 +402,18 @@ button.tab-activa {
     color: #02457A;
 }
 
+.texto-2{
+    font-size: calc(9px + .5vw);
+}
+
+.texto-3{
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    font-weight: bold;
+    font-size: calc(7px + .5vw);
+    text-align: justify;
+    color: #02457A;
+}
 .bloque-algo-de-solucion{
     position: relative;
     width: 100%;
