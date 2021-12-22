@@ -1,3 +1,20 @@
+/*****************************************************************
+	Archivo de animación fuerza bruta
+	Este programa se encarga de manejar todos los elementos del DOM
+    referentes a la animación de la fuerza bruta. Manejando y organizando así
+    todo el árbol de solución, los elementos del panel de pasos y los elementos
+    del panel de pseudocódigo.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
+
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
 import { root, ui,  apuntadores_nivel} from './brute-force-algorithm.js';
 

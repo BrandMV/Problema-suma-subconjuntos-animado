@@ -1,3 +1,21 @@
+/*****************************************************************
+	Archivo de algoritmo top-down
+	Este programa se encarga de ejecutar el algoritmo de solución
+    por top-down y mientras lo hace, muestra el paso a paso
+    de la solución tanto en el panel visible de animación como en
+    el panel de pasos y el pseudocódigo. También implementa
+    las funcionalidades de los botones de avanzar, simular y
+    detener.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
 import {
     UI,

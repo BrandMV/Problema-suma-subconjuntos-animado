@@ -1,8 +1,24 @@
-//*Obtenemos los elementos del navbar
+/*****************************************************************
+	Archivo principal de sitio
+	Este programa se encarga de manejar la interacción a rasgos generales del
+    sitio y sobre todo del manejo de la barra de navegación superior.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
+/*-----------------------Variables principales para el DOM----------------*/
 const navItem1 = document.getElementById("inicio")
 const navItem2 = document.getElementById("algoritmo")
 const navItem3 = document.getElementById("explicacion")
 const navItem4 = document.getElementById("animacion")
+
+/*--------------------Listeners para cada botón del navbar--------------*/
 navItem1.addEventListener('click', e => {
     navItem1.classList.add('ia-active')
     navItem2.classList.remove('active')
@@ -111,7 +127,10 @@ const openCodeDPTD = (leng) => {
     document.getElementById(leng).style.display = "block"
 }
 
-/* Para la navegación con el menú*/
+/**
+ * Función que relaciona y maneja las secciones de cada pestaña
+ * @param {String} seccion_id Este valor es el nombre de la seccion que se quiere mostrar
+ */
 function manejarSecciones(seccion_id){
     const dict_secciones = {
         "inicio": "inicio-seccion",
@@ -150,7 +169,9 @@ function manejarSecciones(seccion_id){
     }
 }
 
-// Configuramos la pantalla de inicio
+/**
+ * Función de un solo uso que inicia la sección de inicio
+*/
 (function(){
     manejarSecciones('inicio');
 })();
@@ -221,7 +242,7 @@ function verMas2(id){
 
 }
 
-//*Popovers
+/* Manejo de pop-overs */
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)

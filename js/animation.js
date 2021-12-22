@@ -1,3 +1,20 @@
+/*****************************************************************
+	Archivo principal de animación
+	Este programa se encarga de manejar toda la interacción referente
+    al panel de control donde se configuran todas las variables de los
+    algoritmos. Así como el manejo de las cajas de las animaciones y
+    la indexación de los algoritmos.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
+
 /*-----------------IMPORTAMOS TODOS LOS MÓDULOS DE ANIMACIÓN-----------------*/
 import { main as fuerzaBruta, ui } from './fuerza-bruta/brute-force-algorithm.js';
 import { main as topDown } from './top-down/top-down-algorithm.js';

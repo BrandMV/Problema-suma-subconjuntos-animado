@@ -1,10 +1,27 @@
+/*****************************************************************
+	Archivo de animación bottom-up
+	Este programa se encarga de manejar todos los elementos del DOM
+    referentes a la animación de bottom-up. Manejando y organizando así
+    toda la tabla de solución, los elementos del panel de pasos y los elementos
+    del panel de pseudocódigo.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
+
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
 import { tabla, ui } from './bottom-up-algorithm.js';
 
 /*----------------------------------------Clases principales---------------------------------*/
 
 /**
- * Clase que representa la interfaz gráfica del algoritmo de fuerza bruta (la tabla)
+ * Clase que representa la interfaz gráfica del algoritmo de bottom-up (la tabla)
  */
 export class UI {
     /**
@@ -299,6 +316,10 @@ export class Tabla {
         ui.colorearCelda(i, -1, this.clrs['indice']);
     }
 
+    /**
+     * Establece el resultado de la tabla sabiendo la suma y el tamño del arreglo.
+     * @param {String} clases Clases que se le van a agregar a la celda
+     */
     establecerResultadoFinal(clases) {
         ui.establecerResultadoFinal(this.rows - 2, this.cols - 2, clases);
     }

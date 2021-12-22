@@ -1,9 +1,26 @@
+/*****************************************************************
+	Archivo de animación top-down
+	Este programa se encarga de manejar todos los elementos del DOM
+    referentes a la animación de la top-down. Manejando y organizando así
+    todo el árbol de solución, los elementos del panel de pasos y los elementos
+    del panel de pseudocódigo.
+	
+    Fecha: 20/12/2021
+	Version: Final 1.0 
+	Autores:
+			-Martinez Ruiz Alfredo
+			-Mendez Castañeda Aurora
+			-Mendez Hipolito Emilio
+			-Meza Vargas Brandon David
+
+*****************************************************************/
+
 /*--------------------------------Importamos módulos escenciales-----------------------------*/
 import { root, ui, mostrar, apuntadores_nivel } from './top-down-algorithm.js';
 
 /*----------------------------------------Clases principales---------------------------------*/
 /**
- * Clase que representa la interfaz gráfica del algoritmo de fuerza bruta (el canvas)
+ * Clase que representa la interfaz gráfica del algoritmo de top-down (el canvas)
  */
 export class UI {
 
